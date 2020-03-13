@@ -8,7 +8,7 @@
   },
   "main": "app.js",
   "dependencies": {
-    "apimocker": "^0.4.13"
+    "apimocker": "^1.1.4"
   },
   "devDependencies": {
     "eslint": "^6.8.0"
