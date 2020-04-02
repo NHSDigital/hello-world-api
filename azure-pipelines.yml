@@ -67,9 +67,6 @@ jobs:
           - bash: "make lint"
             displayName: Lint
 
-          - bash: "make validate"
-            displayName: Validate FHIR
-
           - bash: "make publish"
             displayName: Compile Spec
 
