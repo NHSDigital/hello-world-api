@@ -51,5 +51,13 @@ deploy-spec: update-examples
 format:
 	poetry run black **/*.py
 
+
+build-proxy:
+	scripts/build_proxy.sh
+
+release: clean publish build-proxy
+	mkdir -p dist
+	tar -zcvf dist/package.tar.gz build
+
 sandbox: update-examples
 	cd sandbox && npm run start
