@@ -82,8 +82,3 @@ jobs:
                 testResultsFiles: 'newman/*.xml'
                 failTaskOnFailedTests: true
 
-          - bash: "make release"
-            displayName: Build Release Package
-
-          - publish: dist/package.tar.gz
-            artifact: personal-demographics-service-$(SPEC_VERSION)+$(Build.BuildNumber)
