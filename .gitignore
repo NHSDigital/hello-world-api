@@ -3,6 +3,7 @@ bin/
 dist/
 public/
 newman/
+build
 
 .#*
 
