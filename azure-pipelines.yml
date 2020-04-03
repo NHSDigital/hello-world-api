@@ -85,5 +85,5 @@ jobs:
           - bash: "make release"
             displayName: Build Release Package
 
-          - publish: dist/package.tar.gz
+          - publish: dist/
             artifact: hello-world-$(SPEC_VERSION)+$(Build.BuildNumber)
