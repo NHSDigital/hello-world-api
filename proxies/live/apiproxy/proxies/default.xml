@@ -62,7 +62,6 @@
     <HTTPProxyConnection>
         <BasePath>$(SERVICE_BASE_PATH)</BasePath>
         <Properties/>
-        <VirtualHost>default</VirtualHost>
         <VirtualHost>secure</VirtualHost>
     </HTTPProxyConnection>
     <RouteRule name="NoRoute">
