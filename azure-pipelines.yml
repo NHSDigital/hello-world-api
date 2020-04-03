@@ -86,4 +86,4 @@ jobs:
             displayName: Build Release Package
 
           - publish: dist/package.tar.gz
-            artifact: hello-world-api-$(SPEC_VERSION)+$(Build.BuildNumber)
+            artifact: hello-world-$(SPEC_VERSION)+$(Build.BuildNumber)
