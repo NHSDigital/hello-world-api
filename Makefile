@@ -22,15 +22,13 @@ lint:
 	find -name '*.sh' | grep -v node_modules | xargs shellcheck
 
 publish:
-	mkdir -p build
 	npm run publish 2> /dev/null
 
 serve: update-examples
 	npm run serve
 
 clean:
-	rm -rf build
-	rm -rf dist
+	rm -rf dist/examples
 
 generate-examples: publish clean
 	mkdir -p dist/examples
@@ -62,6 +60,7 @@ release: clean publish build-proxy
 	tar -zcvf dist/package.tar.gz build
 	cp -r terraform dist
 	cp -r build/. dist
+
 
 sandbox: update-examples
 	cd sandbox && npm run start
