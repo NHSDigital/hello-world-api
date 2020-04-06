@@ -5,7 +5,7 @@
     "latency": 50,
     "logRequestHeaders": false,
     "webServices": {
-        "world": {
+        "hello/world": {
             "latency": 20,
             "verbs": ["get"],
             "responses": {
