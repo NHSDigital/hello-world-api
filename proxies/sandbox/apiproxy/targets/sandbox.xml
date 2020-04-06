@@ -11,7 +11,7 @@
         <Request/>
         <Response>
           <Step>
-            <Name>AssignMessage.AddCorsHeaders</Name>
+            <Name>AssignMessage.AddCors</Name>
           </Step>
         </Response>
     </PreFlow>
