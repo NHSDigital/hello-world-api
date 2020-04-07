@@ -17,6 +17,6 @@ module "hello-world" {
   name               = "hello-world"
   path               = "hello-world"
   apigee_environment = var.apigee_environment
-  proxy_type         = "sandbox"
+    proxy_type         = length(regexall("sandbox", var.apigee_environment)) > 0 ? "sandbox" : "live"
   namespace          = var.namespace
 }
