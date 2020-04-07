@@ -3,10 +3,10 @@
   "version": "0.0.1",
   "description": "OAS (Swagger v3) API Definition for Hello World API",
   "scripts": {
-    "lint": "node_modules/.bin/speccy lint specification/hello-world-api.yaml --skip default-and-example-are-redundant",
+    "lint": "node_modules/.bin/speccy lint specification/hello-world.yaml --skip default-and-example-are-redundant",
     "test": "node_modules/.bin/newman run tests/e2e/hello-world-api-sandbox.json -e $API_TEST_ENV_FILE_PATH --reporters html,cli,htmlextra --reporter-htmlextra-logs --reporter-htmlextra-darkTheme",
-    "publish": "mkdir -p dist && node_modules/.bin/speccy resolve specification/hello-world-api.yaml -i | poetry run python scripts/yaml2json.py | poetry run python scripts/set_version.py > dist/hello-world-api.json",
-    "serve": "node_modules/.bin/speccy serve dist/hello-world-api.json",
+    "publish": "mkdir -p build && node_modules/.bin/speccy resolve specification/hello-world.yaml -i | poetry run python scripts/yaml2json.py | poetry run python scripts/set_version.py > build/hello-world.json",
+    "serve": "node_modules/.bin/speccy serve build/hello-world-api.json",
     "check-licenses": "node_modules/.bin/license-checker --failOn GPL --failOn LGPL"
   },
   "author": "NHS Digital",

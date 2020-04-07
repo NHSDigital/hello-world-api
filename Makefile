@@ -28,7 +28,8 @@ serve: update-examples
 	npm run serve
 
 clean:
-	rm -rf dist/examples
+	rm -rf build
+	rm -rf dist
 
 generate-examples: publish clean
 	mkdir -p dist/examples
@@ -60,6 +61,7 @@ release: clean publish build-proxy
 	tar -zcvf dist/package.tar.gz build
 	cp -r terraform dist
 	cp -r build/. dist
+	#cp -r specification-release dist
 
 
 sandbox: update-examples
