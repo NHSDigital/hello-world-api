@@ -80,8 +80,8 @@ jobs:
       - name: Store distributable schema
         uses: actions/upload-artifact@v1
         with:
-          name: hello-world-api-${{ env.SPEC_VERSION }}+${{ github.run_id }}.json
-          path: ./dist/hello-world-api.json
+          name: hello-world-${{ env.SPEC_VERSION }}+${{ github.run_id }}.json
+          path: ./dist/hello-world.json
 
       - name: Create release (master only)
         id: create-release
@@ -102,8 +102,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create-release.outputs.upload_url }}
-          asset_path: ./dist/hello-world-api.json
-          asset_name: hello-world-api.json
+          asset_path: ./dist/hello-world.json
+          asset_name: hello-world.json
           asset_content_type: application/json
 
       - name: Deploy OAS Spec to Apigee (master only)
