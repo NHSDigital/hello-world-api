@@ -44,12 +44,12 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{base_url}}/world",
+              "raw": "{{base_url}}/hello/world",
               "host": [
                 "{{base_url}}"
               ],
               "path": [
-                "world"
+                "hello/world"
               ]
             }
           },
