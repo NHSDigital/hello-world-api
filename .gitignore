@@ -4,6 +4,7 @@ dist/
 public/
 newman/
 build
+venv
 
 .#*
 
