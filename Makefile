@@ -31,12 +31,12 @@ clean:
 	rm -rf build
 	rm -rf dist
 
-generate-examples: publish clean
+generate-examples: publish
 	mkdir -p dist/examples
-	poetry run python scripts/generate_examples.py dist/hello-world-api.json dist/examples
+	poetry run python scripts/generate_examples.py build/hello-world.json build/examples
 
 update-examples: generate-examples
-	jq -rM . <dist/examples/resources/Greeting.json >specification/components/examples/Greeting.json
+	jq -rM . <build/examples/resources/Greeting.json >specification/components/examples/Greeting.json
 	make publish
 
 check-licenses:
