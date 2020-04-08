@@ -16,7 +16,7 @@
               "script": {
                 "id": "18e6611a-f47a-4bb1-8540-c1bab62695ab",
                 "exec": [
-                  "pm.environment.set(\"expected_greeting\", \"Test!\");"
+                  "pm.environment.set(\"expected_greeting\", \"Test2!\");"
                 ],
                 "type": "text/javascript"
               }
