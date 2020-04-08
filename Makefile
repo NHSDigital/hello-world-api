@@ -32,7 +32,7 @@ clean:
 	rm -rf dist
 
 generate-examples: publish
-	mkdir -p dist/examples
+	mkdir -p build/examples
 	poetry run python scripts/generate_examples.py build/hello-world.json build/examples
 
 update-examples: generate-examples
