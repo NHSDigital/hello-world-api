@@ -18,6 +18,7 @@
     <Name>remove-query-param-apikey</Name>
     </Step>
     </Request>
+    <Response/>
   <PreFlow/>
   </Flows>
   <HTTPProxyConnection>
