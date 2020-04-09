@@ -28,14 +28,15 @@ serve: update-examples
 	npm run serve
 
 clean:
-	rm -rf dist/examples
+	rm -rf build
+	rm -rf dist
 
-generate-examples: publish clean
-	mkdir -p dist/examples
-	poetry run python scripts/generate_examples.py dist/hello-world-api.json dist/examples
+generate-examples: publish
+	mkdir -p build/examples
+	poetry run python scripts/generate_examples.py build/hello-world.json build/examples
 
 update-examples: generate-examples
-	jq -rM . <dist/examples/resources/Greeting.json >specification/components/examples/Greeting.json
+	jq -rM . <build/examples/resources/Greeting.json >specification/components/examples/Greeting.json
 	make publish
 
 check-licenses:
@@ -50,6 +51,18 @@ deploy-spec: update-examples
 
 format:
 	poetry run black **/*.py
+
+
+build-proxy:
+	scripts/build_proxy.sh
+
+release: clean publish build-proxy
+	mkdir -p dist
+	tar -zcvf dist/package.tar.gz build
+	cp -r terraform dist
+	cp -r build/. dist
+	#cp -r specification-release dist
+
 
 sandbox: update-examples
 	cd sandbox && npm run start

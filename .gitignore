@@ -3,6 +3,8 @@ bin/
 dist/
 public/
 newman/
+build
+venv
 
 .#*
 

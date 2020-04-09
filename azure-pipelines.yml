@@ -67,9 +67,6 @@ jobs:
           - bash: "make lint"
             displayName: Lint
 
-          - bash: "make validate"
-            displayName: Validate FHIR
-
           - bash: "make publish"
             displayName: Compile Spec
 
@@ -88,5 +85,5 @@ jobs:
           - bash: "make release"
             displayName: Build Release Package
 
-          - publish: dist/package.tar.gz
-            artifact: personal-demographics-service-$(SPEC_VERSION)+$(Build.BuildNumber)
+          - publish: dist/
+            artifact: hello-world-$(SPEC_VERSION)+$(Build.BuildNumber)

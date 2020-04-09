@@ -5,21 +5,21 @@
     "latency": 50,
     "logRequestHeaders": false,
     "webServices": {
-        "world": {
+        "hello/world": {
             "latency": 20,
             "verbs": ["get"],
             "responses": {
                 "get": {"httpStatus": 200, "mockFile": "helloworld.json"}
             }
         },
-        "application": {
+        "hello/application": {
             "latency": 20,
             "verbs": ["get"],
             "responses": {
                 "get": {"httpStatus": 200, "mockFile": "helloapplication.json"}
             }
         },
-        "user": {
+        "hello/user": {
             "latency": 20,
             "verbs": ["get"],
             "responses": {
