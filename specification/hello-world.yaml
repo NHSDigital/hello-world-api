@@ -20,7 +20,7 @@ info:
     email: api.management@nhs.net
 
 servers:
-  - url: https://emea-demo8-test.apigee.net
+  - url: https://internal-dev.api.service.nhs.uk
     description: Test Environment
   - url: https://emea-demo8-prod.apigee.net
     description: Production Environment
