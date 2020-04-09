@@ -8,7 +8,7 @@ info:
   title: Hello World API
   description: |
     ## Overview
-    Test: Use this API alongside our [tutorials](https://digital.nhs.uk/developer/api-tutorials) to learn how to connect to our APIs.
+    Use this API alongside our [tutorials](https://digital.nhs.uk/developer/api-tutorials) to learn how to connect to our APIs.
 
     ## Endpoints
     To see details for specific endpoints, select from the list on the left hand side of the page:
