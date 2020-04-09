@@ -1,5 +1,13 @@
 <ProxyEndpoint name="default">
   <Flows>
+  <PreFlow name="PreFlow">
+    <Request>
+      <Step>
+           <Name>verify-api-key</Name>
+      </Step>
+    <Request/>
+    </Response/>
+  </PreFlow>
     <Flow name="OptionsPreFlight">
       <Request/>
       <Response>
