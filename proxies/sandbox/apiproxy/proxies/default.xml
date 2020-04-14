@@ -7,7 +7,7 @@
       </Step>
       </Request>
       <Response/>
-      <Condition>(proxy.pathsuffix MatchesPath "/hello/appliction") and (request.verb = "GET")</Condition>
+      <Condition>(proxy.pathsuffix MatchesPath "/hello/application") and (request.verb = "GET")</Condition>
   </Flow>
     <Flow name="OptionsPreFlight">
       <Request/>
