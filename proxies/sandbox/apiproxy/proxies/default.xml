@@ -1,14 +1,19 @@
 <ProxyEndpoint name="default">
   <Flows>
+  <Flow>
+    <Request>
+      <Step>
+      <Name>verify-api-key</Name>
+      </Step>
+      <Step>
+      <Name>remove-api-key</Name>
+      </Step>
+      </Request>
+      <Response/>
+  </Flow>
     <Flow name="OptionsPreFlight">
       <Request/>
       <Response>
-      <Step>
-          <Name>verify-api-key</Name>
-      </Step>
-      <Step>
-          <Name>remove-query-param-apikey</Name>
-      </Step>
         <Step>
           <Name>AssignMessage.AddCors</Name>
         </Step>
