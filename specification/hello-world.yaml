@@ -20,7 +20,7 @@ info:
     email: api.management@nhs.net
 
 servers:
-  - url: https://emea-demo8-test.apigee.net
+  - url: https://internal-dev.api.service.nhs.uk
     description: Test Environment
   - url: https://emea-demo8-prod.apigee.net
     description: Production Environment
@@ -117,7 +117,7 @@ paths:
           description: Missing or invalid OAuth 2.0 Access Token
       security:
         - oAuth2AuthCode:
-            - nhsperson
+            - hello
       tags:
         - hello
 
@@ -137,7 +137,7 @@ components:
           authorizationUrl: https://emea-demo8-test.apigee.net/oauth2/authorize
           tokenUrl: https://emea-demo8-test.apigee.net/oauth2/token
           scopes:
-            nhsperson: Grants read access
+            hello: Grants read access
 
   schemas:
     Greeting:
