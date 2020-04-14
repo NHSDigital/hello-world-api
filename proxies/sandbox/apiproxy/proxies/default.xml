@@ -1,12 +1,9 @@
 <ProxyEndpoint name="default">
   <Flows>
-  <Flow>
+  <Flow name="Flow.AuthApiKey">
     <Request>
       <Step>
-      <Name>verify-api-key</Name>
-      </Step>
-      <Step>
-      <Name>remove-api-key</Name>
+      <Name>VerifyApiKey-Header</Name>
       </Step>
       </Request>
       <Response/>
