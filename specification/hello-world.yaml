@@ -59,10 +59,6 @@ paths:
         Get a "Hello application!" response from an application-restricted endpoint.
 
         Use this API alongside our [application-restricted REST API tutorial](https://digital.nhs.uk/developer/api-tutorials#application-restricted-rest-api-tutorial) to learn how to connect to our APIs.
-
-        Requires that an API Key is presented in the 'apikey' header along with the request.  <br/><br/>
-
-        Example API Key to use -  xlNAz98DIP3I7xQDR7BnOdG9tGxKyBll
       responses:
         '200':
           description: Successful response
@@ -91,14 +87,6 @@ paths:
         Get a "Hello user!" response from a user-restricted endpoint.
 
         Use this API alongside our [user-restricted REST API tutorial](https://digital.nhs.uk/developer/api-tutorials#user-restricted-rest-api-tutorial) to learn how to connect to our APIs.
-
-        Requires that an OAuth 2.0 Access Token is presented in the 'Authorization' header along with the request.<br/><br/>
-
-        Use the following credentials to obtain the access token: <br/>
-        `client_id` (API Key) -  xlNAz98DIP3I7xQDR7BnOdG9tGxKyBll  <br/>
-        `client_secret` (Secret) - X9zDVizlhqaBFKsK  <br/>
-        Username: 910000000001  <br/>
-        Password: Password1
 
       responses:
         '200':
