@@ -68,20 +68,20 @@ jobs:
 
       - name: Copy local test report
         if: always()
-        run: cat newman/*.html > dist/local-tests.html && rm newman/*.html
+        run: cat newman/*.html > build/local-tests.html && rm newman/*.html
 
       - name: Store local test result artifact
         if: always()
         uses: actions/upload-artifact@v1
         with:
           name: local-tests-${{ env.SPEC_VERSION }}+${{ github.run_id }}.html
-          path: ./dist/local-tests.html
+          path: ./build/local-tests.html
 
       - name: Store distributable schema
         uses: actions/upload-artifact@v1
         with:
           name: hello-world-${{ env.SPEC_VERSION }}+${{ github.run_id }}.json
-          path: ./dist/hello-world.json
+          path: ./build/hello-world.json
 
       - name: Create release (master only)
         id: create-release
@@ -102,7 +102,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create-release.outputs.upload_url }}
-          asset_path: ./dist/hello-world.json
+          asset_path: ./build/hello-world.json
           asset_name: hello-world.json
           asset_content_type: application/json
 
