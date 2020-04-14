@@ -80,7 +80,7 @@ jobs:
       - name: Store distributable schema
         uses: actions/upload-artifact@v1
         with:
-          name: hello-world-api-${{ env.SPEC_VERSION }}+${{ github.run_id }}.json
+          name: hello-world-${{ env.SPEC_VERSION }}+${{ github.run_id }}.json
           path: ./build/hello-world.json
 
       - name: Create release (master only)
