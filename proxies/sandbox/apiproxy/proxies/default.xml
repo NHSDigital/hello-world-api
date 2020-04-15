@@ -16,7 +16,7 @@
       <Description/>
       <Request>
           <Step>
-              <Name>Oauth-VerifyAccessToken.nhsperson</Name>
+              <Name>Oauth-VerifyAccessToken</Name>
           </Step>
           <Step>
               <Name>AssignMessage-RemoveAuthorizationHeader</Name>
