@@ -5,6 +5,9 @@
       <Step>
       <Name>VerifyApiKey-Header</Name>
       </Step>
+      <Step>
+      <Name>AssignMessage-RemoveApiKeyHeader</Name>
+      </Step>
       </Request>
       <Response/>
       <Condition>(proxy.pathsuffix MatchesPath "/hello/application") and (request.verb = "GET")</Condition>
@@ -13,7 +16,10 @@
       <Description/>
       <Request>
           <Step>
-              <Name>Oauth-VerifyAccessToken</Name>
+              <Name>Oauth-VerifyAccessToken.nhsperson</Name>
+          </Step>
+          <Step>
+              <Name>AssignMessage-RemoveAuthorizationHeader</Name>
           </Step>
       </Request>
       <Response/>
