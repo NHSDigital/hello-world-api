@@ -13,7 +13,7 @@ terraform {
 }
 
 module "hello-world" {
-  source             = "github.com/NHSDigital/api-platform-service-module?ref=apm-501-change-proxy-location"
+  source             = "github.com/NHSDigital/api-platform-service-module"
   name               = "hello-world"
   path               = "hello-world"
   apigee_environment = var.apigee_environment
