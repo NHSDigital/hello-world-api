@@ -1,5 +1,12 @@
+name: "$(SourceBranchName)+$(BuildID)"
+
 trigger:
-    - master
+  branches:
+    include:
+      - tags/refs/v*
+  tags:
+    include:
+      - v*
 
 pr:
     branches:
