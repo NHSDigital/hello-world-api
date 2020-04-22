@@ -29,7 +29,10 @@ jobs:
             inputs:
                 versionSpec: "3.8"
 
-          - bash: "sudo apt update && sudo apt-get install --yes default-jre default-jdk npm"
+          - bash: "curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -"
+            displayName: Add nodejs repo
+
+          - bash: "sudo apt update && sudo apt-get install --yes default-jre default-jdk nodejs"
             displayName: Install apt dependencies
 
           - bash: "python -m pip install --upgrade pip setuptools wheel && pip install poetry"
