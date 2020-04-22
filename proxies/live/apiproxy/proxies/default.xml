@@ -1,5 +1,24 @@
 <ProxyEndpoint name="default">
   <Flows>
+    <Flow name="Flow.AuthApiKey">
+    <Request>
+      <Step>
+      <Name>VerifyApiKey-Header</Name>
+      </Step>
+      </Request>
+      <Response/>
+      <Condition>(proxy.pathsuffix MatchesPath "/hello/application") and (request.verb = "GET")</Condition>
+  </Flow>
+      <Flow name="Flow.AuthOAuth">
+      <Description/>
+      <Request>
+          <Step>
+              <Name>Oauth-VerifyAccessToken</Name>
+          </Step>
+      </Request>
+      <Response/>
+      <Condition>(proxy.pathsuffix MatchesPath "/hello/user") and (request.verb = "GET")</Condition>
+    </Flow>
     <Flow name="OptionsPreFlight">
       <Request/>
       <Response>
