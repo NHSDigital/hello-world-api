@@ -126,7 +126,10 @@ components:
         authorizationCode:
           authorizationUrl: https://sandbox.api.service.nhs.uk/oauth2/authorize
           tokenUrl: https://sandbox.api.service.nhs.uk/oauth2/token
-          scopes: {}
+          scopes: {
+            hello: hello
+          }
+            
             
   schemas:
     Greeting:
