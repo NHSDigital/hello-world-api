@@ -19,7 +19,7 @@ module "hello-world" {
   apigee_environment = var.apigee_environment
   proxy_type         = "sandbox"
   namespace          = var.namespace
-  make_api_product   = !(length(var.namespace) > 0 || length(regexall("sandbox", var.apigee_environment)) > 0)
+  make_api_product   = true // !(length(var.namespace) > 0 || length(regexall("sandbox", var.apigee_environment)) > 0)
   api_product_display_name = "Hello World Api"
   api_product_description  = "TODO: Link to docs?"
 }
