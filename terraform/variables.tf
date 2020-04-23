@@ -13,22 +13,22 @@ variable "apigee_token" {
   description = "Apigee OAuth Access Token."
 }
 
-variable "make_api_product" {
-  type = bool
-  description = "Create a corresponding API Product. (Typically 'false' for namespaced deploys and utility services like the Identity Service.)"
-}
+# variable "make_api_product" {
+#   type = bool
+#   description = "Create a corresponding API Product. (Typically 'false' for namespaced deploys and utility services like the Identity Service.)"
+# }
 
-variable "api_product_display_name" {
-  type = string
-  description = "Human-readable name for associated API Product"
-  default = ""
-}
+# variable "api_product_display_name" {
+#   type = string
+#   description = "Human-readable name for associated API Product"
+#   default = ""
+# }
 
-variable "api_product_description" {
-  type = string
-  description = "Description for associated API Product"
-  default = ""
-}
+# variable "api_product_description" {
+#   type = string
+#   description = "Description for associated API Product"
+#   default = ""
+# }
 
 variable "namespace" {
   type = string
