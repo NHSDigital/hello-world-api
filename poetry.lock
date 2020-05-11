@@ -226,8 +226,8 @@ category = "main"
 description = "Python helper for Semantic Versioning (http://semver.org/)"
 name = "semver"
 optional = false
-python-versions = "*"
-version = "2.9.0"
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
+version = "2.10.0"
 
 [[package]]
 category = "main"
@@ -262,7 +262,7 @@ python-versions = "*"
 version = "1.4.1"
 
 [metadata]
-content-hash = "394c3b7687d00bca9397669d7d6a7cfc792c938da6c24244f86fe57862eb8d37"
+content-hash = "360a55e1902624778fd41ad683f24772a321f5d7b9d90140e58445ae7c2c70f3"
 python-versions = "^3.8"
 
 [metadata.files]
@@ -411,8 +411,8 @@ regex = [
     {file = "regex-2020.1.8.tar.gz", hash = "sha256:d0f424328f9822b0323b3b6f2e4b9c90960b24743d220763c7f07071e0778351"},
 ]
 semver = [
-    {file = "semver-2.9.0-py2.py3-none-any.whl", hash = "sha256:aa1c6be3bf23e346e00c509a7ee87735a7e0fd6b404cf066037cfeab2c770320"},
-    {file = "semver-2.9.0.tar.gz", hash = "sha256:ed1edeaa0c27f68feb74f09f715077fd07b728446dc2bb7fc470fc0f737873a0"},
+    {file = "semver-2.10.0-py2.py3-none-any.whl", hash = "sha256:a0fd30b371474a6ffcbb106074187bdacb4e17fbdd80abc9dffebccc420993a2"},
+    {file = "semver-2.10.0.tar.gz", hash = "sha256:4ae5f926f2c4c1aa0612f95d4d502c838f41526f0b71e20cc706c28aa9763c47"},
 ]
 six = [
     {file = "six-1.14.0-py2.py3-none-any.whl", hash = "sha256:8f3cd2e254d8f793e7f3d6d9df77b92252b52637291d0f0da013c76ea2724b6c"},
