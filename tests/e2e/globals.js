@@ -22,7 +22,7 @@ function nhsIdLogin(username, password, apigee_environment, base_url, apikey, lo
     const page = await browser.newPage()
     await page.goto(login_url, { waitUntil: 'networkidle2' })
     await page.click('#start')
-    await page.waitForSelector('#idToken1')
+    await page.waitForSelector('#idToken1', { timeout: 130000 })
     await page.type('#idToken1', username)
     await page.type('#idToken2', password)
     await page.click('#loginButton_0')
