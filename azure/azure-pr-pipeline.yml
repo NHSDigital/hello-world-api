@@ -35,3 +35,8 @@ extends:
     product_description: ${{ variables.product_description }}
     spec_file: ${{ variables.spec_file }}
     deploy_review_sandbox: true
+    post_deploy:
+      - template: templates/postman-tests.yml
+        parameters:
+          service_name: ${{ variables.service_name }}
+          service_base_path: ${{ variables.service_base_path }}
