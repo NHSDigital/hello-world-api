@@ -35,6 +35,8 @@ extends:
     product_description: ${{ variables.product_description }}
     spec_file: ${{ variables.spec_file }}
     deploy_review_sandbox: true
+    secret_ids:
+     - ptl/azure-devops/hello-world-env-internal-dev/API_KEY
     post_deploy:
       - template: templates/postman-tests.yml
         parameters:
