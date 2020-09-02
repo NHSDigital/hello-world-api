@@ -57,12 +57,3 @@ extends:
         depends_on:
           - internal_qa
           - internal_qa_sandbox
-    # post_deploy:
-    #   - template: azure/common/step-list.yml@common
-    #     parameters:
-    #       steps:
-    #         - template: templates/postman-tests.yml
-    #           parameters:
-    #             service_name: ${{ variables.service_name }}
-    #       environments: 
-    #         - internal-dev
