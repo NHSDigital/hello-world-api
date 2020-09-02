@@ -40,7 +40,6 @@ extends:
           - template: templates/postman-tests.yml
             parameters:
               service_name: ${{ variables.service_name }}
-              service_base_path: ${{ variables.service_base_path }}
       - environment: internal-qa
       - environment: internal-qa-sandbox
         proxy_path: sandbox
