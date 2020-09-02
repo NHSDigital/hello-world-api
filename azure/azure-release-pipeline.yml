@@ -37,6 +37,10 @@ extends:
      - ptl/azure-devops/hello-world-env-internal-dev/API_KEY
     apigee_deployments:
       - environment: internal-dev
+        post_deploy:
+          - template: templates/postman-tests.yml
+            parameters:
+              service_name: ${{ variables.service_name }}
       - environment: internal-qa
       - environment: internal-qa-sandbox
         proxy_path: sandbox
@@ -53,12 +57,12 @@ extends:
         depends_on:
           - internal_qa
           - internal_qa_sandbox
-    post_deploy:
-      - template: azure/common/step-list.yml@common
-        parameters:
-          steps:
-            - template: templates/postman-tests.yml
-              parameters:
-                service_name: ${{ variables.service_name }}
-          environments: 
-            - internal-dev
+    # post_deploy:
+    #   - template: azure/common/step-list.yml@common
+    #     parameters:
+    #       steps:
+    #         - template: templates/postman-tests.yml
+    #           parameters:
+    #             service_name: ${{ variables.service_name }}
+    #       environments: 
+    #         - internal-dev
