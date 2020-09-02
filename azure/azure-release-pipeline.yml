@@ -56,9 +56,9 @@ extends:
     post_deploy:
       - template: azure/common/step-list.yml@common
         parameters:
-          step_list:
+          steps:
             - template: templates/postman-tests.yml
               parameters:
                 service_name: ${{ variables.service_name }}
-          environment: internal-dev
-            
+          environments: 
+            - internal-dev
