@@ -61,4 +61,4 @@ extends:
               parameters:
                 service_name: ${{ variables.service_name }}
           environments:
-            - internal_dev
+            - internal-dev
