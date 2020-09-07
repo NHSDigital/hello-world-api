@@ -8,7 +8,7 @@ steps:
   - bash: echo '${{ parameters.apigee_environment }}'
   - bash: echo '${{ join(',', parameters.environments) }}'
 
-  - ${{ if in(parameters.apigee_environment, join(',', parameters.environments)) }}:
+  - ${{ if contains(join(',', parameters.environments), parameters.apigee_environment) }}:
     - task: DockerInstaller@0
       displayName: 'Install Docker 17.09.0-ce'
 
