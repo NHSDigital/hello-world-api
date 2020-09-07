@@ -60,3 +60,4 @@ extends:
             apigee_environment: '$(APIGEE_ENVIRONMENT)'
             environments:
               - internal-dev
+              - internal-qa
