@@ -6,7 +6,7 @@ parameters:
 
 steps:
   - bash: echo '${{ parameters.apigee_environment }}'
-  - bash: echo '${{ parameters.environments }}'
+  - bash: echo '${{ join(',', parameters.environments) }}'
 
   - ${{ if and(parameters.environments, in(parameters.apigee_environment, join(',', parameters.environments))) }}:
     - task: DockerInstaller@0
