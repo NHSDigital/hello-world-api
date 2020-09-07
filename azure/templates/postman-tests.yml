@@ -9,7 +9,7 @@ steps:
   - bash: echo '${{ join(',', parameters.environments) }}'
 
   - ${{ each environment in parameters.environments }}:
-    - ${{ if eq(environment, parameters.apigee_environment)}}:
+    - ${{ if eq(environment, parameters.apigee_environment) }}:
       - task: DockerInstaller@0
         displayName: 'Install Docker 17.09.0-ce'
 
@@ -35,5 +35,5 @@ steps:
           testResultsFiles: '$(Pipeline.Workspace)/s/${{ parameters.service_name }}/$(SERVICE_ARTIFACT_NAME)/tests/test-report.xml'
           failTaskOnFailedTests: true
   
-  - ${{ if containsValue(parameters.environments, parameters.apigee_environment)) }}:
+  - ${{ if containsValue(parameters.environments, parameters.apigee_environment) }}:
     - bash: echo 'Conditional True'
