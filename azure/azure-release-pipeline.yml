@@ -54,7 +54,9 @@ extends:
           - internal_qa
           - internal_qa_sandbox
     post_deploy:
-      - ${{ if in($(APIGEE_ENVIRONMENT), 'internal-dev') }}:
         - template: templates/postman-tests.yml
           parameters:
             service_name: ${{ variables.service_name }}
+            apigee_environment: $(APIGEE_ENVIRONMENT)
+            environments:
+              - internal-dev
