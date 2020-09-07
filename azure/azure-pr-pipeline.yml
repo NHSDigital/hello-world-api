@@ -37,9 +37,11 @@ extends:
     spec_file: ${{ variables.spec_file }}
     secret_ids:
      - ptl/azure-devops/hello-world-env-internal-dev/API_KEY
+    apigee_deployments:
+        - environment: internal-dev-sandbox
     post_deploy:
       - template: templates/postman-tests.yml
         parameters:
           service_name: ${{ variables.service_name }}
           environments:
-            - internal-dev
+            - internal-dev-sandbox

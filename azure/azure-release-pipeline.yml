@@ -36,26 +36,14 @@ extends:
     secret_ids:
      - ptl/azure-devops/hello-world-env-internal-dev/API_KEY
     apigee_deployments:
-      - environment: internal-dev
-      - environment: internal-qa
+      - environment: internal-dev-sandbox
       - environment: internal-qa-sandbox
-        proxy_path: sandbox
-      - environment: ref
-        depends_on:
-          - internal_qa
-          - internal_qa_sandbox
-      - environment: int
-        depends_on:
-          - internal_qa
-          - internal_qa_sandbox
       - environment: sandbox
-        proxy_path: sandbox
         depends_on:
-          - internal_qa
           - internal_qa_sandbox
     post_deploy:
         - template: templates/postman-tests.yml
           parameters:
             service_name: ${{ variables.service_name }}
             environments:
-              - internal-dev
+              - internal-dev-sandbox
