@@ -3,12 +3,14 @@ parameters:
   - name: apigee_environment
   - name: environments
     type: object
+    
 
 steps:
   - bash: echo '${{ parameters.apigee_environment }}'
   - bash: echo '${{ join(',', parameters.environments) }}'
 
   - ${{ each environment in parameters.environments }}:
+    - bash: echo '${{ environment }} ${{ parameters.apigee_environment }}'
     - ${{ if eq(environment, parameters.apigee_environment) }}:
       - task: DockerInstaller@0
         displayName: 'Install Docker 17.09.0-ce'
