@@ -54,11 +54,7 @@ extends:
           - internal_qa
           - internal_qa_sandbox
     post_deploy:
-      - template: azure/common/step-list.yml@common
+      - template: templates/postman-tests.yml
         parameters:
-          steps:
-            - template: templates/postman-tests.yml
-              parameters:
-                service_name: ${{ variables.service_name }}
-          environments:
-            - internal-dev
+          service_name: ${{ variables.service_name }}
+        condition: and(succeeded(), variables.APIGEE_ENVIRONMENT, 'internal-dev')
