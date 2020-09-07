@@ -33,3 +33,6 @@ steps:
       inputs:
         testResultsFiles: '$(Pipeline.Workspace)/s/${{ parameters.service_name }}/$(SERVICE_ARTIFACT_NAME)/tests/test-report.xml'
         failTaskOnFailedTests: true
+  
+  - ${{ if not(contains(join(',', parameters.environments), parameters.apigee_environment)) }}:
+    - bash: echo 'Conditional Failed'
