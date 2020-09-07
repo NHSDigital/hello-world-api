@@ -5,9 +5,10 @@ parameters:
     type: object
 
 steps:
-  - bash: echo '${{ parameters.apigee_environment}}'
-  
-  - ${{ if and(parameters.environments, contains(join(',', parameters.environments), parameters.apigee_environment)) }}:
+  - bash: echo '${{ parameters.apigee_environment }}'
+  - bash: echo '${{ parameters.environments }}'
+
+  - ${{ if and(parameters.environments, in(parameters.apigee_environment, join(',', parameters.environments))) }}:
     - task: DockerInstaller@0
       displayName: 'Install Docker 17.09.0-ce'
 
