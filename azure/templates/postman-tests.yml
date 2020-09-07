@@ -1,6 +1,8 @@
 parameters:
   - name: service_name
+    type: string
   - name: apigee_environment
+    type: string
   - name: environments
     type: object
     
