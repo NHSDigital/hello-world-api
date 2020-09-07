@@ -8,28 +8,31 @@ steps:
   - bash: echo '${{ parameters.apigee_environment }}'
   - bash: echo '${{ join(',', parameters.environments) }}'
 
-  - ${{ if in(parameters.apigee_environment, join(',', parameters.environments)) }}:
-    - task: DockerInstaller@0
-      displayName: 'Install Docker 17.09.0-ce'
+  - task: DockerInstaller@0
+    displayName: 'Install Docker 17.09.0-ce'
+    condition: and(succeeded(), in(parameters.apigee_environment, join(',', parameters.environments)))
 
-    - bash: |
-        echo "##vso[task.setvariable variable=IDP_URL]https://nhsd-apim-testing-${{ parameters.apigee_environment }}.herokuapp.com"
-        echo "##vso[task.setvariable variable=API_URL]https://${{ parameters.apigee_environment }}.api.service.nhs.uk/$(FULLY_QUALIFIED_SERVICE_NAME)"
-      displayName: Set test urls
+  - bash: |
+      echo "##vso[task.setvariable variable=IDP_URL]https://nhsd-apim-testing-${{ parameters.apigee_environment }}.herokuapp.com"
+      echo "##vso[task.setvariable variable=API_URL]https://${{ parameters.apigee_environment }}.api.service.nhs.uk/$(FULLY_QUALIFIED_SERVICE_NAME)"
+    displayName: Set test urls
+    condition: and(succeeded(), in(parameters.apigee_environment, join(',', parameters.environments)))
 
-    - bash: |
-        set -eou pipefail
-        
-        prj_path=$(Pipeline.Workspace)/s/${{ parameters.service_name }}/$(SERVICE_ARTIFACT_NAME)
-        
-        export ACCESS_TOKEN=$(docker run --rm artronics/nhsd-login-docker:latest $(IDP_URL))
-        
-        docker run --rm -e APIGEE_ENVIRONMENT=${{ parameters.apigee_environment }} -e ACCESS_TOKEN=$ACCESS_TOKEN -e API_KEY=$(API_KEY)  -v ${prj_path}/tests:/usr/src/app -w /usr/src/app node:stretch-slim sh -c 'npm install && npm run start --base_path /$(FULLY_QUALIFIED_SERVICE_NAME)'
-      displayName: 'Run newman tests'
-      timeoutInMinutes: 5
+  - bash: |
+      set -eou pipefail
+      
+      prj_path=$(Pipeline.Workspace)/s/${{ parameters.service_name }}/$(SERVICE_ARTIFACT_NAME)
+      
+      export ACCESS_TOKEN=$(docker run --rm artronics/nhsd-login-docker:latest $(IDP_URL))
+      
+      docker run --rm -e APIGEE_ENVIRONMENT=${{ parameters.apigee_environment }} -e ACCESS_TOKEN=$ACCESS_TOKEN -e API_KEY=$(API_KEY)  -v ${prj_path}/tests:/usr/src/app -w /usr/src/app node:stretch-slim sh -c 'npm install && npm run start --base_path /$(FULLY_QUALIFIED_SERVICE_NAME)'
+    displayName: 'Run newman tests'
+    timeoutInMinutes: 5
+    condition: and(succeeded(), in(parameters.apigee_environment, join(',', parameters.environments)))
 
-    - task: PublishTestResults@2
-      displayName: 'Publish Test Results'
-      inputs:
-        testResultsFiles: '$(Pipeline.Workspace)/s/${{ parameters.service_name }}/$(SERVICE_ARTIFACT_NAME)/tests/test-report.xml'
-        failTaskOnFailedTests: true
+  - task: PublishTestResults@2
+    displayName: 'Publish Test Results'
+    inputs:
+      testResultsFiles: '$(Pipeline.Workspace)/s/${{ parameters.service_name }}/$(SERVICE_ARTIFACT_NAME)/tests/test-report.xml'
+      failTaskOnFailedTests: true
+    condition: and(succeeded(), in(parameters.apigee_environment, join(',', parameters.environments)))
