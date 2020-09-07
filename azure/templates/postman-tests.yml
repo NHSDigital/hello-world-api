@@ -5,12 +5,8 @@ parameters:
     type: string
   - name: environments
     type: object
-    
 
 steps:
-  - bash: echo '${{ parameters.apigee_environment }}'
-  - bash: echo '${{ join(',', parameters.environments) }}'
-
   - bash: |
       if [[ '${{ parameters.apigee_environment }}' == *'${{ join(',', parameters.environments) }}' ]]; then
         echo "##vso[task.setvariable variable=run_post_deploy_steps]true"
