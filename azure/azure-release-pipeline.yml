@@ -8,6 +8,7 @@ resources:
     - repository: common
       type: github
       name: NHSDigital/api-management-utils
+      ref: refs/head/APM-1318-Add-sandbox-to-friendly-names
       endpoint: NHSDigital
   pipelines:
   - pipeline: build_pipeline
@@ -38,10 +39,9 @@ extends:
       - environment: internal-dev
       - environment: internal-dev-sandbox
       - environment: internal-qa-sandbox
-        depends_on:
-          - internal_dev_sandbox
       - environment: sandbox
         depends_on:
+          - internal_dev_sandbox
           - internal_qa_sandbox
     post_deploy:
         - template: templates/postman-tests.yml
