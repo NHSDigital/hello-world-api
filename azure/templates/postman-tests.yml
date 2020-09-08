@@ -1,6 +1,8 @@
 parameters:
   - name: service_name
     type: string
+  - name: base_path
+    type: string
   - name: environments
     type: object
 
@@ -11,7 +13,7 @@ steps:
       else
         echo "##vso[task.setvariable variable=run_postman_tests]false"
       fi
-    displayName: Set conditional variable
+    displayName: Determine test status
 
   - task: DockerInstaller@0
     displayName: 'Install Docker 17.09.0-ce'
@@ -30,7 +32,7 @@ steps:
       
       export ACCESS_TOKEN=$(docker run --rm artronics/nhsd-login-docker:latest $(IDP_URL))
       
-      docker run --rm -e APIGEE_ENVIRONMENT=$(APIGEE_ENVIRONMENT) -e ACCESS_TOKEN=$ACCESS_TOKEN -e API_KEY=$(API_KEY)  -v ${prj_path}/tests:/usr/src/app -w /usr/src/app node:stretch-slim sh -c 'npm install && npm run start --base_path /$(FULLY_QUALIFIED_SERVICE_NAME)'
+      docker run --rm -e APIGEE_ENVIRONMENT=$(APIGEE_ENVIRONMENT) -e ACCESS_TOKEN=$ACCESS_TOKEN -e API_KEY=$(API_KEY)  -v ${prj_path}/tests:/usr/src/app -w /usr/src/app node:stretch-slim sh -c 'npm install && npm run start --base_path /${{ parameters.base_path }}'
     displayName: 'Run newman tests'
     timeoutInMinutes: 5
     condition: and(succeeded(), eq(variables['run_postman_tests'], 'true'))

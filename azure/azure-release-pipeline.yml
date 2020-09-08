@@ -46,5 +46,6 @@ extends:
         - template: templates/postman-tests.yml
           parameters:
             service_name: ${{ variables.service_name }}
+            base_path: ${{ variables.service_base_path }}
             environments:
               - internal-dev
