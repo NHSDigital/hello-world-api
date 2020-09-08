@@ -28,9 +28,9 @@ steps:
       
       prj_path=$(Pipeline.Workspace)/s/${{ parameters.service_name }}/$(SERVICE_ARTIFACT_NAME)
       
-      export ACCESS_TOKEN=$(docker run --rm artronics/nhsd-login-docker:latest $(IDP_URL))
+      # export ACCESS_TOKEN=$(docker run --rm artronics/nhsd-login-docker:latest $(IDP_URL))
       
-      docker run --rm -e APIGEE_ENVIRONMENT=$(APIGEE_ENVIRONMENT) -e ACCESS_TOKEN=$ACCESS_TOKEN -e API_KEY=$(API_KEY)  -v ${prj_path}/tests:/usr/src/app -w /usr/src/app node:stretch-slim sh -c 'npm install && npm run start --base_path /$(FULLY_QUALIFIED_SERVICE_NAME)'
+      docker run --rm -e APIGEE_ENVIRONMENT=$(APIGEE_ENVIRONMENT) -e ACCESS_TOKEN=$(secret.AccessToken) -e API_KEY=$(API_KEY)  -v ${prj_path}/tests:/usr/src/app -w /usr/src/app node:stretch-slim sh -c 'npm install && npm run start --base_path /$(FULLY_QUALIFIED_SERVICE_NAME)'
     displayName: 'Run newman tests'
     timeoutInMinutes: 5
     condition: and(succeeded(), eq(variables['run_postman_tests'], 'true'))
