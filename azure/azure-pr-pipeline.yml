@@ -8,7 +8,7 @@ resources:
     - repository: common
       type: github
       name: NHSDigital/api-management-utils
-      ref: refs/head/APM-1318-Add-sandbox-to-friendly-names
+      ref: refs/heads/APM-1318-Add-sandbox-to-friendly-names
       endpoint: NHSDigital
   pipelines:
   - pipeline: build_pipeline
