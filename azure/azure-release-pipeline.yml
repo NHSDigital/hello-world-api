@@ -8,7 +8,6 @@ resources:
     - repository: common
       type: github
       name: NHSDigital/api-management-utils
-      ref: refs/heads/APM-1318-Use-service-name
       endpoint: NHSDigital
   pipelines:
   - pipeline: build_pipeline
@@ -39,6 +38,8 @@ extends:
       - environment: internal-dev
       - environment: internal-dev-sandbox
       - environment: internal-qa-sandbox
+        depends_on:
+          - internal_dev_sandbox
       - environment: sandbox
         depends_on:
           - internal_qa_sandbox
