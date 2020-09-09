@@ -8,7 +8,7 @@ resources:
     - repository: common
       type: github
       name: NHSDigital/api-management-utils
-      ref: refs/heads/APM-1318-Add-sandbox-to-friendly-names
+      ref: refs/heads/APM-1318-release-extension-rework
       endpoint: NHSDigital
   pipelines:
   - pipeline: build_pipeline
@@ -38,10 +38,11 @@ extends:
     deploy_review_sandbox: true
     secret_ids:
      - ptl/azure-devops/hello-world-env-internal-dev/API_KEY
-    post_deploy:
-      - template: templates/postman-tests.yml
-        parameters:
-          service_name: ${{ variables.service_name }}
-          base_path: $(FULLY_QUALIFIED_SERVICE_NAME)
-          environments:
-            - internal-dev
+    apigee_deployments:
+      - environment: internal-dev
+        post_deploy:
+          - template: templates/postman-tests.yml
+            parameters:
+              service_name: ${{ variables.service_name }}
+              base_path: $(FULLY_QUALIFIED_SERVICE_NAME)
+      - environment: internal-dev-sandbox
