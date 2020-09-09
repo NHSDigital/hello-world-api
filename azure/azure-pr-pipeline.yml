@@ -8,7 +8,7 @@ resources:
     - repository: common
       type: github
       name: NHSDigital/api-management-utils
-      ref: refs/heads/APM-1318-release-extension-rework
+      ref: refs/heads/APMSPII-376-per-environment-hooks
       endpoint: NHSDigital
   pipelines:
   - pipeline: build_pipeline
@@ -41,7 +41,7 @@ extends:
     apigee_deployments:
       - environment: internal-dev
         post_deploy:
-          - template: templates/postman-tests.yml@self
+          - template: templates/postman-tests.yml
             parameters:
               service_name: ${{ variables.service_name }}
               base_path: $(FULLY_QUALIFIED_SERVICE_NAME)
