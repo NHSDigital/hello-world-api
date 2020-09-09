@@ -1,6 +1,6 @@
 variables:
   service_name: hello-world
-  short_service_name: hw
+  short_service_name: hello-world
   service_base_path: hello-world
   product_display_name: Hello World
   product_description: Placeholder description
