@@ -41,7 +41,7 @@ extends:
     apigee_deployments:
       - environment: internal-dev
         post_deploy:
-          - template: templates/postman-tests.yml
+          - template: azure/templates/postman-tests.yml@self
             parameters:
               service_name: ${{ variables.service_name }}
               base_path: $(FULLY_QUALIFIED_SERVICE_NAME)
