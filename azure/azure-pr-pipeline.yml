@@ -44,5 +44,4 @@ extends:
           - template: templates/postman-tests.yml
             parameters:
               service_name: ${{ variables.service_name }}
-              base_path: $(FULLY_QUALIFIED_SERVICE_NAME)
       - environment: internal-dev-sandbox
