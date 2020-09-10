@@ -8,7 +8,6 @@ resources:
     - repository: common
       type: github
       name: NHSDigital/api-management-utils
-      ref: refs/heads/APMSPII-376-per-environment-hooks
       endpoint: NHSDigital
   pipelines:
   - pipeline: build_pipeline
