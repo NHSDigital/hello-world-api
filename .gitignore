@@ -4,7 +4,8 @@ dist/
 public/
 newman/
 build
-venv
+.venv
+
 
 # utils directory will be clone during pipeline.
 utils
