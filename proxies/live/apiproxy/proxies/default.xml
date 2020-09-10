@@ -10,6 +10,15 @@
       </Response>
       <Condition>(proxy.pathsuffix MatchesPath "/_ping") and ((request.verb = "GET") or (request.verb = "HEAD"))</Condition>
     </Flow>
+  <Flow name="Flow.Test">
+    <Request>
+      <Step>
+      <Name>VerifyApiKey-Header</Name>
+      </Step>
+      </Request>
+      <Response/>
+      <Condition>(proxy.pathsuffix MatchesPath "/hello/test")</Condition>
+  </Flow>
   <Flow name="Flow.AuthApiKey">
     <Request>
       <Step>
