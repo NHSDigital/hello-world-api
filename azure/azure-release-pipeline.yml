@@ -44,5 +44,6 @@ extends:
       - environment: internal-qa-sandbox
       - environment: sandbox
         depends_on:
+          - internal_dev
           - internal_dev_sandbox
           - internal_qa_sandbox
