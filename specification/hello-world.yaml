@@ -25,12 +25,7 @@ info:
     For more details see [Network access for APIs](https://digital.nhs.uk/developer/guides-and-documentation/network-access-for-apis).
 
     ## Authorisation
-    This API uses a variety of different euthorisation methods. See the documentation for each endpoint for more details.
-
-    This API includes example endpoionts three differently authorised endpoints, [Open-access](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation#open-access-apis), [Application-restricted](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation#application-restricted-apis) and [User-restricted](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation#user-restricted-apis).
-      * Open-access requires no authorisation.
-      * Application-restricted requires an API key presented in the 'apikey' header along with the request.
-      * User-restricted requires OAuth 2.0 authorisation. This involves an OAuth 2.0 Access Token presented in the 'Authorization' header along with the request.
+    This API uses a variety of different authorisation methods. For details, see the documentation for each endpoint.
 
     ## Environments and Testing
     This API is for learning purposes and is only available in our sandbox environment. The base URL for all endpoints is:
