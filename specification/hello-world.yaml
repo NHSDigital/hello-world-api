@@ -8,36 +8,40 @@ info:
   title: Hello World API
   description: |
     ## Overview
-    Use this API alongside our [tutorials](https://digital.nhs.uk/developer/guides-and-documentation/tutorials).
-    You can learn to connect via:
+    Use this API alongside our [tutorials](https://digital.nhs.uk/developer/guides-and-documentation/tutorials) to teach yourself how to connect to our RESTful APIs.
+    
+    It includes example endpoints for
       * open-access
-      * application-restricted.
-      * user-restricted.
-
+      * application-restricted access
+      * user-restricted access
 
     ## Technology
-    This API is [RESTful](https://digital.nhs.uk/developer/guides-and-documentation/api-technologies-at-nhs-digital#basic-rest-apis). And is available via the Internet, and over the [Health and Social Care Network (HSCN)](https://digital.nhs.uk/services/health-and-social-care-network).
+    This API is [RESTful](https://digital.nhs.uk/developer/guides-and-documentation/api-technologies-at-nhs-digital#basic-rest-apis).
+    
+    ## Network access
+    This API is available on the internet and, indirectly, on the [Health and Social Care Network (HSCN)](https://digital.nhs.uk/services/health-and-social-care-network).
+    To use this API with NHS smartcards (see below) you do need an HSCN connection, although internet-facing alternatives are available.
+    
+    For more details see [Network access for APIs](https://digital.nhs.uk/developer/guides-and-documentation/network-access-for-apis).
 
     ## Authorisation
-    This API showcases three differently authorised endpoints, [Open-access](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation#open-access-apis), [Application-restricted](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation#application-restricted-apis) and [User-restricted](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation#user-restricted-apis).
+    This API uses a variety of different euthorisation methods. See the documentation for each endpoint for more details.
+
+    This API includes example endpoionts three differently authorised endpoints, [Open-access](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation#open-access-apis), [Application-restricted](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation#application-restricted-apis) and [User-restricted](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation#user-restricted-apis).
       * Open-access requires no authorisation.
       * Application-restricted requires an API key presented in the 'apikey' header along with the request.
       * User-restricted requires OAuth 2.0 authorisation. This involves an OAuth 2.0 Access Token presented in the 'Authorization' header along with the request.
 
     ## Environments and Testing
-    You can test this API using our sandbox environment:
-      - `https://sandbox.api.service.nhs.uk/hello/`
+    This API is for learning purposes and is only available in our sandbox environment. The base URL for all endpoints is:
+    - `https://sandbox.api.service.nhs.uk/hello/`
 
-    For more details on sandbox testing, see [Sandbox Testing](https://digital.nhs.uk/developer/guides-and-documentation/testing#sandbox-testing), or to try out the sandbox using our "Try this API" feature.
+    To try out the sandbox using our "Try this API" feature, see the documentation for each endpoint.
+    
     Alternatively, you can try out the sandbox using our Postman collection:
+    
     [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/426d37cb9cfe17b8b96d)
-      
 
-    ## Endpoints
-    To see details for specific endpoints, select from the list on the left hand side of the page:
-    - `GET /hello/world` - an example of an open-access endpoint
-    - `GET /hello/application` - an example of an application-restricted endpoint
-    - `GET /hello/user` - an example of a user-restricted endpoint
   contact:
     name: API Management Support
     email: api.management@nhs.net
@@ -50,7 +54,7 @@ paths:
 
   /hello/world:
     get:
-      summary: Say hello world.
+      summary: Open-access endpoint
       operationId: getHello
       description: |
         Get a "Hello world!" response from an open-access endpoint.
@@ -74,7 +78,7 @@ paths:
 
   /hello/application:
     get:
-      summary: Say hello application.
+      summary: Application-restricted endpoint
       operationId: getHelloApiKey
       description: |
         Get a "Hello application!" response from an application-restricted endpoint.
@@ -106,7 +110,7 @@ paths:
 
   /hello/user:
     get:
-      summary: Say hello user.
+      summary: User-restricted endpoint
       operationId: getHelloToken
       description: |
         Get a "Hello user!" response from a user-restricted endpoint.
@@ -137,23 +141,6 @@ paths:
       tags:
         - hello
 
-  /_status:
-    get:
-      summary: Health check endpoint.
-      operationId: getStatus
-      description: |
-        Returns an empty json response. This can be used to perform service healthcheck.
-
-        Use this API alongside our [application-restricted REST API tutorial](https://digital.nhs.uk/developer/guides-and-documentation/tutorials/application-restricted-rest-api-tutorial) to learn how to connect to our APIs.
-      responses:
-        '200':
-          description: Successful response.
-          content:
-            application/json:
-              schema:
-                type: object
-      tags:
-        - hello
 components:
 
   securitySchemes:
