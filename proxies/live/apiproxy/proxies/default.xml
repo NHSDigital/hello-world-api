@@ -4,6 +4,7 @@
           <Name>AssignMessage.AddCors</Name>
       </Step>
   </DefaultFaultRule>
+  <Flows>
   <Flow name="AddPayloadToPing">
       <Description/>
       <Request/>
