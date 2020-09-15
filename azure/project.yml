@@ -3,5 +3,5 @@ variables:
   short_service_name: hello-world
   service_base_path: hello-world
   product_display_name: Hello World
-  product_description: ""
+  product_description: " "
   spec_file: hello-world.json
