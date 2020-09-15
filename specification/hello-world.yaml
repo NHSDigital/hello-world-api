@@ -10,7 +10,7 @@ info:
     ## Overview 
     Use this API alongside our [tutorials](https://digital.nhs.uk/developer/guides-and-documentation/tutorials) to teach yourself how to connect to our RESTful APIs.
     
-    It includes example endpoints for
+    It includes example endpoints for:
       * open-access
       * application-restricted access
       * user-restricted access
@@ -54,7 +54,7 @@ paths:
       description: |
         Get a "Hello world!" response from an open-access endpoint.
 
-        Use this API alongside our [open-access REST API tutorial](https://digital.nhs.uk/developer/guides-and-documentation/tutorials/open-access-rest-api-tutorial) to learn how to connect to our APIs.
+        Use this endpoint alongside our [open-access REST API tutorial](https://digital.nhs.uk/developer/guides-and-documentation/tutorials/open-access-rest-api-tutorial) to learn how to connect to our APIs.
       responses:
         '200':                                                      
           description: Successful response.
@@ -78,7 +78,7 @@ paths:
       description: |
         Get a "Hello application!" response from an application-restricted endpoint.
 
-        Use this API alongside our [application-restricted REST API tutorial](https://digital.nhs.uk/developer/guides-and-documentation/tutorials/application-restricted-rest-api-tutorial) to learn how to connect to our APIs.
+        Use this endpoint alongside our [application-restricted REST API tutorial](https://digital.nhs.uk/developer/guides-and-documentation/tutorials/application-restricted-rest-api-tutorial) to learn how to connect to our APIs.
       responses:
         '200':
           description: Successful response
@@ -110,7 +110,7 @@ paths:
       description: |
         Get a "Hello user!" response from a user-restricted endpoint.
 
-        Use this API alongside our [user-restricted REST API tutorial](https://digital.nhs.uk/developer/guides-and-documentation/tutorials/user-restricted-rest-api-tutorial) to learn how to connect to our APIs.
+        Use this endpoint alongside our [user-restricted REST API tutorial](https://digital.nhs.uk/developer/guides-and-documentation/tutorials/user-restricted-rest-api-tutorial) to learn how to connect to our APIs.
 
       responses:
         '200':
