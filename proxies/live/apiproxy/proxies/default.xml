@@ -1,5 +1,9 @@
 <ProxyEndpoint name="default">
-  <Flows>
+  <DefaultFaultRule>
+      <Step>
+          <Name>AssignMessage.AddCors</Name>
+      </Step>
+  </DefaultFaultRule>
   <Flow name="AddPayloadToPing">
       <Description/>
       <Request/>
