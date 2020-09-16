@@ -16,7 +16,7 @@
     "speccy": "^0.11.0"
   },
   "devDependencies": {
-    "node": "^13.12.0",
+    "node": "^14.11.0",
     "newman": "^4.6.0",
     "newman-reporter-html": "^1.0.5",
     "newman-reporter-htmlextra": "^1.12.1",
