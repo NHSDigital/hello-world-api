@@ -43,6 +43,7 @@ extends:
       - environment: internal-dev-sandbox
       - environment: internal-qa-sandbox
       - environment: sandbox
+        make_spec_visible: true
         depends_on:
           - internal_dev
           - internal_dev_sandbox
