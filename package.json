@@ -19,7 +19,7 @@
     "node": "^13.12.0",
     "newman": "^4.6.0",
     "newman-reporter-html": "^1.0.5",
-    "newman-reporter-htmlextra": "^1.12.1",
+    "newman-reporter-htmlextra": "^1.19.4",
     "apigeetool": "^0.14.2",
     "license-checker": "^25.0.1"
   }
