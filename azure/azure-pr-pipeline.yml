@@ -44,4 +44,7 @@ extends:
           - template: templates/postman-tests.yml
             parameters:
               service_name: ${{ variables.service_name }}
+      - environment: manual-intervention
       - environment: internal-dev-sandbox
+        depends_on:
+            - manual-intervention
