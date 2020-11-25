@@ -47,4 +47,8 @@ extends:
       - environment: manual-intervention
       - environment: internal-dev-sandbox
         depends_on:
+<<<<<<< HEAD
           - manual_intervention
+=======
+            - manual-intervention
+>>>>>>> 7abc699ee07beb0f22b4613291fa03d83a53360f
