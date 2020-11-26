@@ -33,7 +33,6 @@ extends:
     product_display_name: ${{ variables.product_display_name }}
     product_description: ${{ variables.product_description }}
     spec_file: ${{ variables.spec_file }}
-    requires_approval: false
     secret_ids:
      - ptl/azure-devops/hello-world-env-internal-dev/API_KEY
     # apigee_deployments:
