@@ -39,15 +39,10 @@ extends:
     secret_ids:
      - ptl/azure-devops/hello-world-env-internal-dev/API_KEY
     apigee_deployments:
-      - environment: manual-intervention
-        stage_name: manual-intervention-two
       - environment: internal-dev
-        depends_on: manual_intervention_two
         post_deploy:
           - template: templates/postman-tests.yml
             parameters:
               service_name: ${{ variables.service_name }}
-      - environment: manual-intervention
       - environment: internal-dev-sandbox
-        depends_on:
-          - manual_intervention
+
