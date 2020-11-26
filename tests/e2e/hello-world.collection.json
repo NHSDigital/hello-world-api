@@ -222,6 +222,64 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Hello World - Ping",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "7aea318f-37d6-4822-a5d7-eadf64526238",
+						"exec": [
+							"pm.environment.set(\"expected_greeting\", \"Hello World!\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "7557b730-8fa9-4bd1-9280-8b6dad38b5f2",
+						"exec": [
+							"pm.test(\"Returns status code 200 OK\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Returns content-type appliation/json\", () => {",
+							"    pm.expect(String(pm.response.headers.get(\"Content-Type\"))).to.equal(\"application/json\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "apikey",
+						"type": "text",
+						"value": "{{apiKey}}"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}{{basePath}}/_ping",
+					"host": [
+						"{{baseUrl}}{{basePath}}"
+					],
+					"path": [
+						"_ping"
+					],
+					"query": [
+						{
+							"key": "apikey",
+							"value": "{{apikey}}",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"event": [
