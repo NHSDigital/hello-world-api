@@ -37,14 +37,14 @@ extends:
      - ptl/azure-devops/hello-world-env-internal-dev/API_KEY
     apigee_deployments:
       - environment: internal-dev
+        depends_on:
+         - manual_approval
         make_spec_visible: true
         post_deploy:
           - template: templates/postman-tests.yml
             parameters:
               service_name: ${{ variables.service_name }}
       - environment: manual-approval
-        depends_on:
-         - internal_dev
       - environment: internal-dev-sandbox
         make_spec_visible: true
       - environment: internal-qa-sandbox
