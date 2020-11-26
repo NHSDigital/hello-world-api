@@ -42,7 +42,7 @@ extends:
       - environment: manual-intervention
         stage_name: manual-intervention-two
       - environment: internal-dev
-        depends_on: manual-intervention-two
+        depends_on: manual_intervention_two
         post_deploy:
           - template: templates/postman-tests.yml
             parameters:
