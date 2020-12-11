@@ -47,6 +47,8 @@ extends:
         make_spec_visible: true
       - environment: internal-qa-sandbox
         make_spec_visible: true
+      - environment: internal-qa
+        make_spec_visible: true
       - environment: sandbox
         make_spec_visible: true
         depends_on:
