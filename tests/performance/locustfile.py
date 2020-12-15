@@ -1,7 +1,6 @@
 import os
 from common.auth import Auth
 from locust import HttpUser, task, between
-from uuid import uuid4
 
 
 class HelloWorldsUser(HttpUser):
@@ -28,5 +27,3 @@ class HelloWorldsUser(HttpUser):
     @task(1)
     def helloWorld_api(self):
         self.client.get(f"{self.base_path}/{self.endpoint}", headers=self.headers)
-
-        
