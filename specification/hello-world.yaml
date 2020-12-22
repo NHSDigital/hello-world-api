@@ -14,10 +14,10 @@ info:
      For further details, see the 'Security and authorisation' section below.
 
     ## API status and roadmap
-    This API is for learning purpose only and is available in the Sandbox environment 
-    
-    To see our roadmap, or to suggest, comment or vote on features for this API, see our [interactive product backlog]().
-    If you have any other queries, please [contact us]().
+    This API is for learning purpose only and is available in the Sandbox environment.
+
+    To see our roadmap, or to suggest, comment or vote on features for this API, see our [interactive product backlog](https://nhs-digital-api-management.featureupvote.com/suggestions/107431/hello-world-api-and-tutorials).
+    If you have any other queries, please [contact us](https://digital.nhs.uk/developer/help-and-support).
 
     ## Technology
     This API is [RESTful](https://digital.nhs.uk/developer/guides-and-documentation/api-technologies-at-nhs-digital#basic-rest-apis).
@@ -32,7 +32,7 @@ info:
     This API demonstrates a variety of different authentication methods that are used in our APIs.
 
     ### Open-access authentication 
-    Use this authentication method to access our hello world! endpoint. Some of our APIs are open-access, which means:
+    Use this authentication method to access our world endpoint. Some of our APIs are [open-access](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation#open-access-apis), which means:
      - we do not authenticate or authorise the calling application
      - we do not authenticate or authorise the end user - they might not even be present
 
@@ -41,7 +41,7 @@ info:
     Our open-access APIs are generally RESTful APIs. For more details on how to access them, see our [open-access REST API tutorial](https://digital.nhs.uk/developer/guides-and-documentation/tutorials/open-access-rest-api-tutorial).
 
     ### Application-restricted authentication 
-    Use this authentication method to access the hello application endpoint. This access mode is [application-restricted](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation#application-restricted-apis), meaning we authenticate the calling application but not the end user.
+    Use this authentication method to access the application endpoint. This access mode is [application-restricted](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation#application-restricted-apis), meaning we authenticate the calling application but not the end user.
     You can use this access mode as follows:
      - unattended (end user not present), for example as part of a back end process to check NHS numbers for data flowing from one system to another
      - attended (end user present) - in which case, you must ensure the end user is authenticated and suitably authorised locally by the calling application
@@ -49,8 +49,7 @@ info:
      - [Application-restricted RESTful API - signed JWT authentication](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation/application-restricted-restful-apis-signed-jwt-authentication)
 
     ### User-restricted authentication
-
-    Use this authentication thod to access the user endpoint. Some of our APIs are user-restricteans:
+    Use this authentication method to access the user endpoint. Some of our APIs are [user-restricted](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation#user-restricted-apis), which means:
      - we authenticate and authorise the calling application
      - we authenticate, but do not authorise, the end user
 
@@ -88,8 +87,6 @@ paths:
       operationId: getHello
       description: |
         ## Overview
-        Get a "Hello world!" response from an open-access endpoint.
-
         Use this endpoint alongside our [open-access REST API tutorial](https://digital.nhs.uk/developer/guides-and-documentation/tutorials/open-access-rest-api-tutorial) to learn how to connect to our APIs.
       responses:
         '200':
@@ -112,8 +109,6 @@ paths:
       operationId: getHelloApiKey
       description: |
         ## Overview
-        Get a "Hello application!" response from an application-restricted endpoint.
-
         Use this endpoint alongside our [application-restricted REST API tutorial](https://digital.nhs.uk/developer/guides-and-documentation/tutorials/application-restricted-rest-api-tutorial) to learn how to connect to our APIs.
       responses:
         '200':
@@ -140,12 +135,10 @@ paths:
         - hello
   /hello/user:
     get:
-      summary: Get a "Hello user!" response from a user-restricted endpoint
+      summary: Get a "Hello user!" response from an user-restricted endpoint
       operationId: getHelloToken
       description: |
         ## Overview
-        Get a "Hello user!" response from a user-restricted endpoint.
-
         Use this endpoint alongside our [user-restricted REST API tutorial](https://digital.nhs.uk/developer/guides-and-documentation/tutorials/user-restricted-rest-api-tutorial) to learn how to connect to our APIs.
       responses:
         '200':
