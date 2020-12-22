@@ -1,6 +1,3 @@
-# This is an OpenAPI Specification (https://swagger.io/specification/)
-# for the Hello World API
-# owned by NHS Digital (https://digital.nhs.uk/)
 openapi: 3.0.0
 info:
   version: 0.0.1
@@ -10,15 +7,17 @@ info:
     Use this API alongside our  [tutorials](https://digital.nhs.uk/developer/guides-and-documentation/tutorials) to teach yourself how to connect to our RESTful APIs.
 
     You can:
-     - get a response from an open-access endpoint
-     - get a response from an application-restricted endpoint
-     - get a response from a user-restricted endpoint
+     - get a response from an open-access endpoint, where the calling application and the end user are not authenticated
+     - get a response from an application-restricted endpoint, where the calling application is authenticated but the end user is not
+     - get a response from a user-restricted endpoint, where the calling application and the end user are authenticated
+     
+     For further details, see the 'Security and authorisation' section below.
 
-    ## Legal use - TBC
-    This API can only be used where there is a [legal basis](https://digital.nhs.uk/services/demographics/access-data-on-the-personal-demographics-service) to do so. Make sure you have a valid use case before you go too far with your development. To do this, make a [PDS access request](https://digital.nhs.uk/services/demographics/access-data-on-the-personal-demographics-service).
-    You must do this before you can go live (see ‘Onboarding’ below).
-
-    ## API status and roadmap - TBC
+    ## API status and roadmap
+    This API is for learning purpose only and is available in the Sandbox environment 
+    
+    To see our roadmap, or to suggest, comment or vote on features for this API, see our [interactive product backlog]().
+    If you have any other queries, please [contact us]().
 
     ## Technology
     This API is [RESTful](https://digital.nhs.uk/developer/guides-and-documentation/api-technologies-at-nhs-digital#basic-rest-apis).
@@ -33,7 +32,7 @@ info:
     This API demonstrates a variety of different authentication methods that are used in our APIs.
 
     ### Open-access authentication 
-    Use this authentication method to access our world endpoint. Some of our APIs are open-access, which means:
+    Use this authentication method to access our hello world! endpoint. Some of our APIs are open-access, which means:
      - we do not authenticate or authorise the calling application
      - we do not authenticate or authorise the end user - they might not even be present
 
@@ -42,16 +41,15 @@ info:
     Our open-access APIs are generally RESTful APIs. For more details on how to access them, see our [open-access REST API tutorial](https://digital.nhs.uk/developer/guides-and-documentation/tutorials/open-access-rest-api-tutorial).
 
     ### Application-restricted authentication 
-    Use this authentication method to access the application endpoint. This access mode is [application-restricted](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation#application-restricted-apis), meaning we authenticate the calling application but not the end user.
-
+    Use this authentication method to access the hello application endpoint. This access mode is [application-restricted](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation#application-restricted-apis), meaning we authenticate the calling application but not the end user.
     You can use this access mode as follows:
      - unattended (end user not present), for example as part of a back end process to check NHS numbers for data flowing from one system to another
      - attended (end user present) - in which case, you must ensure the end user is authenticated and suitably authorised locally by the calling application
-
     To use this access mode, use the following security pattern:
      - [Application-restricted RESTful API - signed JWT authentication](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation/application-restricted-restful-apis-signed-jwt-authentication)
 
     ### User-restricted authentication
+
     Use this authentication thod to access the user endpoint. Some of our APIs are user-restricteans:
      - we authenticate and authorise the calling application
      - we authenticate, but do not authorise, the end user
@@ -86,7 +84,7 @@ servers:
 paths:
   /hello/world:
     get:
-      summary: Open-access endpoint
+      summary: Get a "Hello world!" response from an open-access endpoint
       operationId: getHello
       description: |
         ## Overview
@@ -110,7 +108,7 @@ paths:
         - hello
   /hello/application:
     get:
-      summary: Application-restricted endpoint
+      summary: Get a "Hello application!" response from an application-restricted endpoint
       operationId: getHelloApiKey
       description: |
         ## Overview
@@ -142,7 +140,7 @@ paths:
         - hello
   /hello/user:
     get:
-      summary: User-restricted endpoint
+      summary: Get a "Hello user!" response from a user-restricted endpoint
       operationId: getHelloToken
       description: |
         ## Overview
