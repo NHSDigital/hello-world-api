@@ -54,8 +54,7 @@ info:
      - we authenticate, but do not authorise, the end user
 
     Although we don't authorise the end user, we do generally require the calling application to do it ‘locally’.
-    Currently we only support authentication of healthcare workers.
-    In the future we plan to support authentication of citizens using [NHS Login](https://www.nhs.uk/using-the-nhs/nhs-services/nhs-login/).
+    We only support authentication of healthcare workers.
 
     ## Environments and testing
     | Purpose                                        | Base URL                                                     |
