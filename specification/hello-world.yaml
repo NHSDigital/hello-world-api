@@ -43,10 +43,9 @@ info:
     ### Application-restricted authentication 
     Use this authentication method to access the application endpoint. This access mode is [application-restricted](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation#application-restricted-apis), meaning we authenticate the calling application but not the end user.
     You can use this access mode as follows:
-     - unattended (end user not present), for example as part of a back end process to check NHS numbers for data flowing from one system to another
      - attended (end user present) - in which case, you must ensure the end user is authenticated and suitably authorised locally by the calling application
     To use this access mode, use the following security pattern:
-     - [Application-restricted RESTful API - signed JWT authentication](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation/application-restricted-restful-apis-signed-jwt-authentication)
+     - [Application-restricted RESTful APIs - API key authentication](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation/application-restricted-restful-apis-api-key-authentication)
 
     ### User-restricted authentication
     Use this authentication method to access the user endpoint. Some of our APIs are [user-restricted](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation#user-restricted-apis), which means:
