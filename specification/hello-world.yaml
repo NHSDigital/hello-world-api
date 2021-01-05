@@ -5,73 +5,63 @@ info:
   description: |
     ## Overview 
     Use this API alongside our  [tutorials](https://digital.nhs.uk/developer/guides-and-documentation/tutorials) to teach yourself how to connect to our RESTful APIs.
-
     You can:
      - get a response from an open-access endpoint, where the calling application and the end users are not authenticated
      - get a response from an application-restricted endpoint, where the calling application is authenticated but the end user is not authenticated
      - get a response from a user-restricted endpoint, where the calling application and the end users are authenticated
      
      For further details, see the 'Security and authorisation' section below.
-
+    
     ## API status and roadmap
     This API is for learning purposes only and is available in the sandbox environment.
-
     To see our roadmap, or to suggest, comment or vote on features for this API, see our [interactive product backlog](https://nhs-digital-api-management.featureupvote.com/suggestions/107431/hello-world-api-and-tutorials).
     If you have any other queries, please [contact us](https://digital.nhs.uk/developer/help-and-support).
-
+    
     ## Technology
     This API is [RESTful](https://digital.nhs.uk/developer/guides-and-documentation/api-technologies-at-nhs-digital#basic-rest-apis).
-
+    
     ## Network access
     This API is available on the internet and, indirectly, on the [Health and Social Care Network (HSCN)](https://digital.nhs.uk/services/health-and-social-care-network).
     To use this API with NHS smartcards (see below) you do need an HSCN connection, although internet-facing alternatives are available.
-
     For more details see [Network access for APIs](https://digital.nhs.uk/developer/guides-and-documentation/network-access-for-apis).
-
+    
     ## Security and authorisation
     This API demonstrates a variety of different authentication methods that are used in our APIs.
-
+    
     ### Open-access authentication 
     Use this authentication method to access our world endpoint. Some of our APIs are [open-access](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation#open-access-apis), which means:
      - we do not authenticate or authorise the calling application
      - we do not authenticate or authorise the end user - they might not even be present
-
     We generally use open-access APIs for public data, where security is not a concern.
-
     Our open-access APIs are generally RESTful APIs. For more details on how to access them, see our [open-access REST API tutorial](https://digital.nhs.uk/developer/guides-and-documentation/tutorials/open-access-rest-api-tutorial).
-
+    
     ### Application-restricted authentication 
     Use this authentication method to access the application endpoint. This access mode is [application-restricted](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation#application-restricted-apis), meaning we authenticate the calling application but not the end user.
     You can use this access mode as follows:
      - attended (end user present) - in which case, you must ensure the end user is authenticated and suitably authorised locally by the calling application
     To use this access mode, use the following security pattern:
      - [Application-restricted RESTful APIs - API key authentication](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation/application-restricted-restful-apis-api-key-authentication)
-
+    
     ### User-restricted authentication
     Use this authentication method to access the user endpoint. Some of our APIs are [user-restricted](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation#user-restricted-apis), which means:
      - we authenticate and authorise the calling application
      - we authenticate, but do not authorise, the end user
-
     Although we do not authorise the end user, we do generally require the calling application to do it ‘locally’.
     We only support authentication of healthcare workers.
-
+    
     ## Environments and testing
     
     | Purpose                                        | Base URL                                                     |
     | -----------------------------------------------|--------------------------------------------------------------|
     | Sandbox                                        | `https://sandbox.api.service.nhs.uk/hello/`                  |
-
     ### Sandbox testing
     This API is for learning purposes and is only available in our sandbox environment. Our [sandbox environment](https://digital.nhs.uk/developer/guides-and-documentation/testing#sandbox-testing):
       - is for early developer testing
       - only covers a limited set of scenarios
       - is stateless, so it does not actually persist any updates
-      - is open access, so does not allow you to test authorisation
 
      For more details on sandbox testing, or to try out the sandbox using our \"Try this API\" feature, see the documentation for each endpoint.
-
     Alternatively, you can try out the sandbox using our Postman collection:
-
     [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/426d37cb9cfe17b8b96d)
   contact:
     name: API Management Support
