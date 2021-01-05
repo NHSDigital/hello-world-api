@@ -14,7 +14,7 @@ info:
      For further details, see the 'Security and authorisation' section below.
 
     ## API status and roadmap
-    This API is for learning purpose only and is available in the Sandbox environment.
+    This API is for learning purposes only and is available in the sandbox environment.
 
     To see our roadmap, or to suggest, comment or vote on features for this API, see our [interactive product backlog](https://nhs-digital-api-management.featureupvote.com/suggestions/107431/hello-world-api-and-tutorials).
     If you have any other queries, please [contact us](https://digital.nhs.uk/developer/help-and-support).
@@ -52,10 +52,11 @@ info:
      - we authenticate and authorise the calling application
      - we authenticate, but do not authorise, the end user
 
-    Although we don't authorise the end user, we do generally require the calling application to do it ‘locally’.
+    Although we do not authorise the end user, we do generally require the calling application to do it ‘locally’.
     We only support authentication of healthcare workers.
 
     ## Environments and testing
+    
     | Purpose                                        | Base URL                                                     |
     | -----------------------------------------------|--------------------------------------------------------------|
     | Sandbox                                        | `https://sandbox.api.service.nhs.uk/hello/`                  |
@@ -133,7 +134,7 @@ paths:
         - hello
   /hello/user:
     get:
-      summary: Get a "Hello user!" response from an user-restricted endpoint
+      summary: Get a "Hello user!" response from a user-restricted endpoint
       operationId: getHelloToken
       description: |
         ## Overview
