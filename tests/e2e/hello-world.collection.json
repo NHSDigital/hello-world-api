@@ -188,6 +188,9 @@
 						"exec": [
 							"pm.test(\"Returns status code 200 OK\", () => {",
 							"    pm.response.to.have.status(200);",
+							"    responseJson = pm.response.json();",
+							"    pm.expect(responseJson.status).to.eql(\"pass\");",
+							"",
 							"});",
 							""
 						],
