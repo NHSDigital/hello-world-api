@@ -35,6 +35,8 @@ extends:
     spec_file: ${{ variables.spec_file }}
     secret_ids:
      - ptl/azure-devops/hello-world-env-internal-dev/API_KEY
+     - ptl/monitoring/status-endpoint-api-key
+    enable_monitoring: true
     apigee_deployments:
       - environment: internal-dev
         make_spec_visible: true
