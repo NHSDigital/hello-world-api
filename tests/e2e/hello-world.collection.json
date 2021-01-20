@@ -200,7 +200,7 @@
 				"header": [
 					{
 						"key": "apikey",
-						"value": "{{apiKey}}",
+						"value": "{{statusApiKey}}",
 						"type": "text"
 					}
 				],
@@ -215,7 +215,7 @@
 					"query": [
 						{
 							"key": "apikey",
-							"value": "{{statusApikey}}",
+							"value": "{{apikey}}",
 							"disabled": true
 						}
 					]
