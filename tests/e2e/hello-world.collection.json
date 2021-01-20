@@ -215,7 +215,7 @@
 					"query": [
 						{
 							"key": "apikey",
-							"value": "{{apikey}}",
+							"value": "{{statusApikey}}",
 							"disabled": true
 						}
 					]
