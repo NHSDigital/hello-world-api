@@ -8,7 +8,7 @@ resources:
     - repository: common
       type: github
       name: NHSDigital/api-management-utils
-      ref: refs/heads/edge
+      ref: refs/heads/APM-00-AMB-468-add-disable_status_monitoring
       endpoint: NHSDigital
   pipelines:
   - pipeline: build_pipeline
@@ -36,7 +36,8 @@ extends:
     product_description: ${{ variables.product_description }}
     spec_file: ${{ variables.spec_file }}
     deploy_review_sandbox: true
-    enable_monitoring: false
+    enable_monitoring: true
+    disable_status: true
     secret_ids:
      - ptl/azure-devops/hello-world-env-internal-dev/API_KEY
      - ptl/monitoring/status-endpoint-api-key
