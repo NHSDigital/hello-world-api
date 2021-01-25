@@ -90,8 +90,6 @@ paths:
                     example: Hello world!
               example:
                 message: Hello world!
-      tags:
-        - hello
   /hello/application:
     get:
       summary: Get a "Hello application!" response from an application-restricted endpoint
@@ -120,8 +118,6 @@ paths:
                 message: Invalid ApiKey
       security:
         - api_key: []
-      tags:
-        - hello
   /hello/user:
     get:
       summary: Get a "Hello user!" response from a user-restricted endpoint
@@ -150,8 +146,6 @@ paths:
                 message: Invalid access token
       security:
         - oAuth2AuthCode: []
-      tags:
-        - hello
 components:
   securitySchemes:
     api_key:
