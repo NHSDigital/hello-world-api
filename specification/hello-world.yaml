@@ -53,7 +53,7 @@ info:
     
     | Environment                                    | Base URL                                                     |
     | -----------------------------------------------|--------------------------------------------------------------|
-    | Sandbox                                        | `https://sandbox.api.service.nhs.uk/hello/`                  |
+    | Sandbox                                        | `https://sandbox.api.service.nhs.uk/hello-world`                  |
     ### Sandbox testing
     This API is for learning purposes and is only available in our sandbox environment. Our [sandbox environment](https://digital.nhs.uk/developer/guides-and-documentation/testing#sandbox-testing):
       - is for early developer testing
