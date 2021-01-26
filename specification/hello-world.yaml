@@ -51,7 +51,7 @@ info:
     
     ## Environments and testing
     
-    | Purpose                                        | Base URL                                                     |
+    | Environment                                    | Base URL                                                     |
     | -----------------------------------------------|--------------------------------------------------------------|
     | Sandbox                                        | `https://sandbox.api.service.nhs.uk/hello/`                  |
     ### Sandbox testing
