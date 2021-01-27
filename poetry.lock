@@ -263,7 +263,7 @@ six = "*"
 
 [[package]]
 name = "locust"
-version = "1.4.1"
+version = "1.4.2"
 description = "Developer friendly load testing framework"
 category = "dev"
 optional = false
@@ -534,7 +534,7 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "e8f9475e1771732f382036e14e9978a67303af47f8c1e0fa225281148f740280"
+content-hash = "6e34ac87376e7bc69c91e4e1c8c8d8876cfd8c718956340f8e564033f63b87c5"
 
 [metadata.files]
 appdirs = [
@@ -747,8 +747,8 @@ jsonpath-rw = [
     {file = "jsonpath-rw-1.4.0.tar.gz", hash = "sha256:05c471281c45ae113f6103d1268ec7a4831a2e96aa80de45edc89b11fac4fbec"},
 ]
 locust = [
-    {file = "locust-1.4.1-py3-none-any.whl", hash = "sha256:98b069081de124be9fc45ffb66c6820bef271035431d222cb38454c42c86d797"},
-    {file = "locust-1.4.1.tar.gz", hash = "sha256:b4fb0ca95ef3194759966a850835485a5f5997f94ec7da307258737786fa56e0"},
+    {file = "locust-1.4.2-py3-none-any.whl", hash = "sha256:dace2b8aacc239b4c8e1ef0e2be627640d0a82ce1ef14a56e884b04db8ad8892"},
+    {file = "locust-1.4.2.tar.gz", hash = "sha256:5a98acdebf443b5f319e91493771c6e14d72a0e7a935037adb994b897cc8874d"},
 ]
 markupsafe = [
     {file = "MarkupSafe-1.1.1-cp27-cp27m-macosx_10_6_intel.whl", hash = "sha256:09027a7803a62ca78792ad89403b1b7a73a01c8cb65909cd876f7fcebd79b161"},
