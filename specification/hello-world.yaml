@@ -162,5 +162,3 @@ components:
   schemas:
     Greeting:
       $ref: components/schemas/Greeting.yaml
-tags:
-  - name: hello
