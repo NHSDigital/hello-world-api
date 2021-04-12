@@ -67,9 +67,15 @@ function getCredentialsFromEnv() {
     throw new Error("API_KEY is required.")
   }
 
+  const statusApiKey = process.env['STATUS_APIKEY']
+  if (!statusApiKey) {
+    throw new Error("STATUS_APIKEY is required.")
+  }
+
   return {
     accessToken: accessToken.trim(),
-    apiKey: apiKey.trim()
+    apiKey: apiKey.trim(),
+    statusApiKey: statusApiKey.trim(),
   }
 }
 
@@ -83,6 +89,7 @@ function overrideGlobals(basePath, credentials) {
     findAndOverride(values, "basePath", basePath),
     findAndOverride(values, "accessToken", credentials.accessToken),
     findAndOverride(values, "apiKey", credentials.apiKey),
+    findAndOverride(values, "statusApiKey", credentials.statusApiKey),
   ]
 
   globals['values'] = newValues

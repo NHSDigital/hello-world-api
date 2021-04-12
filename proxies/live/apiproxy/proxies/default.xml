@@ -15,15 +15,33 @@
       </Response>
       <Condition>(proxy.pathsuffix MatchesPath "/_ping") and ((request.verb = "GET") or (request.verb = "HEAD"))</Condition>
     </Flow>
-  <Flow name="Flow.AuthApiKey">
-    <Request>
-      <Step>
-      <Name>VerifyApiKey-Header</Name>
-      </Step>
+    <Flow name="StatusEndpoint">
+      <Description/>
+      <Request>
+        <Step>
+          <Name>KeyValueMapOperations.GetSecureVariables</Name>
+        </Step>
+        <Step>
+          <Condition>private.apigee.status-endpoint-api-key NotEquals request.header.apikey</Condition>
+          <Name>RaiseFault.401Unauthorized</Name>
+        </Step>
+      </Request>
+      <Response>
+        <Step>
+          <Name>AssignMessage.SetStatusResponse</Name>
+        </Step>
+      </Response>
+      <Condition>(proxy.pathsuffix MatchesPath "/_status") and ((request.verb = "GET") or (request.verb = "HEAD"))</Condition>
+    </Flow>
+    <Flow name="Flow.AuthApiKey">
+      <Request>
+        <Step>
+          <Name>VerifyApiKey-Header</Name>
+        </Step>
       </Request>
       <Response/>
-      <Condition>((proxy.pathsuffix MatchesPath "/hello/application") or (proxy.pathsuffix MatchesPath "/_status")) and (request.verb = "GET")</Condition>
-  </Flow>
+      <Condition>(proxy.pathsuffix MatchesPath "/hello/application")  and (request.verb = "GET")</Condition>
+    </Flow>
     <Flow name="Flow.AuthOAuth">
       <Description/>
       <Request>
@@ -55,6 +73,13 @@
     </Flow>
   </Flows>
   <PreFlow/>
+  <PostClientFlow name="PostClientFlow">
+    <Response>
+      <Step>
+        <Name>FlowCallout.LogToSplunk</Name>
+      </Step>
+    </Response>
+  </PostClientFlow>
   <HTTPProxyConnection>
     <BasePath>{{ SERVICE_BASE_PATH }}</BasePath>
     <VirtualHost>secure</VirtualHost>

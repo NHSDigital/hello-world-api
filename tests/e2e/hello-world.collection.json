@@ -200,7 +200,7 @@
 				"header": [
 					{
 						"key": "apikey",
-						"value": "{{apiKey}}",
+						"value": "{{statusApiKey}}",
 						"type": "text"
 					}
 				],

@@ -8,6 +8,7 @@ resources:
     - repository: common
       type: github
       name: NHSDigital/api-management-utils
+      ref: refs/heads/edge
       endpoint: NHSDigital
       ref: refs/heads/apm-1645-manual-approval-gate
   pipelines:
@@ -19,7 +20,7 @@ resources:
           - refs/tags/v*
 
 pool:
-  vmImage: 'ubuntu-latest'
+  name: 'AWS-ECS'
 
 variables:
   - template: project.yml
@@ -36,6 +37,8 @@ extends:
     prod_requires_approval: true
     secret_ids:
      - ptl/azure-devops/hello-world-env-internal-dev/API_KEY
+     - ptl/monitoring/status-endpoint-api-key
+    enable_monitoring: true
     apigee_deployments:
       - environment: internal-dev
         make_spec_visible: true

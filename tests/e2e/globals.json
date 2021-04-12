@@ -15,6 +15,11 @@
       "key": "apiKey",
       "value": "dummy_application_restricted_apikey",
       "enabled": true
+    },
+    {
+      "key": "statusApiKey",
+      "value": "dummy_status_apikey",
+      "enabled": true
     }
   ],
   "name": "Tests globals values",

@@ -29,7 +29,7 @@ steps:
       chmod +x "${prj_path}/tests/node_modules/.bin/node"
 
 
-      docker run --rm -e APIGEE_ENVIRONMENT=$(APIGEE_ENVIRONMENT) -e ACCESS_TOKEN=$ACCESS_TOKEN -e API_KEY=$(API_KEY)  -v ${prj_path}/tests:/usr/src/app -w /usr/src/app node:stretch-slim sh -c 'npm install && npm run start --base_path /$(SERVICE_BASE_PATH)'
+      docker run --rm -e APIGEE_ENVIRONMENT=$(APIGEE_ENVIRONMENT) -e ACCESS_TOKEN=$ACCESS_TOKEN -e API_KEY=$(API_KEY) -e STATUS_APIKEY="$(status-endpoint-api-key)" -v ${prj_path}/tests:/usr/src/app -w /usr/src/app node:stretch-slim sh -c 'npm install && npm run start --base_path /$(SERVICE_BASE_PATH)'
     displayName: 'Run newman tests'
     timeoutInMinutes: 5
 
