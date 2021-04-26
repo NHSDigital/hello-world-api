@@ -9,8 +9,6 @@ resources:
       type: github
       name: NHSDigital/api-management-utils
       ref: refs/heads/edge
-      endpoint: NHSDigital
-      ref: refs/heads/apm-1645-manual-approval-gate
   pipelines:
   - pipeline: build_pipeline
     source: "Hello-World-Build"
@@ -34,7 +32,6 @@ extends:
     product_display_name: ${{ variables.product_display_name }}
     product_description: ${{ variables.product_description }}
     spec_file: ${{ variables.spec_file }}
-    prod_requires_approval: true
     secret_ids:
      - ptl/azure-devops/hello-world-env-internal-dev/API_KEY
      - ptl/monitoring/status-endpoint-api-key
@@ -56,4 +53,3 @@ extends:
           - internal_dev
           - internal_dev_sandbox
           - internal_qa_sandbox
-      - environment: prod
