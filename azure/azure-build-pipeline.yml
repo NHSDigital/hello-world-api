@@ -19,7 +19,6 @@ resources:
       name: NHSDigital/api-management-utils
       ref: refs/heads/edge
       endpoint: NHSDigital
-      ref: refs/heads/apm-1645-manual-approval-gate
 
 variables:
   - template: project.yml

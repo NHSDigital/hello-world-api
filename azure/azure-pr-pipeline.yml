@@ -10,7 +10,6 @@ resources:
       name: NHSDigital/api-management-utils
       ref: refs/heads/edge
       endpoint: NHSDigital
-      ref: refs/heads/apm-1645-manual-approval-gate
   pipelines:
   - pipeline: build_pipeline
     source: "Hello-World-Build"
