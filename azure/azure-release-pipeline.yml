@@ -33,7 +33,6 @@ extends:
     product_display_name: ${{ variables.product_display_name }}
     product_description: ${{ variables.product_description }}
     spec_file: ${{ variables.spec_file }}
-    prod_requires_approval: true
     secret_ids:
      - ptl/azure-devops/hello-world-env-internal-dev/API_KEY
      - ptl/monitoring/status-endpoint-api-key
