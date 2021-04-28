@@ -1,0 +1,5 @@
+.idea
+.env
+*.key
+.venv
+venv
