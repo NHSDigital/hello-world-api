@@ -1,11 +1,10 @@
+from time import time
+
+import pytest
+
 from api_tests.scripts.config import (
-    OAUTH_URL,
     ID_TOKEN_NHS_LOGIN_PRIVATE_KEY_ABSOLUTE_PATH,
 )
-from api_tests.scripts.response_bank import BANK
-import pytest
-import random
-from time import time
 
 
 @pytest.mark.asyncio
@@ -41,7 +40,7 @@ class TestOauthEndpoints:
             'vot': 'P9.Cp.Cd',
             'exp': int(time()) + 600,
             'iat': int(time()) - 10,
-            'vtm' : 'https://auth.sandpit.signin.nhs.uk/trustmark/auth.sandpit.signin.nhs.uk',
+            'vtm': 'https://auth.sandpit.signin.nhs.uk/trustmark/auth.sandpit.signin.nhs.uk',
             'jti': 'b68ddb28-e440-443d-8725-dfe0da330118',
             'identity_proofing_level': 'P9'
         }
@@ -61,7 +60,8 @@ class TestOauthEndpoints:
             contents = f.read()
 
         client_assertion_jwt = self.oauth.create_jwt(kid="test-1")
-        id_token_jwt = self.oauth.create_id_token_jwt(algorithm='RS512',claims=id_token_claims, headers = id_token_headers, signing_key=contents)
+        id_token_jwt = self.oauth.create_id_token_jwt(algorithm='RS512', claims=id_token_claims,
+                                                      headers=id_token_headers, signing_key=contents)
 
         # When
         resp = await self.oauth.get_token_response(
