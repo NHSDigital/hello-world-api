@@ -1,7 +1,7 @@
 from time import time
-import requests
 
 import pytest
+import requests
 
 from api_tests.scripts.config import (
     ID_TOKEN_NHS_LOGIN_PRIVATE_KEY_ABSOLUTE_PATH,
@@ -10,6 +10,7 @@ from api_tests.scripts.config import (
 
 apigee_env = 'internal-dev'
 service_url = f'https://{apigee_env}.api.service.nhs.uk/{SERVICE_NAME}'
+
 
 @pytest.mark.asyncio
 class TestOauthEndpoints:
