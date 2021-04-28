@@ -61,6 +61,7 @@ release: clean publish build-proxy
 	cp ecs-proxies-deploy.yml dist/ecs-deploy-all.yml
 	cp -r build/. dist
 	cp -r tests dist
+	cp -r api_tests dist
 
 sandbox: update-examples
 	cd docker/hello-world-sandbox && npm run start

@@ -23,9 +23,9 @@ def get_token(request):
     """
 
     async def _token(
-        grant_type: str = "authorization_code",
-        test_app: ApigeeApiDeveloperApps = None,
-        **kwargs
+            grant_type: str = "authorization_code",
+            test_app: ApigeeApiDeveloperApps = None,
+            **kwargs
     ):
         if test_app:
             # Use provided test app
@@ -102,7 +102,7 @@ async def _product_with_full_access():
     product = ApigeeApiProducts()
     await product.create_new_product()
     _set_default_rate_limit(product)
-    product.update_scopes([
+    await product.update_scopes([
         "personal-demographics-service:USER-RESTRICTED",
         "urn:nhsd:apim:app:level3:",
         "urn:nhsd:apim:user-nhs-id:aal3:personal-demographics-service",

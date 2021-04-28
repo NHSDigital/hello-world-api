@@ -1,11 +1,15 @@
 from time import time
+import requests
 
 import pytest
 
 from api_tests.scripts.config import (
     ID_TOKEN_NHS_LOGIN_PRIVATE_KEY_ABSOLUTE_PATH,
+    SERVICE_NAME
 )
 
+apigee_env = 'internal-dev'
+service_url = f'https://{apigee_env}.api.service.nhs.uk/{SERVICE_NAME}-pr-227'
 
 @pytest.mark.asyncio
 class TestOauthEndpoints:
@@ -26,11 +30,6 @@ class TestOauthEndpoints:
     @pytest.mark.happy_path
     async def test_nhs_login_happy_path(self):
         # Given
-        expected_status_code = 200
-        expected_expires_in = '599'
-        expected_token_type = 'Bearer'
-        expected_issued_token_type = 'urn:ietf:params:oauth:token-type:access_token'
-
         id_token_claims = {
             'aud': 'tf_-APIM-1',
             'id_status': 'verified',
@@ -59,11 +58,10 @@ class TestOauthEndpoints:
         with open(ID_TOKEN_NHS_LOGIN_PRIVATE_KEY_ABSOLUTE_PATH, "r") as f:
             contents = f.read()
 
-        client_assertion_jwt = self.oauth.create_jwt(kid="test-1")
+        client_assertion_jwt = self.oauth.create_jwt(kid="test-1", client_id='eAMbFALgZFdnds2w5Z1u78AGCcJ0FtxQ')
         id_token_jwt = self.oauth.create_id_token_jwt(algorithm='RS512', claims=id_token_claims,
                                                       headers=id_token_headers, signing_key=contents)
 
-        # When
         resp = await self.oauth.get_token_response(
             grant_type="token_exchange",
             data={
@@ -74,10 +72,11 @@ class TestOauthEndpoints:
                 'client_assertion': client_assertion_jwt
             }
         )
+        access_token = resp['body']['access_token']
 
-        #     # Then
-        assert expected_status_code == resp['status_code'], resp['body']
-        assert 'access_token' in resp['body']
-        assert expected_expires_in == resp['body']['expires_in']
-        assert expected_token_type == resp['body']['token_type']
-        assert expected_issued_token_type == resp['body']['issued_token_type']
+        # When
+        resp = requests.get(f'{service_url}/hello/user', headers={"Authorization": f"Bearer {access_token}"})
+
+        # Then
+        assert resp.status_code == 200
+        assert 'Hello User' in resp.text
