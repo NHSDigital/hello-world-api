@@ -41,7 +41,7 @@ extends:
       - environment: internal-dev
         make_spec_visible: true
         post_deploy:
-          - template: templates/postman-tests.yml
+          - template: templates/tests.yml
             parameters:
               service_name: ${{ variables.service_name }}
       - environment: internal-dev-sandbox

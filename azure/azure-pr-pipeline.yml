@@ -43,6 +43,6 @@ extends:
     apigee_deployments:
       - environment: internal-dev
         post_deploy:
-          - template: templates/postman-tests.yml
+          - template: templates/tests.yml
             parameters:
               service_name: ${{ variables.service_name }}
