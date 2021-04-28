@@ -9,7 +9,7 @@ from api_tests.scripts.config import (
 )
 
 apigee_env = 'internal-dev'
-service_url = f'https://{apigee_env}.api.service.nhs.uk/{SERVICE_NAME}-pr-227'
+service_url = f'https://{apigee_env}.api.service.nhs.uk/{SERVICE_NAME}'
 
 @pytest.mark.asyncio
 class TestOauthEndpoints:
@@ -75,6 +75,8 @@ class TestOauthEndpoints:
         access_token = resp['body']['access_token']
 
         # When
+        print(f"service_url {service_url}")
+        print(f"access_token {access_token}")
         resp = requests.get(f'{service_url}/hello/user', headers={"Authorization": f"Bearer {access_token}"})
 
         # Then
