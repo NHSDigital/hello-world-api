@@ -23,6 +23,7 @@ class TestAuthEndpoints:
     def test_user_restricted_api_with_nhs_login(self, config, service_url):
         # Given
         endpoint = f"{service_url}/hello/user"
+        print(f"url {service_url}")
         client_id = config["client_id"]
 
         client_assertion_claims = {"aud": config["oauth_token_endpoint"]}
