@@ -68,7 +68,7 @@ steps:
 
      pytest --service_name $(FULLY_QUALIFIED_SERVICE_NAME) --apigee_env $(APIGEE_ENVIRONMENT) \
      --client_id eAMbFALgZFdnds2w5Z1u78AGCcJ0FtxQ \
-     --api_key $(API_KEY) --status_api_key=$(status-endpoint-api-key)
+     --api_key $(API_KEY) --status_api_key=$(status-endpoint-api-key) \
      --jwt_private_key_file "$(Pipeline.Workspace)/secrets/$(JWT_TESTING_PRIVATE_KEY)" \
      --id_token_private_key_file "$(Pipeline.Workspace)/secrets/$(ID_TOKEN_NHS_LOGIN_PRIVATE_KEY)"
 
