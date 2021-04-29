@@ -3,7 +3,7 @@ from time import time
 import pytest
 import requests
 
-from helpers import create_jwt
+from api_tests.helpers import create_jwt
 
 
 class TestAuthEndpoints:
