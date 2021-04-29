@@ -5,14 +5,17 @@ LABEL maintainer="API Management Team"
 
 # Create working directory
 RUN mkdir -p /var/api_tests/
+RUN mkdir -p /var/api_tests/.env
+RUN mkdir -p /var/api_tests/reports
 
-# Set up test environment
-COPY "." "/var/api_tests"
+COPY . /var/api_tests
 RUN pip install --upgrade pip
 RUN pip install -r /var/api_tests/requirements.txt
 
-WORKDIR "/var/api_tests/"
+WORKDIR /var/api_tests
 
 ENV PYTHONPATH=/var/api-tests/:
+VOLUME /var/api_tests/.env
+VOLUME /var/api_tests/reports
 
-CMD tail -f /dev/null
+ENTRYPOINT ["/usr/local/bin/pytest"]
