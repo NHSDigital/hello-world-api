@@ -27,19 +27,19 @@ def pytest_configure(config):
 
 
 @pytest.fixture()
-def config(config):
+def config(pytestconfig):
     return {
-        "apigee_env": config.getoption("apigee_env"),
-        "service_name": config.getoption("service_name"),
-        "client_id": config.getoption("client_id"),
-        "api_key": config.getoption("api_key"),
-        "status_api_key": config.getoption("status_api_key"),
-        "id_token_private_key_file": config.getoption("id_token_private_key_file"),
-        "jwt_private_key_file": config.getoption("jwt_private_key_file"),
-        "oauth_token_endpoint": config.getoption("oauth_token_endpoint"),
+        "apigee_env": pytestconfig.getoption("apigee_env"),
+        "service_name": pytestconfig.getoption("service_name"),
+        "client_id": pytestconfig.getoption("client_id"),
+        "api_key": pytestconfig.getoption("api_key"),
+        "status_api_key": pytestconfig.getoption("status_api_key"),
+        "id_token_private_key_file": pytestconfig.getoption("id_token_private_key_file"),
+        "jwt_private_key_file": pytestconfig.getoption("jwt_private_key_file"),
+        "oauth_token_endpoint": pytestconfig.getoption("oauth_token_endpoint"),
     }
 
 
 @pytest.fixture()
-def service_url(config):
-    return f'https://{config.getoption("apigee_env")}.api.service.nhs.uk/{config.getoption("service_name")}'
+def service_url(pytestconfig):
+    return f'https://{pytestconfig.getoption("apigee_env")}.api.service.nhs.uk/{pytestconfig.getoption("service_name")}'
