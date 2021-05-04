@@ -1,0 +1,17 @@
+{
+  "name": "hello-world-tests",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node_modules/.bin/node e2e/test-runner.js hello-world $APIGEE_ENVIRONMENT",
+    "test:sandbox": "ACCESS_TOKEN=dummy_token API_KEY=dummy_api_key node_modules/.bin/node e2e/test-runner.js hello-world sandbox"
+  },
+  "author": "",
+  "license": "(MIT OR OGL)",
+  "dependencies": {
+    "docopt": "^0.6.2",
+    "newman": "^5.0.0",
+    "node": "^13.12.0"
+  }
+}
