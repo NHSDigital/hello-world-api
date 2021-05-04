@@ -12,9 +12,6 @@ install-node:
 install-hooks:
 	cp scripts/pre-commit .git/hooks/pre-commit
 
-test:
-	npm run test
-
 lint:
 	npm run lint
 	cd docker/hello-world-sandbox && npm run lint && cd ..
@@ -60,7 +57,7 @@ release: clean publish build-proxy
 	tar -zcvf dist/package.tar.gz build
 	cp ecs-proxies-deploy.yml dist/ecs-deploy-all.yml
 	cp -r build/. dist
-	cp -r tests dist
+	cp -r api_tests dist
 
 sandbox: update-examples
 	cd docker/hello-world-sandbox && npm run start
