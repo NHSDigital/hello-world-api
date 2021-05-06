@@ -2,8 +2,8 @@ import pytest
 
 
 def pytest_addoption(parser):
-    parser.addoption("--service_name", action="store", required=True,
-                     help="Fully qualified service name. Example: hello-world-pr-234")
+    parser.addoption("--service_base_path", action="store", required=True,
+                     help="Service base path. Example: hello-world-pr-234")
     parser.addoption("--apigee_env", action="store", required=True, help="Apigee environment")
     parser.addoption("--client_id", action="store", required=True, help="Client ID of default app")
     parser.addoption("--api_key", action="store", required=True, help="API Key for default app")
@@ -30,7 +30,7 @@ def pytest_configure(config):
 def config(pytestconfig):
     return {
         "apigee_env": pytestconfig.getoption("apigee_env"),
-        "service_name": pytestconfig.getoption("service_name"),
+        "service_base_path": pytestconfig.getoption("service_base_path"),
         "client_id": pytestconfig.getoption("client_id"),
         "api_key": pytestconfig.getoption("api_key"),
         "status_api_key": pytestconfig.getoption("status_api_key"),
@@ -42,4 +42,5 @@ def config(pytestconfig):
 
 @pytest.fixture()
 def service_url(pytestconfig):
-    return f'https://{pytestconfig.getoption("apigee_env")}.api.service.nhs.uk/{pytestconfig.getoption("service_name")}'
+    return f'https://{pytestconfig.getoption("apigee_env")}.api.service.nhs.uk' \
+           f'/{pytestconfig.getoption("service_base_path")}'

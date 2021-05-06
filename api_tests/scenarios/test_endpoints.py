@@ -35,7 +35,6 @@ class TestAuthEndpoints:
     @pytest.mark.happy_path
     def test_user_restricted_api_with_nhs_login(self, config, service_url):
         # Given
-        endpoint = f"{service_url}/hello/user"
         client_id = config["client_id"]
 
         client_assertion_claims = {"aud": config["oauth_token_endpoint"]}
@@ -81,6 +80,7 @@ class TestAuthEndpoints:
         access_token = response.json()['access_token']
 
         # When
+        endpoint = f"{service_url}/hello/user"
         response = requests.get(endpoint, headers={"Authorization": f"Bearer {access_token}"})
 
         # Then
