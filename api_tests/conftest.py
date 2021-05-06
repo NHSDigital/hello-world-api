@@ -42,4 +42,5 @@ def config(pytestconfig):
 
 @pytest.fixture()
 def service_url(pytestconfig):
-    return f'https://{pytestconfig.getoption("apigee_env")}.api.service.nhs.uk/{pytestconfig.getoption("service_base_path")}'
+    return f'https://{pytestconfig.getoption("apigee_env")}.api.service.nhs.uk' \
+           f'/{pytestconfig.getoption("service_base_path")}'
