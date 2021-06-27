@@ -35,7 +35,7 @@ flake8 = "^3.7.9"
 black = "^19.10b0"
 pip-licenses = "^2.0.1"
 jinja2 = "^2.11.2"
-locust = "^1.4.1"
+locust = "^1.6.0"
 
 
 [tool.poetry.scripts]
