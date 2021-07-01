@@ -36,6 +36,7 @@ extends:
     secret_ids:
      - ptl/azure-devops/hello-world-env-internal-dev/API_KEY
     enable_monitoring: true
+    enable_status_monitoring: false
     apigee_deployments:
       - environment: internal-dev
         make_spec_visible: true
