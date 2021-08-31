@@ -43,6 +43,8 @@ extends:
           - template: templates/tests.yml
             parameters:
               service_name: ${{ variables.service_name }}
+        jinja_templates:
+            REQUIRE_ASID: true
       - environment: internal-dev-sandbox
         make_spec_visible: true
       - environment: internal-qa-sandbox
