@@ -8,7 +8,7 @@
     <Request/>
     <Response>
       <Step>
-        <Name>FlowCallout.UserRoleService</Name>
+        <Name>FlowCallout.GenericAsid</Name>
       </Step>
       <Step>
         <Name>AssignMessage.AddCors</Name>
