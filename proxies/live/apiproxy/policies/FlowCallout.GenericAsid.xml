@@ -3,5 +3,8 @@
     <DisplayName>FlowCallout.GenericAsid</DisplayName>
     <FaultRules/>
     <Properties/>
+    <Parameters>
+      <Parameter name="RequireAsid">false</Parameter>
+    </Parameters>
     <SharedFlowBundle>GenericAsid</SharedFlowBundle>
 </FlowCallout>
