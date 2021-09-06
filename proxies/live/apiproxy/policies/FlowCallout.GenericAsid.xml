@@ -4,7 +4,7 @@
     <FaultRules/>
     <Properties/>
     <Parameters>
-      <Parameter name="RequireAsid">false</Parameter>
+      <Parameter name="RequireAsid">{% if REQUIRE_ASID == 'True' %}true{% else %}false{% endif %}</Parameter>
     </Parameters>
     <SharedFlowBundle>GenericAsid</SharedFlowBundle>
 </FlowCallout>
