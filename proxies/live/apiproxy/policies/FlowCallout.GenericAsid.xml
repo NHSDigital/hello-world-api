@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<FlowCallout async="false" continueOnError="false" enabled="true" name="FlowCallout.GenericAsid">
+    <DisplayName>FlowCallout.GenericAsid</DisplayName>
+    <FaultRules/>
+    <Properties/>
+    <Parameters>
+      <Parameter name="RequireAsid">{% if REQUIRE_ASID == 'True' %}true{% else %}false{% endif %}</Parameter>
+    </Parameters>
+    <SharedFlowBundle>GenericAsid</SharedFlowBundle>
+</FlowCallout>
