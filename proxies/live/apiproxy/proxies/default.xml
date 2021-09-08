@@ -5,7 +5,6 @@
     </Step>
   </DefaultFaultRule>
   <Flows>
-
     <Flow name="AddPayloadToPing">
       <Description/>
       <Request/>
@@ -38,9 +37,6 @@
       <Request>
         <Step>
           <Name>VerifyApiKey-Header</Name>
-        </Step>
-        <Step>
-          <Name>FlowCallout.GenericAsid</Name>
         </Step>
       </Request>
       <Response/>
