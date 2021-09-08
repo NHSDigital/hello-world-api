@@ -36,8 +36,6 @@ extends:
     secret_ids:
      - ptl/azure-devops/hello-world-env-internal-dev/API_KEY
     enable_monitoring: true
-    jinja_templates:
-      REQUIRE_ASID: false
     apigee_deployments:
       - environment: internal-dev
         make_spec_visible: true
@@ -49,11 +47,17 @@ extends:
             REQUIRE_ASID: false
       - environment: internal-dev-sandbox
         make_spec_visible: true
+        jinja_templates:
+            REQUIRE_ASID: false
       - environment: internal-qa-sandbox
         make_spec_visible: true
+        jinja_templates:
+            REQUIRE_ASID: false
       - environment: sandbox
         make_spec_visible: true
         depends_on:
           - internal_dev
           - internal_dev_sandbox
           - internal_qa_sandbox
+        jinja_templates:
+            REQUIRE_ASID: false
