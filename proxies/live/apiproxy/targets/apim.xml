@@ -8,9 +8,6 @@
     <Request/>
     <Response>
       <Step>
-        <Name>FlowCallout.GenericAsid</Name>
-      </Step>
-      <Step>
         <Name>AssignMessage.AddCors</Name>
       </Step>
     </Response>
