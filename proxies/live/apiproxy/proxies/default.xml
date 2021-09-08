@@ -1,12 +1,12 @@
 <ProxyEndpoint name="default">
   <DefaultFaultRule>
-      <Step>
-          <Name>AssignMessage.AddCors</Name>
-      </Step>
+    <Step>
+      <Name>AssignMessage.AddCors</Name>
+    </Step>
   </DefaultFaultRule>
   <Flows>
 
-  <Flow name="AddPayloadToPing">
+    <Flow name="AddPayloadToPing">
       <Description/>
       <Request/>
       <Response>
@@ -39,9 +39,9 @@
         <Step>
           <Name>VerifyApiKey-Header</Name>
         </Step>
-                <Step>
-        <Name>FlowCallout.GenericAsid</Name>
-      </Step>
+        <Step>
+          <Name>FlowCallout.GenericAsid</Name>
+        </Step>
       </Request>
       <Response/>
       <Condition>(proxy.pathsuffix MatchesPath "/hello/application")  and (request.verb = "GET")</Condition>
@@ -49,9 +49,9 @@
     <Flow name="Flow.AuthOAuth">
       <Description/>
       <Request>
-          <Step>
-              <Name>Oauth-VerifyAccessToken</Name>
-          </Step>
+        <Step>
+          <Name>Oauth-VerifyAccessToken</Name>
+        </Step>
       </Request>
       <Response/>
       <Condition>(proxy.pathsuffix MatchesPath "/hello/user") and (request.verb = "GET")</Condition>
