@@ -45,21 +45,13 @@ extends:
           - template: templates/tests.yml
             parameters:
               service_name: ${{ variables.service_name }}
-        jinja_templates:
-            REQUIRE_ASID: false
       - environment: internal-dev-sandbox
         make_spec_visible: true
-        jinja_templates:
-            REQUIRE_ASID: false
       - environment: internal-qa-sandbox
         make_spec_visible: true
-        jinja_templates:
-            REQUIRE_ASID: false
       - environment: sandbox
         make_spec_visible: true
         depends_on:
           - internal_dev
           - internal_dev_sandbox
           - internal_qa_sandbox
-        jinja_templates:
-            REQUIRE_ASID: false
