@@ -39,8 +39,6 @@ extends:
     enable_monitoring: false
     secret_ids:
      - ptl/azure-devops/hello-world-env-internal-dev/API_KEY
-    jinja_templates:
-      REQUIRE_ASID: true
     apigee_deployments:
       - environment: internal-dev
         post_deploy:

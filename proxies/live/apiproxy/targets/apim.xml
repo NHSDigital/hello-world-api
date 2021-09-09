@@ -5,11 +5,7 @@
     <Response/>
   </PostFlow>
   <PreFlow name="PreFlow">
-    <Request>
-      <Step>
-        <Name>FlowCallout.GenericAsid</Name>
-      </Step>
-    </Request>
+    <Request />
     <Response>
       <Step>
         <Name>AssignMessage.AddCors</Name>
