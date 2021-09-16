@@ -97,6 +97,13 @@ paths:
       description: |
         ## Overview
         Use this endpoint alongside our [application-restricted REST API tutorial](https://digital.nhs.uk/developer/guides-and-documentation/tutorials/application-restricted-rest-api-tutorial) to learn how to connect to our APIs.
+      parameters:
+        - in: header
+          name: apikey
+          description: API key to authenticate with. Use any value for Sandbox environment.
+          schema:
+            type: string
+          required: true
       responses:
         '200':
           description: Successful response
@@ -125,6 +132,53 @@ paths:
       description: |
         ## Overview
         Use this endpoint alongside our [user-restricted REST API tutorial](https://digital.nhs.uk/developer/guides-and-documentation/tutorials/user-restricted-rest-api-tutorial) to learn how to connect to our APIs.
+      parameters:
+        - in: header
+          name: Authorization
+          description: |
+            An [OAuth 2.0 bearer token](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation#user-restricted-apis).
+            Required in all environments except sandbox.
+          required: true
+          schema:
+            type: string
+            format: '^Bearer\ [[:ascii:]]+$'
+            example: 'Bearer g1112R_ccQ1Ebbb4gtHBP1aaaNM'
+        - in: header
+          name: X-Correlation-ID
+          required: false
+          description: |
+              A globally unique identifier (GUID) for the request, which we use to trace the request if you contact our helpdesk.
+              Mirrored back in a response header.
+              Avoid `.` characters.
+          schema:
+            type: string
+            example: 11C46F5F-CDEF-4865-94B2-0EE0EDCC26DA
+        - in: header
+          name: X-Request-ID
+          required: false
+          description: |
+              A globally unique identifier (GUID) for the request, which we use to de-duplicate repeated requests.
+              Must be a universally unique identifier (UUID) (ideally version 4).
+              If you re-send a failed request, use the same value in this header.
+              Mirrored back in a response header.
+          schema:
+            type: string
+            pattern: '^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$'
+            example: 60E0B220-8136-4CA5-AE46-1D97EF59D068
+        - in: header
+          name: NHSD-Session-URID
+          description: |
+              The user role ID (URID) for the current session. Also known as a user role profile ID (URPID).
+              If you are using User-restricted RESTful APIs - NHS login combined authentication and authorisation, See [determin the user's role](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation/user-restricted-restful-apis-nhs-cis2-combined-authentication-and-authorisation#step-7-determine-the-user-s-role) guidance.
+              If you are using User-restricted RESTful APIs - NHS login separate authentication and authorisation, See [determin the user's role](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation/user-restricted-restful-apis-nhs-cis2-separate-authentication-and-authorisation#step-9-determine-the-user-s-role) guidance.
+        
+              This field is optional.
+          required: false
+          schema:
+            type: string
+            pattern: '^[0-9]+$'
+            example: '555021935107'
+        
       responses:
         '200':
           description: Successful response
