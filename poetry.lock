@@ -347,11 +347,11 @@ python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,>=2.7"
 
 [[package]]
 name = "pip-licenses"
-version = "2.3.0"
+version = "3.5.3"
 description = "Dump the software license list of Python packages installed with pip."
 category = "dev"
 optional = false
-python-versions = "~=3.5"
+python-versions = "~=3.6"
 
 [package.dependencies]
 PTable = "*"
@@ -564,7 +564,7 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "e8f9475e1771732f382036e14e9978a67303af47f8c1e0fa225281148f740280"
+content-hash = "699fd8d5c780b63720d6202e0721889767e79578f835e73bd723c3d82cbc777f"
 
 [metadata.files]
 appdirs = [
@@ -987,8 +987,8 @@ pathspec = [
     {file = "pathspec-0.9.0.tar.gz", hash = "sha256:e564499435a2673d586f6b2130bb5b95f04a3ba06f81b8f895b651a3c76aabb1"},
 ]
 pip-licenses = [
-    {file = "pip-licenses-2.3.0.tar.gz", hash = "sha256:630f7e1b51ac0751c9c218e2ed76bb982e769301510a0bcca0dd4a47d05198fd"},
-    {file = "pip_licenses-2.3.0-py3-none-any.whl", hash = "sha256:b3922fc71e819c1a155460116d2fcf15eca85a22ebe057cd1e1dedb951b1199f"},
+    {file = "pip-licenses-3.5.3.tar.gz", hash = "sha256:f44860e00957b791c6c6005a3328f2d5eaeee96ddb8e7d87d4b0aa25b02252e4"},
+    {file = "pip_licenses-3.5.3-py3-none-any.whl", hash = "sha256:59c148d6a03784bf945d232c0dc0e9de4272a3675acaa0361ad7712398ca86ba"},
 ]
 ply = [
     {file = "ply-3.11-py2.py3-none-any.whl", hash = "sha256:096f9b8350b65ebd2fd1346b12452efe5b9607f7482813ffca50c22722a807ce"},
