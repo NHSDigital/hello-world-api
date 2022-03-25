@@ -22,7 +22,7 @@ info:
     
     ## Network access
     This API is available on the internet and, indirectly, on the [Health and Social Care Network (HSCN)](https://digital.nhs.uk/services/health-and-social-care-network).
-    To use this API with NHS smartcards (see below) you do need an HSCN connection, although internet-facing alternatives are available.
+    To use this API with NHS [smartcards](https://digital.nhs.uk/services/registration-authorities-and-smartcards) (see below) you do need an HSCN connection, although internet-facing alternatives are available.
     For more details see [Network access for APIs](https://digital.nhs.uk/developer/guides-and-documentation/network-access-for-apis).
     
     ## Security and authorisation
@@ -97,6 +97,13 @@ paths:
       description: |
         ## Overview
         Use this endpoint alongside our [application-restricted REST API tutorial](https://digital.nhs.uk/developer/guides-and-documentation/tutorials/application-restricted-rest-api-tutorial) to learn how to connect to our APIs.
+      parameters:
+        - in: header
+          name: apikey
+          description: API key to authenticate with. Use a valid value for the Sandbox environment.
+          schema:
+            type: string
+          required: true
       responses:
         '200':
           description: Successful response
@@ -125,6 +132,17 @@ paths:
       description: |
         ## Overview
         Use this endpoint alongside our [user-restricted REST API tutorial](https://digital.nhs.uk/developer/guides-and-documentation/tutorials/user-restricted-rest-api-tutorial) to learn how to connect to our APIs.
+      parameters:
+        - in: header
+          name: Authorization
+          description: |
+            An [OAuth 2.0 bearer token](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation#user-restricted-apis).
+          required: true
+          schema:
+            type: string
+            format: '^Bearer\ [[:ascii:]]+$'
+            example: 'Bearer g1112R_ccQ1Ebbb4gtHBP1aaaNM'
+        
       responses:
         '200':
           description: Successful response
