@@ -13,7 +13,7 @@ info:
      For further details, see the 'Security and authorisation' section below.
     
     ## API status and roadmap
-    This API is for learning purposes only and is available in the sandbox environment.
+    This API is in [beta](https://digital.nhs.uk/developer/guides-and-documentation/reference-guide#api-status). Use it for learning purposes only and is available in the sandbox environment.
     To see our roadmap, or to suggest, comment or vote on features for this API, see our [interactive product backlog](https://nhs-digital-api-management.featureupvote.com/?order=popular&filter=allexceptdone&tag=make-learning-easier#controls).
     
     If you have any other queries, please [contact us](https://digital.nhs.uk/developer/help-and-support).
