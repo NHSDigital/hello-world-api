@@ -34,6 +34,9 @@ extends:
     product_description: ${{ variables.product_description }}
     spec_file: ${{ variables.spec_file }}
     enable_monitoring: true
+    secret_ids:
+     - ptl/azure-devops/env-internal-dev/API_KEY
+     - ptl/azure-devops/env-sandbox/API_KEY
     apigee_deployments:
       - environment: internal-dev
         make_spec_visible: true
