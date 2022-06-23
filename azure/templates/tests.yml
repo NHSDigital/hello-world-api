@@ -1,6 +1,8 @@
 parameters:
   - name: service_name
     type: string
+  - name: secret_ids
+    type: object
 
 steps:
   - task: DockerInstaller@0
@@ -27,13 +29,12 @@ steps:
       - ptl/app-credentials/jwt_testing/non-prod/ID_TOKEN_TESTING_PRIVATE_KEY
       - ptl/app-credentials/jwt_testing/non-prod/ID_TOKEN_NHS_LOGIN_PRIVATE_KEY
      config_ids: []
-     secret_ids: []
 
   - bash: |
      source ./test_env/bin/activate
 
      pytest --service_base_path $(SERVICE_BASE_PATH) --apigee_env $(APIGEE_ENVIRONMENT) \
-     --client_id eAMbFALgZFdnds2w5Z1u78AGCcJ0FtxQ \
+     --client_id $(API_KEY) \
      --api_key $(API_KEY) --status_api_key=$(status-endpoint-api-key) \
      --jwt_private_key_file "$(Pipeline.Workspace)/secrets/$(JWT_TESTING_PRIVATE_KEY)" \
      --id_token_private_key_file "$(Pipeline.Workspace)/secrets/$(ID_TOKEN_NHS_LOGIN_PRIVATE_KEY)"

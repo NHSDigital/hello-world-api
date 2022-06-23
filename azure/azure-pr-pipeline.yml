@@ -32,16 +32,15 @@ extends:
     service_name: ${{ variables.service_name }}
     short_service_name: ${{ variables.short_service_name }}
     service_base_path: ${{ variables.service_base_path }}
-    product_display_name: ${{ variables.product_display_name }}
-    product_description: ${{ variables.product_description }}
-    spec_file: ${{ variables.spec_file }}
     deploy_review_sandbox: false
     enable_monitoring: false
     secret_ids:
-     - ptl/azure-devops/hello-world-env-internal-dev/API_KEY
+    - ptl/azure-devops/env-internal-dev/API_KEY
     apigee_deployments:
       - environment: internal-dev
         post_deploy:
           - template: templates/tests.yml
             parameters:
               service_name: ${{ variables.service_name }}
+              secret_ids:
+              - ptl/azure-devops/env-internal-dev/API_KEY
