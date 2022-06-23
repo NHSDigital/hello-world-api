@@ -1,8 +1,6 @@
 parameters:
   - name: service_name
     type: string
-  - name: secret_ids
-    type: object
 
 steps:
   - task: DockerInstaller@0
@@ -29,6 +27,8 @@ steps:
       - ptl/app-credentials/jwt_testing/non-prod/ID_TOKEN_TESTING_PRIVATE_KEY
       - ptl/app-credentials/jwt_testing/non-prod/ID_TOKEN_NHS_LOGIN_PRIVATE_KEY
      config_ids: []
+     secret_ids:
+      - ptl/azure-devops/env-$(APIGEE_ENVIRONMENT)/API_KEY
 
   - bash: |
      source ./test_env/bin/activate

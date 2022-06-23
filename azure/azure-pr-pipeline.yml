@@ -34,13 +34,9 @@ extends:
     service_base_path: ${{ variables.service_base_path }}
     deploy_review_sandbox: false
     enable_monitoring: false
-    secret_ids:
-    - ptl/azure-devops/env-internal-dev/API_KEY
     apigee_deployments:
       - environment: internal-dev
         post_deploy:
           - template: templates/tests.yml
             parameters:
               service_name: ${{ variables.service_name }}
-              secret_ids:
-              - ptl/azure-devops/env-internal-dev/API_KEY
