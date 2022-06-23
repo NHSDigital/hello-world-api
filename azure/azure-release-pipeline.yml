@@ -31,9 +31,6 @@ extends:
     short_service_name: ${{ variables.short_service_name }}
     service_base_path: ${{ variables.service_base_path }}
     enable_monitoring: true
-    secret_ids:
-     - ptl/azure-devops/env-internal-dev/API_KEY
-     - ptl/azure-devops/env-sandbox/API_KEY
     apigee_deployments:
       - environment: internal-dev
         make_spec_visible: true
@@ -41,8 +38,6 @@ extends:
           - template: templates/tests.yml
             parameters:
               service_name: ${{ variables.service_name }}
-              secret_ids:
-               - ptl/azure-devops/env-internal-dev/API_KEY
       - environment: internal-dev-sandbox
         make_spec_visible: true
       - environment: internal-qa-sandbox
@@ -57,5 +52,3 @@ extends:
           - template: templates/tests.yml
             parameters:
               service_name: ${{ variables.service_name }}
-              secret_ids:
-               - ptl/azure-devops/env-sandbox/API_KEY
