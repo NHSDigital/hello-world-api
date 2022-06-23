@@ -42,7 +42,7 @@ extends:
             parameters:
               service_name: ${{ variables.service_name }}
               secret_ids:
-               -ptl/azure-devops/env-internal-dev/API_KEY
+               - ptl/azure-devops/env-internal-dev/API_KEY
       - environment: internal-dev-sandbox
         make_spec_visible: true
       - environment: internal-qa-sandbox
@@ -58,4 +58,4 @@ extends:
             parameters:
               service_name: ${{ variables.service_name }}
               secret_ids:
-               -ptl/azure-devops/env-sandbox/API_KEY
+               - ptl/azure-devops/env-sandbox/API_KEY
