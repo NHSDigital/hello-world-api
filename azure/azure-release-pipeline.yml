@@ -53,3 +53,7 @@ extends:
           - internal_dev
           - internal_dev_sandbox
           - internal_qa_sandbox
+        post_deploy:
+          - template: templates/tests.yml
+            parameters:
+              service_name: ${{ variables.service_name }}
