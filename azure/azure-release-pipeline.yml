@@ -33,8 +33,6 @@ extends:
     product_display_name: ${{ variables.product_display_name }}
     product_description: ${{ variables.product_description }}
     spec_file: ${{ variables.spec_file }}
-    secret_ids:
-     - ptl/azure-devops/hello-world-env-internal-dev/API_KEY
     enable_monitoring: true
     apigee_deployments:
       - environment: internal-dev
@@ -43,6 +41,8 @@ extends:
           - template: templates/tests.yml
             parameters:
               service_name: ${{ variables.service_name }}
+              secret_ids:
+               -ptl/azure-devops/env-internal-dev/API_KEY
       - environment: internal-dev-sandbox
         make_spec_visible: true
       - environment: internal-qa-sandbox
@@ -57,3 +57,5 @@ extends:
           - template: templates/tests.yml
             parameters:
               service_name: ${{ variables.service_name }}
+              secret_ids:
+               -ptl/azure-devops/env-sandbox/API_KEY
