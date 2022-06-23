@@ -11,8 +11,7 @@ def pytest_addoption(parser):
     parser.addoption("--jwt_private_key_file", action="store", required=True, help="Path to private key to sign JWT")
     parser.addoption("--id_token_private_key_file", action="store", required=True,
                      help="Path to private key to create ID Token")
-    parser.addoption("--oauth_token_endpoint", action="store", required=False,
-                     default="https://internal-dev.api.service.nhs.uk/oauth2/token", help="OAuth token endpoint")
+    parser.addoption("--oauth_token_endpoint", action="store", required=True, help="OAuth token endpoint")
 
 
 def pytest_configure(config):
