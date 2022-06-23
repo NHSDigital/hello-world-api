@@ -2,7 +2,7 @@ parameters:
   - name: service_name
     type: string
   - name: secret_ids
-    type: object
+    type: string
 
 steps:
   - task: DockerInstaller@0
