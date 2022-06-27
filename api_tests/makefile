@@ -2,7 +2,7 @@ SERVICE_BASE_PATH ?= hello-world
 PYTEST_ARGS = --service_base_path $(SERVICE_BASE_PATH) --apigee_env internal-dev --client_id=${API_KEY} \
 	   --api_key=${API_KEY} --status_api_key=${STATUS_API_KEY} \
        --jwt_private_key_file $(shell pwd)/.env/jwtRS512.key \
-       --id_token_private_key_file $(shell pwd)/.env/nhs_login.key
+       --id_token_private_key_file $(shell pwd)/.env/jwtRS512.key
 
 test:
 	./venv/bin/pytest $(PYTEST_ARGS)

@@ -25,7 +25,6 @@ steps:
      secret_file_ids:
       - ptl/app-credentials/jwt_testing/non-prod/JWT_TESTING_PRIVATE_KEY
       - ptl/app-credentials/jwt_testing/non-prod/ID_TOKEN_TESTING_PRIVATE_KEY
-      - ptl/app-credentials/jwt_testing/non-prod/ID_TOKEN_NHS_LOGIN_PRIVATE_KEY
      config_ids: []
      secret_ids:
       - ptl/azure-devops/env-$(APIGEE_ENVIRONMENT)/API_KEY
@@ -37,7 +36,7 @@ steps:
      --client_id $(API_KEY) \
      --api_key $(API_KEY) --status_api_key=$(status-endpoint-api-key) \
      --jwt_private_key_file "$(Pipeline.Workspace)/secrets/$(JWT_TESTING_PRIVATE_KEY)" \
-     --id_token_private_key_file "$(Pipeline.Workspace)/secrets/$(ID_TOKEN_NHS_LOGIN_PRIVATE_KEY)" \
+     --id_token_private_key_file "$(Pipeline.Workspace)/secrets/$(ID_TOKEN_TESTING_PRIVATE_KEY)" \
      --oauth_token_endpoint "https://$(APIGEE_ENVIRONMENT).api.service.nhs.uk/oauth2/token"
 
     workingDirectory: $(Pipeline.Workspace)/s/${{ parameters.service_name }}/$(SERVICE_ARTIFACT_NAME)/api_tests
