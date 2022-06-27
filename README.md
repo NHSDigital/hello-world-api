@@ -68,8 +68,6 @@ pip install virtualenv
      source ./test_env/bin/activate
      pip install -r requirements.txt
 
-Go to the api_test [/api_tests] folder   
-
 Set the following environment variables in a .env file  for local testing:
  * `SERVICE_BASE_PATH`
  * `API_KEY`
