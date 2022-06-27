@@ -7,9 +7,14 @@ This is a RESTful HL7® FHIR® API specification for the *Hello World API*.
 * `specification/` This [Open API Specification](https://swagger.io/docs/specification/about/) describes the endpoints, methods and messages exchanged by the API. Use it to generate interactive documentation; the contract between the API and its consumers.
 * `sandbox/` This NodeJS application implements a mock implementation of the service. Use it as a back-end service to the interactive documentation to illustrate interactions and concepts. It is not intended to provide an exhaustive/faithful environment suitable for full development and testing.
 * `scripts/` Utilities helpful to developers of this specification.
-* `apiproxy/` The Apigee API Proxy
+* `proxies/` Live (connecting to another service) and sandbox (using the sandbox container) Apigee API Proxy definitions.
 
-Consumers of the API will find developer documentation on the [NHS Digital Developer Hub](https://emea-demo8-nhsdportal.apigee.io/).
+Consumers of the API will find developer documentation on the [NHS Digital Developer Hub](https://digital.nhs.uk/developer/api-catalogue/hello-world).
+
+## Table of Contents
+1. [Contributing](#Contributing)
+2. [Development](#Development)
+3. [Deployment](#Deployment)
 
 ## Contributing
 Contributions to this project are welcome from anyone, providing that they conform to the [guidelines for contribution](https://github.com/NHSDigital/hello-world-api/blob/master/CONTRIBUTING.md) and the [community code of conduct](https://github.com/NHSDigital/hello-world-api/blob/master/CODE_OF_CONDUCT.md).
@@ -46,6 +51,9 @@ Various scripts and commands rely on environment variables being set. These are 
 
 ### Make commands
 There are `make` commands that alias some of this functionality:
+
+Make sure you have run `make install` [here](###Install).
+
  * `lint` -- Lints the spec and code
  * `publish` -- Outputs the specification as a **single file** into the `dist/` directory
  * `serve` -- Serves a preview of the specification in human-readable format
@@ -53,24 +61,30 @@ There are `make` commands that alias some of this functionality:
 
 ### Running tests
 #### End-to-end tests
-To run tests, you need to supply an environment. A `local` environment and an environment template are included under `tests/e2e/environments`.
+To run tests, install virtual environment by using the following commands
 
-Set the following environment variables for local testing:
- * `ENVIRONMENT`: `local`
- * `API_TEST_ENV_FILE_PATH`: `tests/e2e/environments/local.postman_environment.json`
- * `API_TEST_URL`: `localhost:9000`
+pip install virtualenv
+     virtualenv test_env
+     source ./test_env/bin/activate
+     pip install -r requirements.txt
+
+Set the following environment variables in a .env file  for local testing:
+ * `SERVICE_BASE_PATH`
+ * `API_KEY`
+ * `STATUS_API_KEY`
+ * `jwtRS512.key`
+ * `nhs_login.key`
+
 
 In order for local tests to work, you must have the sandbox server running locally.
 ```
 make sandbox
 ```
 
-To run local tests, use:
+To run local tests, go to the api_test [/api_tests] folder:
 ```
 make test
 ```
-
-There is a template environment file available at `tests/e2e/environments/postman_environment.json.template` useful for configuring different testing environments (such as on the CI server).
 
 ### VS Code Plugins
 
@@ -84,7 +98,7 @@ There is a template environment file available at `tests/e2e/environments/postma
 
 ### Speccy
 
-> [Speccy](http://speccy.io/) *A handy toolkit for OpenAPI, with a linter to enforce quality rules, documentation rendering, and resolution.*
+> [Speccy](https://github.com/wework/speccy) *A handy toolkit for OpenAPI, with a linter to enforce quality rules, documentation rendering, and resolution.*
 
 Speccy does the lifting for the following npm scripts:
 
