@@ -62,18 +62,17 @@ Make sure you have run `make install` [here](###Install).
 ### Running tests
 #### End-to-end tests
 To run tests, install virtual environment by using the following commands
-
-pip install virtualenv
+```
+     pip install virtualenv
      virtualenv test_env
      source ./test_env/bin/activate
      pip install -r requirements.txt
-
+```
 Set the following environment variables in a .env file  for local testing:
  * `SERVICE_BASE_PATH`
  * `API_KEY`
  * `STATUS_API_KEY`
  * `jwtRS512.key`
- * `nhs_login.key`
 
 
 In order for local tests to work, you must have the sandbox server running locally.
