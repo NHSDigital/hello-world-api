@@ -40,7 +40,7 @@
         </Step>
       </Request>
       <Response/>
-      <Condition>(proxy.pathsuffix MatchesPath "/hello/application") and (request.verb = "GET") and (request.header.apikey != "")</Condition>
+      <Condition>(proxy.pathsuffix MatchesPath "/hello/application") and (request.verb = "GET") and (request.header.apikey isNot null)</Condition>
     </Flow>
     <Flow name="Flow.ApplicationRestricted">
       <Request>
@@ -49,7 +49,7 @@
         </Step>
       </Request>
       <Response/>
-      <Condition>(proxy.pathsuffix MatchesPath "/hello/application") and (request.verb = "GET") and (request.header.Authorization != "")</Condition>
+      <Condition>(proxy.pathsuffix MatchesPath "/hello/application") and (request.verb = "GET") and (request.header.Authorization isNot null)</Condition>
     </Flow>
     <Flow name="Flow.AuthOAuth">
       <Description/>

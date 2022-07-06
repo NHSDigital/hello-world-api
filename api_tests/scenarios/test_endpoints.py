@@ -37,9 +37,7 @@ class TestAuthEndpoints:
     def test_application_restricted_api_with_client_credentials(self, config, service_url,
                                                                 get_token_client_credentials):
         # Given
-        endpoint = f"{service_url}/hello/jwt"
-        print(endpoint)
-        print(get_token_client_credentials)
+        endpoint = f"{service_url}/hello/application"
 
         # When
         response = requests.get(endpoint, headers={"Authorization": f"Bearer {get_token_client_credentials}"})

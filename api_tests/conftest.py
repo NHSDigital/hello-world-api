@@ -51,13 +51,9 @@ def service_url(pytestconfig):
 def get_token_client_credentials(config):
     """Call identity server to get an access token"""
     env = config["apigee_env"]
-    print("foo")
-    print(env)
     if "sandbox" in env:
         # Sandbox environments don't need access_token. Return fake one
         return {"access_token": "not_needed"}
-
-    # jwt = default_oauth_helper.create_jwt(kid="test-1")
 
     private_key_file = config["jwt_private_key_file"]
     client_id = config["client_id"]
@@ -66,10 +62,6 @@ def get_token_client_credentials(config):
     headers = {"kid": "test-1"}
     claims = {"aud": token_url}
     jwt = create_jwt(private_key_path=private_key_file, client_id=client_id, headers=headers, claims=claims)
-
-    # token_resp = await default_oauth_helper.get_token_response(
-    #     grant_type="client_credentials", _jwt=jwt
-    # )
 
     client_assertion_type = "urn:ietf:params:oauth:client-assertion-type:jwt-bearer"
     data = {
