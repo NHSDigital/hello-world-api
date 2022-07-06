@@ -38,6 +38,8 @@ class TestAuthEndpoints:
                                                                 get_token_client_credentials):
         # Given
         endpoint = f"{service_url}/hello/jwt"
+        print(endpoint)
+        print(get_token_client_credentials)
 
         # When
         response = requests.get(endpoint, headers={"Authorization": f"Bearer {get_token_client_credentials}"})
