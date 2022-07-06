@@ -33,14 +33,13 @@ class TestAuthEndpoints:
         assert "Hello Application" in response.text
 
     @pytest.mark.happy_path
-    @pytest.mark.debug
     def test_application_restricted_api_with_client_credentials(self, config, service_url,
-                                                                get_token_client_credentials):
+                                                                client_credentials_access_token):
         # Given
         endpoint = f"{service_url}/hello/application"
 
         # When
-        response = requests.get(endpoint, headers={"Authorization": f"Bearer {get_token_client_credentials}"})
+        response = requests.get(endpoint, headers={"Authorization": f"Bearer {client_credentials_access_token}"})
 
         # Then
         assert response.status_code == 200

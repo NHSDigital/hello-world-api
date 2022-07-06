@@ -48,7 +48,7 @@ def service_url(pytestconfig):
 
 
 @pytest.fixture()
-def get_token_client_credentials(config):
+def client_credentials_access_token(config):
     """Call identity server to get an access token"""
     env = config["apigee_env"]
     if "sandbox" in env:
