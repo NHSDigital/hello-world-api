@@ -36,6 +36,7 @@ black = "^19.10b0"
 pip-licenses = "^3.5.3"
 jinja2 = "^2.11.2"
 locust = "^1.4.1"
+api-test-utils = {url = "https://github.com/NHSDigital/apim-test-utils/releases/download/v1.1.35-alpha/api_test_utils-1.1.35a0-py3-none-any.whl"}
 
 
 [tool.poetry.scripts]

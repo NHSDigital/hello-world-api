@@ -15,7 +15,7 @@ install-hooks:
 lint:
 	npm run lint
 	cd docker/hello-world-sandbox && npm run lint && cd ..
-	find . -name '*.py' | xargs poetry run flake8
+	find . -name '*.py' -not -path '**/venv/*' | xargs poetry run flake8
 
 publish:
 	npm run publish 2> /dev/null

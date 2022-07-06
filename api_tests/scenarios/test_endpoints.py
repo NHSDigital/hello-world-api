@@ -33,6 +33,21 @@ class TestAuthEndpoints:
         assert "Hello Application" in response.text
 
     @pytest.mark.happy_path
+    @pytest.mark.debug
+    def test_application_restricted_api_with_client_credentials(self, config, service_url,
+                                                                get_token_client_credentials):
+        # Given
+        endpoint = f"{service_url}/hello/jwt"
+        access_token = get_token_client_credentials["access_token"]
+
+        # When
+        response = requests.get(endpoint, headers={"Authorization": f"Bearer {access_token}"})
+
+        # Then
+        assert response.status_code == 200
+        assert "Hello Application" in response.text
+
+    @pytest.mark.happy_path
     def test_user_restricted_api_with_cis2_token_exchange(self, config, service_url):
         # Given
         client_id = config["client_id"]

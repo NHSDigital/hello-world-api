@@ -49,7 +49,7 @@
         </Step>
       </Request>
       <Response/>
-      <Condition>(proxy.pathsuffix MatchesPath "/hello/application/jwt")  and (request.verb = "GET")</Condition>
+      <Condition>(proxy.pathsuffix MatchesPath "/hello/jwt")  and (request.verb = "GET")</Condition>
     </Flow>
     <Flow name="Flow.AuthOAuth">
       <Description/>
