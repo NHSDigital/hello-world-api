@@ -6,6 +6,7 @@ newman/
 build
 .venv
 venv
+**/*.key
 
 
 # utils directory will be clone during pipeline.
