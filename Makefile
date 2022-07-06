@@ -6,8 +6,8 @@ install-python:
 	poetry install
 
 install-node:
-	npm install
-	cd docker/hello-world-sandbox && npm install && cd ../../tests && npm install
+	npm install --legacy-peer-deps
+	cd docker/hello-world-sandbox && npm install --legacy-peer-deps && cd ../../tests && npm install --legacy-peer-deps
 
 install-hooks:
 	cp scripts/pre-commit .git/hooks/pre-commit
