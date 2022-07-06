@@ -24,4 +24,4 @@ run:
 
 #  run tests with certain marker e.g. make run-sandbox runs tests marked with sandbox
 run-%:
-	poetry run pytest -s -v -m "$*" $(f)
+	poetry run pytest -s -v $(PYTEST_ARGS)  -m "$*" $(f)

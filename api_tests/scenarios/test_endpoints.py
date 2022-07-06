@@ -38,10 +38,9 @@ class TestAuthEndpoints:
                                                                 get_token_client_credentials):
         # Given
         endpoint = f"{service_url}/hello/jwt"
-        access_token = get_token_client_credentials["access_token"]
 
         # When
-        response = requests.get(endpoint, headers={"Authorization": f"Bearer {access_token}"})
+        response = requests.get(endpoint, headers={"Authorization": f"Bearer {get_token_client_credentials}"})
 
         # Then
         assert response.status_code == 200
