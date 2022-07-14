@@ -43,6 +43,7 @@ info:
     Use the hello world endpoint to get a response from an open-access API. Some of our APIs are [open-access](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation#open-access-apis), which means:
      - we do not authenticate or authorise the calling application
      - we do not authenticate or authorise the end user - they might not even be present
+
     We generally use open-access APIs for public data, where security is not a concern.
     Our open-access APIs are generally RESTful APIs. For more details on how to access them, see our [open-access REST API tutorial](https://digital.nhs.uk/developer/guides-and-documentation/tutorials/open-access-rest-api-tutorial).
 
@@ -50,13 +51,16 @@ info:
     Use the hello application endpoint to get a response from an application-restricted API. This access mode is [application-restricted](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation#application-restricted-apis), meaning we authenticate the calling application but not the end user.
     You can use this access mode as follows:
      - attended (end user present) - in which case, you must ensure the end user is authenticated and suitably authorised locally by the calling application
-    To use this access mode, use the following security pattern:
+
+    To use this access mode, use one of the following security patterns:
      - [Application-restricted RESTful APIs - API key authentication](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation/application-restricted-restful-apis-api-key-authentication)
+     - [Application-restricted RESTful API - signed JWT authentication](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation/application-restricted-restful-apis-signed-jwt-authentication)
 
     ### User-restricted authentication
     Use the hello user endpoint to get a response from a user-restricted API. Some of our APIs are [user-restricted](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation#user-restricted-apis), which means:
      - we authenticate and authorise the calling application
      - we authenticate, but do not authorise, the end user
+
     Although we do not authorise the end user, we do generally require the calling application to do it locally.
     We only support authentication of healthcare workers.
 
@@ -110,14 +114,12 @@ paths:
       operationId: getHelloApiKey
       description: |
         ## Overview
-        Use this endpoint alongside our [application-restricted REST API tutorial](https://digital.nhs.uk/developer/guides-and-documentation/tutorials/application-restricted-rest-api-tutorial) to learn how to connect to our APIs.
-      parameters:
-        - in: header
-          name: apikey
-          description: API key to authenticate with. Use a valid value for the Sandbox environment.
-          schema:
-            type: string
-          required: true
+        This endpoint is application-restricted and requires authorisation using one of the following security patterns:
+        - [Application-restricted RESTful APIs - API key authentication](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation/application-restricted-restful-apis-api-key-authentication)
+        - [Application-restricted RESTful API - signed JWT authentication](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation/application-restricted-restful-apis-signed-jwt-authentication)
+
+        Use this endpoint alongside our [application-restricted REST API tutorials]() to learn how to connect to our APIs.
+      parameters: []
       responses:
         '200':
           description: Successful response
@@ -132,13 +134,10 @@ paths:
               example:
                 message: Hello application!
         '401':
-          description: Missing or invalid API Key
-          content:
-            application/json:
-              example:
-                message: Invalid ApiKey
+          description: API Key or access token is missing or invalid.
       security:
         - api_key: []
+        - bearerAuth: []
   /hello/user:
     get:
       summary: Get a "Hello user!" response from a user-restricted endpoint
