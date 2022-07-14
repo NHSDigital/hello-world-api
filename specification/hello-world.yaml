@@ -137,7 +137,7 @@ paths:
           description: API Key or access token is missing or invalid.
       security:
         - api_key: []
-        - bearerAuth: []
+        - oAuth2ClientCredentials: []
   /hello/user:
     get:
       summary: Get a "Hello user!" response from a user-restricted endpoint
@@ -188,6 +188,12 @@ components:
       flows:
         authorizationCode:
           authorizationUrl: 'https://sandbox.api.service.nhs.uk/oauth2/authorize'
+          tokenUrl: 'https://sandbox.api.service.nhs.uk/oauth2/token'
+          scopes: {}
+    oAuth2ClientCredentials:
+      type: oauth2
+      flows:
+        clientCredentials:
           tokenUrl: 'https://sandbox.api.service.nhs.uk/oauth2/token'
           scopes: {}
   schemas:
