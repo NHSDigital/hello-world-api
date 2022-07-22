@@ -1,12 +1,6 @@
 name: apigee-release-pipeline
-#on: [push]
-on: # Use manual for now
-  workflow_dispatch:
-    inputs:
-      logLevel:
-        description: "Log level"    
-        required: true
-        default: "warning"
+on:
+  push
 
 jobs:
   check-bats-version:
