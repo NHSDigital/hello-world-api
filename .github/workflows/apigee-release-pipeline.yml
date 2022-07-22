@@ -3,7 +3,7 @@ on:
   push
 
 jobs:
-  check-bats-version:
+  check-hello-world-api:
     runs-on: ubuntu-latest
     steps:
       - run: echo "Hello World is deploying with Proxygen!"
