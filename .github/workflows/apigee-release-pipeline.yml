@@ -5,5 +5,9 @@ on:
 jobs:
   check-hello-world-api:
     runs-on: ubuntu-latest
+    env: # Set the secret as an environment variable
+      proxygen_private_key: ${{ secrets.HELLO_WORLD_PROXYGEN_PRIVATE_KEY }}
+      proxygen_client_id: ${{ secrets.HELLO_WORLD_PROXYGEN_CLIENT_ID }}
     steps:
-      - run: echo "Hello World is deploying with Proxygen!"
+      - name: test auth
+        run: echo $(poetry run python paas_client/oauth_usage_example.py "$proxygen_private_key" "$proxygen_client_id")
