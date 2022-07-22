@@ -1,0 +1,15 @@
+name: apigee-release-pipeline
+#on: [push]
+on: # Use manual for now
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: "Log level"    
+        required: true
+        default: "warning"
+
+jobs:
+  check-bats-version:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Hello World is deploying with Proxygen!"
