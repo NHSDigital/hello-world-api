@@ -20,5 +20,8 @@ jobs:
       - name: Install poetry
         run: pip install poetry
 
+      - name: Install python depenancies 
+        run: poetry install 
+
       - name: test auth
         run: echo $(poetry run python paas_client/oauth_usage_example.py "$proxygen_private_key" "$proxygen_client_id")
