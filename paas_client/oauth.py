@@ -60,8 +60,8 @@ def get_authenticated_client_token(*, client_id, base_auth_url, client_secret=No
       "aud": _aud_url(base_auth_url),
       "exp": int(time()) + 300,
     }
-    # with open(private_key, "r") as f:
-    #   private_key = f.read()
+    with open(private_key, "r") as f:
+      private_key = f.read()
     client_assertion = jwt.encode(claims, private_key, algorithm="RS512")
     token_response = requests.post(
       _access_token_url(base_auth_url),
