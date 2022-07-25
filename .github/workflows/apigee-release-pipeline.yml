@@ -42,5 +42,4 @@ jobs:
       - name: test auth
         run: |
           cd paas_client
-          echo $proxygen_private_key > proxygen_private_key.key
-          echo $(poetry run python oauth_usage_example.py "proxygen_private_key.key" "$proxygen_client_id")
+          echo $(poetry run python oauth_usage_example.py "$proxygen_private_key" "$proxygen_client_id")
