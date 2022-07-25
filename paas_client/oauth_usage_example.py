@@ -8,13 +8,12 @@ oauth_usage_example.py
 example of sucessfully accessing a auth URL via Proxygen 
 
 Usage:
-  oauth_usage_example.py <private_key> <client_id>  
+  oauth_usage_example.py <private_key> 
   oauth_usage_example.py (-h | --help)
 
 Options:
   -h --help                        Show this screen.  
   <private_key>                    Private key
-  <client_id>                      Client ID
 """
 def authenticate_with_machine_user(private_key, client_id):
   # Authenticate with private key (machine user)
