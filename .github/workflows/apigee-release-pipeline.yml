@@ -52,7 +52,7 @@ jobs:
           docker_user=$(echo $docker_token | jq '.user')
           docker_password=$(echo $docker_token | jq '.password')
           docker_registry=$(echo $docker_token | jq '.registry')
-          echo $(docker login -u ${docker_user} -p ${docker_password} ${docker_registry})
+          docker login -u ${docker_user} -p ${docker_password} ${docker_registry}
 
       # - name: Fetch Docker details
       #   run: |
