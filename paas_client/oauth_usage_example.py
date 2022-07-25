@@ -45,19 +45,21 @@ def main(args):
   client_id = args['<client_id>']
 
   token, client = authenticate_with_machine_user(private_key,client_id)
+  print(token['access_token'])
 
   # Choose method of authentication
   # token, client = authenticate_with_user_account()
 
   # Test with authenticated client
   response_using_client = client.get('https://proxygen.ptl.api.platform.nhs.uk/apis/hello-paas')
-  print(response_using_client)
+  # print(response_using_client)
 
   # Test with token directly
   response_using_token = requests.get(
     'https://proxygen.ptl.api.platform.nhs.uk/apis/hello-paas', 
     headers={"Authorization": f"Bearer {token['access_token']}"})
-  print(response_using_token)
+  # print(response_using_token.json())
+  # return "Test return statement"
 
 
 if __name__ == "__main__":

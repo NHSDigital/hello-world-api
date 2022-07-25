@@ -39,8 +39,16 @@ jobs:
           cd paas_client
           poetry install  
 
-      - name: test auth
+      - name: Authenticate with Proxygen
         run: |
           cd paas_client
           echo -n $proxygen_private_key | base64 --decode > proxygen_private_key.key
-          echo $(poetry run python oauth_usage_example.py "proxygen_private_key.key" "$proxygen_client_id")
+          echo "$PROXYGEN_TOKEN=$(poetry run python oauth_usage_example.py "proxygen_private_key.key" "$proxygen_client_id")"" >> $GITHUB_ENV
+
+      - name: Call Proxygen with Authenticate
+        run: |
+          curl -H "Authorization: Bearer ${PROXYGEN_TOKEN}" https://proxygen.ptl.api.platform.nhs.uk/apis/hello-paas
+
+      # - name: Fetch Docker details
+      #   run: |
+      #     curl -H "Authorization: Bearer ${PROXYGEN_TOKEN}" https://proxygen.ptl.api.platform.nhs.uk/apis/hello-world/docker-token | jq '.user, .password, .registry'
