@@ -32,7 +32,7 @@ jobs:
           key: ${{ runner.os }}-build-cache-poetry-packages-${{ hashFiles('**/poetry.lock') }}
 
       - name: Install python depenancies 
-        run: poetry install     
+        run: poetry install
 
       - name: Install python depenancies 
         run: |
