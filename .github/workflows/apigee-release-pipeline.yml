@@ -49,11 +49,7 @@ jobs:
       - name: Log in with Docker
         run: |
           docker_token=$(curl -H "Authorization: Bearer ${PROXYGEN_TOKEN}" https://proxygen.ptl.api.platform.nhs.uk/apis/hello-world/docker-token)
-          docker_user=$(echo $docker_token | jq '.user')
-          docker_password=$(echo $docker_token | jq '.password')
-          docker_registry=$(echo $docker_token | jq '.registry')
-          docker login -u ${docker_user} -p ${docker_password} ${docker_registry}
-
-      # - name: Fetch Docker details
-      #   run: |
-      #     curl -H "Authorization: Bearer ${PROXYGEN_TOKEN}" https://proxygen.ptl.api.platform.nhs.uk/apis/hello-world/docker-token | jq '.user, .password, .registry'
+          docker_user=$(echo $docker_token | jq -r '.user')
+          docker_password=$(echo $docker_token | jq -r '.password')
+          docker_registry=$(echo $docker_token | jq -r '.registry')
+          echo $docker_password | docker login -u ${docker_user} --password-stdin ${docker_registry}
