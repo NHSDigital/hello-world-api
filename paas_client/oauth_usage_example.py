@@ -57,4 +57,4 @@ def main(args):
   print(response_using_token)
 
 if __name__ == "__main__":
-    main(docopt(__doc__, version='1'))
+  main(docopt(__doc__, version='1'))
