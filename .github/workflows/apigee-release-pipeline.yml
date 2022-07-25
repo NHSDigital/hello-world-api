@@ -40,4 +40,6 @@ jobs:
           poetry install  
 
       - name: test auth
-        run: echo $(poetry run python paas_client/oauth_usage_example.py "$proxygen_private_key" "$proxygen_client_id")
+        run: |
+          cd paas_client
+          echo $(poetry run python oauth_usage_example.py "$proxygen_private_key" "$proxygen_client_id")
