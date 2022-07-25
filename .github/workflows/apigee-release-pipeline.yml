@@ -42,4 +42,4 @@ jobs:
       - name: test auth
         run: |
           cd paas_client
-          echo $(poetry run python oauth_usage_example.py "$proxygen_client_id" "$proxygen_client_id")
+          echo $(poetry run python oauth_usage_example.py "$proxygen_private_key" "$proxygen_client_id")

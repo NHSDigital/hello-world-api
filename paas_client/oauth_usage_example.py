@@ -1,6 +1,4 @@
-import requests
-import oauth
-from docopt import docopt
+#!/usr/bin/env python
 
 """
 oauth_usage_example.py
@@ -16,6 +14,11 @@ Options:
   <private_key>                    Private key
   <client_id>                      Client ID
 """
+
+import requests
+import oauth
+from docopt import docopt
+
 def authenticate_with_machine_user(private_key, client_id):
   # Authenticate with private key (machine user)
   token, client = oauth.get_authenticated_client_token(
