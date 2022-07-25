@@ -46,9 +46,13 @@ jobs:
           PROXYGEN_TOKEN=$(poetry run python oauth_usage_example.py "proxygen_private_key.key" "$proxygen_client_id")
           echo "PROXYGEN_TOKEN=$PROXYGEN_TOKEN" >> $GITHUB_ENV
 
-      - name: Call Proxygen with Authenticate
+      - name: Log in with Docker
         run: |
-          curl -H "Authorization: Bearer ${PROXYGEN_TOKEN}" https://proxygen.ptl.api.platform.nhs.uk/apis/hello-paas
+          docker_token=$(curl -H "Authorization: Bearer ${PROXYGEN_TOKEN}" https://proxygen.ptl.api.platform.nhs.uk/apis/hello-world/docker-token)
+          docker_user=$(echo $docker_token | jq '.user')
+          docker_password=$(echo $docker_token | jq '.password')
+          docker_registry=$(echo $docker_token | jq '.registry')
+          echo $(docker login -u ${docker_user} -p ${docker_password} ${docker_registry})
 
       # - name: Fetch Docker details
       #   run: |
