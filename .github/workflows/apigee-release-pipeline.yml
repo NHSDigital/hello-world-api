@@ -43,7 +43,8 @@ jobs:
         run: |
           cd paas_client
           echo -n $proxygen_private_key | base64 --decode > proxygen_private_key.key
-          echo "PROXYGEN_TOKEN=$(poetry run python oauth_usage_example.py 'proxygen_private_key.key' '$proxygen_client_id')" >> $GITHUB_ENV
+          PROXYGEN_TOKEN=$(poetry run python oauth_usage_example.py "proxygen_private_key.key" "$proxygen_client_id")
+          echo "PROXYGEN_TOKEN=$PROXYGEN_TOKEN" >> $GITHUB_ENV
 
       - name: Call Proxygen with Authenticate
         run: |
