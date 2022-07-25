@@ -8,13 +8,13 @@ oauth_usage_example.py
 example of sucessfully accessing a auth URL via Proxygen 
 
 Usage:
-  oauth_usage_example.py <private_key> <client_id>
+  oauth_usage_example.py <private_key> <client_id>  
   oauth_usage_example.py (-h | --help)
 
 Options:
   -h --help                        Show this screen.  
   <private_key>                    Private key
-  <client_id>                      Client ID for paas auth
+  <client_id>                      Client ID
 """
 def authenticate_with_machine_user(private_key, client_id):
   # Authenticate with private key (machine user)
@@ -55,6 +55,7 @@ def main(args):
     'https://proxygen.ptl.api.platform.nhs.uk/apis/hello-paas', 
     headers={"Authorization": f"Bearer {token['access_token']}"})
   print(response_using_token)
+
 
 if __name__ == "__main__":
   main(docopt(__doc__, version='1'))
