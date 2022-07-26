@@ -73,8 +73,8 @@ jobs:
 
       - name: Deploy to Internal Dev
         run: |
-          ENVIRONMENT="internal-dev-sandbox"
-          INSTANCE=$ENVIRONMENT
+          export ENVIRONMENT="internal-dev-sandbox"
+          export INSTANCE=$ENVIRONMENT
 
           instance_payload=$(envsubst < deployment.json)
           echo $instance_payload
