@@ -1,6 +1,7 @@
 name: apigee-release-pipeline
 on:
   push
+permissions: read-all
 
 jobs:
   check-hello-world-api:
@@ -14,10 +15,12 @@ jobs:
         with:
           fetch-depth: 0
       
-      - name: Get PR number
-        run: | 
-          pull_number=$(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")
-          echo $pull_number
+      - name: Get Pull Request Number
+        id: pr
+        run: echo "::set-output name=pull_request_number::$(gh pr view --json number -q .number || echo "")"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - run: echo ${{ steps.pr.outputs.pull_request_number }}
 
       # - name: Install Python 3.8
       #   uses: actions/setup-python@v1
