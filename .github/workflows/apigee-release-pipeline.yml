@@ -23,18 +23,17 @@ jobs:
         run: |
           echo "PR_NUMBER=$(gh pr view --json number -q .number || echo "")" >> $GITHUB_ENV
       
-      - run: |
-          echo $PR_NUMBER
-          echo "$(($PR_NUMBER + 1))"
-
-      # - name: Get Pull Request Number
-      #   id: pr
-      #   if: github.ref != 'refs/heads/master'
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #   run: |
-      #     echo "::set-output name=pull_request_number::$(gh pr view --json number -q .number || echo "")"
-      # - run: echo ${{ steps.pr.outputs.pull_request_number }}
+      - name: Test if PR
+        run: |
+          export ENVIRONMENT="internal-dev-sandbox"
+          if [ -z "$PR_NUMBER" ]
+          then
+                instance=$ENVIRONMENT
+          else
+                instance=$ENVIRONMENT-$PR_NUMBER
+          fi
+          export INSTANCE=$instance
+          echo $INSTANCE
 
       # - name: Install Python 3.8
       #   uses: actions/setup-python@v1
@@ -96,8 +95,9 @@ jobs:
       # - name: Deploy to Internal Dev
       #   run: |
       #     export ENVIRONMENT="internal-dev-sandbox"
+      #     export INSTANCE=$ENVIRONMENT
 
-      #     instance_payload=$( ENVIRONEMENT=$ENVIRONMENT INSTANCE=$ENVIRONMENT envsubst < deployment.json)
+      #     instance_payload=$( envsubst < deployment.json)
           
       #     curl -X POST https://proxygen.ptl.api.platform.nhs.uk/apis/hello-paas/instances?apply=true \
       #     -H "Authorization: Bearer ${PROXYGEN_TOKEN}" \
