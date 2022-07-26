@@ -61,9 +61,11 @@ jobs:
 
           # Build and push image to registry #
           docker_registry=${docker_registry_url#"https://"} 
+          echo "DOCKER_REGISTRY=$docker_registry" >> $GITHUB_ENV
           # Remove prefix #
           docker_tag="proxygen-test"
-          docker_image="hello-world-image"
+          echo "DOCKER_TAG=$docker_tag" >> $GITHUB_ENV
+          docker_image="hello-world"
 
           docker build -t $docker_image:$docker_tag hello-world-sandbox
           docker tag $docker_image:$docker_tag $docker_registry/hello-world_hello-world:$docker_tag
@@ -71,5 +73,10 @@ jobs:
 
       - name: Deploy to Internal Dev
         run: |
-          
+          ENVIRONMENT="internal-dev-sandbox"
+          INSTANCE=$ENVIRONMENT
+
+          instance_payload=$(envsubst < deployment.json)
+          echo $instance_payload
+
 
