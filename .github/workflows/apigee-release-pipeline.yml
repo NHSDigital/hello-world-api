@@ -78,8 +78,8 @@ jobs:
           instance_payload=$( ENVIRONEMENT=$ENVIRONMENT INSTANCE=$ENVIRONMENT envsubst < deployment.json)
           
           curl -X POST https://proxygen.ptl.api.platform.nhs.uk/apis/hola-world/instances \
-          -H 'Authorization: Bearer ${PROXYGEN_TOKEN}' \
-          -H 'Content-Type: application/json' \
-          -d '$instance_payload'
+          -H "Authorization: Bearer ${PROXYGEN_TOKEN}" \
+          -H "Content-Type: application/json" \
+          -d "$instance_payload"
 
 
