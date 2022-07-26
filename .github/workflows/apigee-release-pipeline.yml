@@ -49,7 +49,7 @@ jobs:
       - name: Build and push Docker image
         working-directory: ./docker
         run: |
-          # Login in to Hello World registry
+          # Login in to Hello World registry #
           docker_token=$(curl -H "Authorization: Bearer ${PROXYGEN_TOKEN}" https://proxygen.ptl.api.platform.nhs.uk/apis/hello-world/docker-token)
           docker_user=$(echo $docker_token | jq -r '.user')
           docker_password=$(echo $docker_token | jq -r '.password')
@@ -57,14 +57,15 @@ jobs:
 
           echo $docker_password | docker login -u ${docker_user} --password-stdin ${docker_registry_url}
 
-          ---------> Do we need to pull first??? <---------
+          #---------> Do we need to pull first??? <---------#
 
-          #Build and push image to registry
-          docker_registry=${docker_registry_url#"https://"} # Remove prefix
+          #Build and push image to registry#
+          docker_registry=${docker_registry_url#"https://"} 
+          # Remove prefix #
           docker_tag="proxygen-test"
 
           docker build -t hello-world-image:$docker_tag hello-world-sandbox
           docker tag hello-world-test-image:$docker_tag $docker_registry/hello-world_hello-world:$docker_tag
-          #docker push $docker_registry/hello-world_hello-world:$docker_tag
+          #docker push $docker_registry/hello-world_hello-world:$docker_tag #
 
 
