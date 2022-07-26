@@ -1,7 +1,7 @@
 {
-  "name": "$instance",
+  "name": "$INSTANCE",
   "base_path": "hola-world",
-  "environment": "$environment",
+  "environment": "$ENVIRONMENT",
   "routes": [
     {
        "path": "/hello/user",
@@ -35,10 +35,10 @@
       "containers": [
         {
           "name": "hello-world",
-          "image": "$docker-registry/hello-world_hello-world:$docker-tag",
+          "image": "$DOCKER_REGISTRY/hello-world_hello-world:$DOCKER_TAG",
           "environment": {
             "LOG_LEVEL": "info",
-            "UPSTREAM": "https://$environment.api.service.nhs.uk",
+            "UPSTREAM": "https://$ENVIRONMENT.api.service.nhs.uk",
             "NODE_ENV": "production"
           }
         }
