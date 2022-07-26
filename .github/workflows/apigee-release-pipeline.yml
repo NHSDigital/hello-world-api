@@ -57,9 +57,9 @@ jobs:
 
           echo $docker_password | docker login -u ${docker_user} --password-stdin ${docker_registry_url}
 
-          #---------> Do we need to pull first??? <---------#
+          # ---------> Do we need to pull first??? <--------- #
 
-          #Build and push image to registry#
+          # Build and push image to registry #
           docker_registry=${docker_registry_url#"https://"} 
           # Remove prefix #
           docker_tag="proxygen-test"
@@ -69,4 +69,7 @@ jobs:
           docker tag $docker_image:$docker_tag $docker_registry/hello-world_hello-world:$docker_tag
           docker push $docker_registry/hello-world_hello-world:$docker_tag 
 
+      - name: Deploy to Internal Dev
+        run: |
+          
 
