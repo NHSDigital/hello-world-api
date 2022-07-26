@@ -63,6 +63,13 @@ jobs:
           docker_registry=${docker_registry_url#"https://"} # Remove prefix
           docker_tag="proxygen-test"
 
-          docker build -t hello-world-image:$docker_tag hello-world-sandbox
-          docker tag hello-world-test-image:$docker_tag $docker_registry/hello-world_hello-world:$docker_tag
-          docker push $docker_registry/hello-world_hello-world:$docker_tag
+          #docker build -t hello-world-image:$docker_tag hello-world-sandbox
+          #docker tag hello-world-test-image:$docker_tag $docker_registry/hello-world_hello-world:$docker_tag
+          #docker push $docker_registry/hello-world_hello-world:$docker_tag
+
+          echo $docker_registry
+          echo $docker_tag
+          
+          docker build -t hello-world-image:proxygen_test hello-world-sandbox
+          docker tag hello-world-test-image:proxygen_test 958002497996.dkr.ecr.eu-west-2.amazonaws.com/hello-world_hello-world:proxygen_test
+          docker push 958002497996.dkr.ecr.eu-west-2.amazonaws.com/hello-world_hello-world:proxygen_test:proxygen_test
