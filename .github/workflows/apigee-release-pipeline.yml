@@ -66,6 +66,6 @@ jobs:
 
           docker build -t hello-world-image:$docker_tag hello-world-sandbox
           docker tag hello-world-test-image:$docker_tag $docker_registry/hello-world_hello-world:$docker_tag
-          #docker push $docker_registry/hello-world_hello-world:$docker_tag #
+          docker push $docker_registry/hello-world_hello-world:$docker_tag 
 
 
