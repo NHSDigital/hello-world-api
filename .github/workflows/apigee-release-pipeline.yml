@@ -45,9 +45,9 @@ jobs:
           echo -n $proxygen_private_key | base64 --decode > proxygen_private_key.key
           PROXYGEN_TOKEN=$(poetry run python oauth_usage_example.py "proxygen_private_key.key" "$proxygen_client_id")
           echo "PROXYGEN_TOKEN=$PROXYGEN_TOKEN" >> $GITHUB_ENV
-          cd ..
 
       - name: Build and push Docker image
+        uses: actions/checkout@v2
         run: |
           # Login in to Hello World registry
           docker_token=$(curl -H "Authorization: Bearer ${PROXYGEN_TOKEN}" https://proxygen.ptl.api.platform.nhs.uk/apis/hello-world/docker-token)
