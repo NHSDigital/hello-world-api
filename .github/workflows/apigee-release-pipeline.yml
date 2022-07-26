@@ -17,13 +17,70 @@ jobs:
       
       - name: Get Pull Request Number
         id: pr
-        if: github.ref == 'refs/heads/master'
+        if: github.ref != 'refs/heads/master'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           echo "PR_NUMBER=$(gh pr view --json number -q .number || echo "")" >> $GITHUB_ENV
+
+      - name: Install Python 3.8
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.8
+
+      - name: Upgrade python packaging tools
+        run: python -m pip install --upgrade pip cryptography
+
+      - name: Install poetry
+        run: pip install poetry
       
-      - name: Test if PR
+      - name: Cache poetry packages
+        uses: actions/cache@v1
+        with:
+          path: ~/.cache/pypoetry
+          key: ${{ runner.os }}-build-cache-poetry-packages-${{ hashFiles('**/poetry.lock') }}
+
+      - name: Install python depenancies 
+        run: poetry install
+
+      - name: Install python depenancies 
+        run: |
+          cd paas_client
+          poetry install  
+
+      - name: Authenticate with Proxygen
+        run: |
+          cd paas_client
+          echo -n $proxygen_private_key | base64 --decode > proxygen_private_key.key
+          PROXYGEN_TOKEN=$(poetry run python oauth_usage_example.py "proxygen_private_key.key" "$proxygen_client_id")
+          echo "PROXYGEN_TOKEN=$PROXYGEN_TOKEN" >> $GITHUB_ENV
+
+      - name: Build and push Docker image
+        working-directory: ./docker
+        run: |
+          # Login in to Hello World registry #
+          docker_token=$(curl -H "Authorization: Bearer ${PROXYGEN_TOKEN}" https://proxygen.ptl.api.platform.nhs.uk/apis/hello-world/docker-token)
+          docker_user=$(echo $docker_token | jq -r '.user')
+          docker_password=$(echo $docker_token | jq -r '.password')
+          docker_registry_url=$(echo $docker_token | jq -r '.registry')
+
+          echo $docker_password | docker login -u ${docker_user} --password-stdin ${docker_registry_url}
+
+          # ---------> Do we need to pull first??? <--------- #
+
+          # Build and push image to registry #
+          docker_registry=${docker_registry_url#"https://"} 
+          echo "DOCKER_REGISTRY=$docker_registry" >> $GITHUB_ENV
+          # Remove prefix #
+          docker_tag="proxygen-test-pr"
+          echo "DOCKER_TAG=$docker_tag" >> $GITHUB_ENV
+          docker_image="hello-world"
+
+          docker build -t $docker_image:$docker_tag hello-world-sandbox
+          docker tag $docker_image:$docker_tag $docker_registry/hello-world_hello-world:$docker_tag
+          docker push $docker_registry/hello-world_hello-world:$docker_tag 
+
+      - name: Deploy to Internal Dev Sandbox
         run: |
           export ENVIRONMENT="internal-dev-sandbox"
           if [ -z "$PR_NUMBER" ]
@@ -33,75 +90,12 @@ jobs:
                 instance=$ENVIRONMENT-$PR_NUMBER
           fi
           export INSTANCE=$instance
-          echo $INSTANCE
 
-      # - name: Install Python 3.8
-      #   uses: actions/setup-python@v1
-      #   with:
-      #     python-version: 3.8
-
-      # - name: Upgrade python packaging tools
-      #   run: python -m pip install --upgrade pip cryptography
-
-      # - name: Install poetry
-      #   run: pip install poetry
-      
-      # - name: Cache poetry packages
-      #   uses: actions/cache@v1
-      #   with:
-      #     path: ~/.cache/pypoetry
-      #     key: ${{ runner.os }}-build-cache-poetry-packages-${{ hashFiles('**/poetry.lock') }}
-
-      # - name: Install python depenancies 
-      #   run: poetry install
-
-      # - name: Install python depenancies 
-      #   run: |
-      #     cd paas_client
-      #     poetry install  
-
-      # - name: Authenticate with Proxygen
-      #   run: |
-      #     cd paas_client
-      #     echo -n $proxygen_private_key | base64 --decode > proxygen_private_key.key
-      #     PROXYGEN_TOKEN=$(poetry run python oauth_usage_example.py "proxygen_private_key.key" "$proxygen_client_id")
-      #     echo "PROXYGEN_TOKEN=$PROXYGEN_TOKEN" >> $GITHUB_ENV
-
-      # - name: Build and push Docker image
-      #   working-directory: ./docker
-      #   run: |
-      #     # Login in to Hello World registry #
-      #     docker_token=$(curl -H "Authorization: Bearer ${PROXYGEN_TOKEN}" https://proxygen.ptl.api.platform.nhs.uk/apis/hello-world/docker-token)
-      #     docker_user=$(echo $docker_token | jq -r '.user')
-      #     docker_password=$(echo $docker_token | jq -r '.password')
-      #     docker_registry_url=$(echo $docker_token | jq -r '.registry')
-
-      #     echo $docker_password | docker login -u ${docker_user} --password-stdin ${docker_registry_url}
-
-      #     # ---------> Do we need to pull first??? <--------- #
-
-      #     # Build and push image to registry #
-      #     docker_registry=${docker_registry_url#"https://"} 
-      #     echo "DOCKER_REGISTRY=$docker_registry" >> $GITHUB_ENV
-      #     # Remove prefix #
-      #     docker_tag="proxygen-test"
-      #     echo "DOCKER_TAG=$docker_tag" >> $GITHUB_ENV
-      #     docker_image="hello-world"
-
-      #     docker build -t $docker_image:$docker_tag hello-world-sandbox
-      #     docker tag $docker_image:$docker_tag $docker_registry/hello-world_hello-world:$docker_tag
-      #     docker push $docker_registry/hello-world_hello-world:$docker_tag 
-
-      # - name: Deploy to Internal Dev
-      #   run: |
-      #     export ENVIRONMENT="internal-dev-sandbox"
-      #     export INSTANCE=$ENVIRONMENT
-
-      #     instance_payload=$( envsubst < deployment.json)
+          instance_payload=$( envsubst < deployment.json)
           
-      #     curl -X POST https://proxygen.ptl.api.platform.nhs.uk/apis/hello-paas/instances?apply=true \
-      #     -H "Authorization: Bearer ${PROXYGEN_TOKEN}" \
-      #     -H "Content-Type: application/json" \
-      #     -d "$instance_payload"
+          curl -X POST https://proxygen.ptl.api.platform.nhs.uk/apis/hello-world/instances?apply=true \
+          -H "Authorization: Bearer ${PROXYGEN_TOKEN}" \
+          -H "Content-Type: application/json" \
+          -d "$instance_payload"
 
 
