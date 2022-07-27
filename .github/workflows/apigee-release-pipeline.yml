@@ -75,7 +75,6 @@ jobs:
           echo "DOCKER_REGISTRY=$docker_registry" >> $GITHUB_ENV
           # Remove prefix #
           docker_tag="${build_number}-$(uuidgen)"
-          echo $docker_tag
           echo "DOCKER_TAG=$docker_tag" >> $GITHUB_ENV
           docker_image="hello-world"
 
