@@ -4,9 +4,9 @@ on:
 permissions: read-all
 
 jobs:
-  check-hello-world-api:
+  deploy-hello-world:
     runs-on: ubuntu-latest
-    env: # Set the secret as an environment variable
+    env:
       proxygen_private_key: ${{ secrets.ENCODED_HELLO_WORLD_PROXYGEN_PRIVATE_KEY }}
       proxygen_client_id: ${{ secrets.HELLO_WORLD_PROXYGEN_CLIENT_ID }}
     steps:
@@ -52,7 +52,7 @@ jobs:
         run: |
           cd paas_client
           echo -n $proxygen_private_key | base64 --decode > proxygen_private_key.key
-          PROXYGEN_TOKEN=$(poetry run python oauth_usage_example.py "proxygen_private_key.key" "$proxygen_client_id")
+          PROXYGEN_TOKEN=$(poetry run python authenticate.py "proxygen_private_key.key" "$proxygen_client_id")
           echo "PROXYGEN_TOKEN=$PROXYGEN_TOKEN" >> $GITHUB_ENV
 
       - name: Build and push Docker image
