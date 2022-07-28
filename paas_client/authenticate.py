@@ -24,7 +24,7 @@ def authenticate_with_machine_user(private_key, client_id):
     base_auth_url='https://identity.ptl.api.platform.nhs.uk',
     private_key=private_key)
   
-  return token, client
+  return token
 
 
 def main(args):
