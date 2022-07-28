@@ -1,6 +1,6 @@
 {
   "name": "$INSTANCE",
-  "base_path": "hello-paas",
+  "base_path": "hello-world",
   "environment": "$ENVIRONMENT",
   "routes": [
     {
