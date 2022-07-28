@@ -82,11 +82,6 @@ jobs:
           docker tag $docker_image:$docker_tag $docker_registry/hello-world_hello-world:$docker_tag
           docker push $docker_registry/hello-world_hello-world:$docker_tag 
 
-      - name: Deploy to Internal Dev
-        run: |
-          export ENVIRONMENT="internal-dev"
-          source deploy-environment.sh
-
       - name: Deploy to Internal Dev Sandbox
         run: |
           export ENVIRONMENT="internal-dev-sandbox"
