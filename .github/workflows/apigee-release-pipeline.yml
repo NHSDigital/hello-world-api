@@ -68,8 +68,11 @@ jobs:
             -H "Accept: application/json;charset=utf-8" \
             -H "Authorization: Basic ZWRnZWNsaTplZGdlY2xpc2VjcmV0" \
             -d "username=${APIGEE_USERNAME}&password=${APIGEE_PASSWORD}&mfa_token=${MFA_CODE}&grant_type=password" | jq .access_token > .token
-          # Set token into variable #
-          echo "APIGEE_ACCESS_TOKEN=$(cat .token)" >> $GITHUB_ENV
+          # Remove quotes and set token into variable #
+          token=$(cat .token)
+          token="${token%\"}"
+          token="${token#\"}"
+          echo "APIGEE_ACCESS_TOKEN=$token" >> $GITHUB_ENV
 
 
       - name: Build and push Docker image
