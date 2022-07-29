@@ -1,0 +1,48 @@
+name: spec-release-pipeline
+defaults:
+  run:
+    shell: bash -ieo pipefail {0}
+on:
+  push
+permissions: read-all
+
+jobs:
+  deploy-hello-world:
+    runs-on: ubuntu-latest
+    env:
+      proxygen_private_key: ${{ secrets.ENCODED_HELLO_WORLD_PROXYGEN_PRIVATE_KEY }}
+      proxygen_client_id: ${{ secrets.HELLO_WORLD_PROXYGEN_CLIENT_ID }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Install Python 3.8
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.8
+      
+      - name: Update apt repositories
+        run: sudo apt update
+      
+      - name: Install Node
+        run: sudo apt-get install --yes nodejs
+      
+      - name: Install poetry
+        run: pip install poetry
+      
+      - name: Cache poetry packages
+        uses: actions/cache@v1
+        with:
+          path: ~/.cache/pypoetry
+          key: ${{ runner.os }}-build-cache-poetry-packages-${{ hashFiles('**/poetry.lock') }}
+
+      - name: Install python dependencies 
+        run: poetry install
+      
+      - name: Install Node dependencies
+        run: npm install --legacy-peer-deps
+      
+      - name: Lint spec
+        run: npm run lint

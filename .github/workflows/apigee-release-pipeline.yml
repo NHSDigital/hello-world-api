@@ -49,7 +49,7 @@ jobs:
           path: ~/.cache/pypoetry
           key: ${{ runner.os }}-build-cache-poetry-packages-${{ hashFiles('**/poetry.lock') }}
 
-      - name: Install python depenancies 
+      - name: Install python dependencies
         run: poetry install
 
       - name: Install Proxygen client
