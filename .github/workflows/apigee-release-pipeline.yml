@@ -49,17 +49,12 @@ jobs:
       - name: Install python depenancies 
         run: poetry install
 
-      - name: Install python depenancies 
-        run: |
-          cd paas_client
-          poetry install  
-
-      - name: Authenticate with Proxygen
-        run: |
-          cd paas_client
-          echo -n $proxygen_private_key | base64 --decode > proxygen_private_key.key
-          PROXYGEN_TOKEN=$(poetry run python authenticate.py "proxygen_private_key.key" "$proxygen_client_id")
-          echo "PROXYGEN_TOKEN=$PROXYGEN_TOKEN" >> $GITHUB_ENV
+      # - name: Install python depenancies 
+      #   run: |
+      #     cd paas_client
+      #     poetry install 
+      - name: Install Proxygen client
+        run: curl -o- https://raw.githubusercontent.com/NHSDigital/proxygen-cli/main/install.sh | bash
       
       - name: Get Apigee docker_token
         env:
@@ -80,74 +75,86 @@ jobs:
           token="${token#\"}"
           echo "APIGEE_ACCESS_TOKEN=$token" >> $GITHUB_ENV
 
+      - name: Authenticate with Proxygen
+        run: |
+          cd paas_client
+          echo -n $proxygen_private_key | base64 --decode > proxygen_private_key.key
+          PROXYGEN_TOKEN=$(poetry run python authenticate.py "proxygen_private_key.key" "$proxygen_client_id")
+          echo "PROXYGEN_TOKEN=$PROXYGEN_TOKEN" >> $GITHUB_ENV
 
       - name: Build and push Docker image
         working-directory: ./docker
         env:
           build_number: ${{github.run_number}}
         run: |
-          # Login in to Hello World registry #
-          docker_token=$(curl -H "Authorization: Bearer ${PROXYGEN_TOKEN}" https://proxygen.ptl.api.platform.nhs.uk/apis/hello-world/docker-token)
-          docker_user=$(echo $docker_token | jq -r '.user')
-          docker_password=$(echo $docker_token | jq -r '.password')
-          docker_registry_url=$(echo $docker_token | jq -r '.registry')
+          # Authenticate with Proxygen #
+          echo -n $proxygen_private_key | base64 --decode > proxygen_private_key.key
+          proxygen setup-machine-user --client-id=$proxygen_client_id --private-key=proxygen_private_key.key
 
-          echo $docker_password | docker login -u ${docker_user} --password-stdin ${docker_registry_url}
+          proxygen docker-login | bash
 
-          # Build and push image to registry #
-          docker_registry=${docker_registry_url#"https://"} 
-          echo "DOCKER_REGISTRY=$docker_registry" >> $GITHUB_ENV
-          # Remove prefix #
-          docker_tag="${build_number}-$(uuidgen)"
-          echo "DOCKER_TAG=$docker_tag" >> $GITHUB_ENV
-          docker_image="hello-world"
+      #     # Login in to Hello World registry #
+      #     docker_token=$(curl -H "Authorization: Bearer ${PROXYGEN_TOKEN}" https://proxygen.ptl.api.platform.nhs.uk/apis/hello-world/docker-token)
+      #     docker_user=$(echo $docker_token | jq -r '.user')
+      #     docker_password=$(echo $docker_token | jq -r '.password')
+      #     docker_registry_url=$(echo $docker_token | jq -r '.registry')
 
-          docker build -t $docker_image:$docker_tag hello-world-sandbox
-          docker tag $docker_image:$docker_tag $docker_registry/hello-world_hello-world:$docker_tag
-          docker push $docker_registry/hello-world_hello-world:$docker_tag 
+      #     echo $docker_password | docker login -u ${docker_user} --password-stdin ${docker_registry_url}
 
-      - name: Deploy to Internal Dev Sandbox
-        run: |
-          export ENVIRONMENT="internal-dev-sandbox"
-          source deploy-environment.sh
+      #     # Build and push image to registry #
+      #     docker_registry=${docker_registry_url#"https://"} 
+      #     echo "DOCKER_REGISTRY=$docker_registry" >> $GITHUB_ENV
+      #     # Remove prefix #
+      #     docker_tag="${build_number}-$(uuidgen)"
+      #     echo "DOCKER_TAG=$docker_tag" >> $GITHUB_ENV
+      #     docker_image="hello-world"
+
+      #     docker build -t $docker_image:$docker_tag hello-world-sandbox
+      #     docker tag $docker_image:$docker_tag $docker_registry/hello-world_hello-world:$docker_tag
+      #     docker push $docker_registry/hello-world_hello-world:$docker_tag 
+
+      # - name: Deploy to Internal Dev Sandbox
+      #   run: |
+      #     export ENVIRONMENT="internal-dev-sandbox"
+      #     source deploy-environment.sh
       
-      - name: Run Internal Dev Sandbox tests
-        run: |
-          if [ -z "$PR_NUMBER" ]
-          then
-              instance="internal-dev-sandbox"
-          else
-              instance=internal-dev-sandbox-pr-$PR_NUMBER
-          fi
+      # - name: Run Internal Dev Sandbox tests
+      #   run: |
+      #     if [ -z "$PR_NUMBER" ]
+      #     then
+      #         instance="internal-dev-sandbox"
+      #     else
+      #         instance=internal-dev-sandbox-pr-$PR_NUMBER
+      #     fi
 
-          export INSTANCE=$instance
-          export API_NAME="hello-world"
+      #     export INSTANCE=$instance
+      #     export API_NAME="hello-world"
 
-          poetry run pytest tests/api_tests.py
+      #     poetry run pytest tests/api_tests.py
       
-      - name: Deploy to Internal QA Sandbox
-        run: |
-          export ENVIRONMENT="internal-qa-sandbox"
-          source deploy-environment.sh
+      # - name: Deploy to Internal QA Sandbox
+      #   run: |
+      #     export ENVIRONMENT="internal-qa-sandbox"
+      #     source deploy-environment.sh
       
-      - name: Run Internal QA Sandbox tests
-        run: |
-          if [ -z "$PR_NUMBER" ]
-          then
-              instance="internal-qa-sandbox"
-          else
-              instance=internal-qa-sandbox-pr-$PR_NUMBER
-          fi
+      # - name: Run Internal QA Sandbox tests
+      #   run: |
+      #     if [ -z "$PR_NUMBER" ]
+      #     then
+      #         instance="internal-qa-sandbox"
+      #     else
+      #         instance=internal-qa-sandbox-pr-$PR_NUMBER
+      #     fi
 
-          export INSTANCE=$instance
-          export API_NAME="hello-world"
+      #     export INSTANCE=$instance
+      #     export API_NAME="hello-world"
 
-          poetry run pytest tests/api_tests.py
+      #     poetry run pytest tests/api_tests.py
       
-      - name: Deploy to Sandbox
-        if: github.ref == 'refs/heads/master'
-        run: |
-          export ENVIRONMENT="sandbox"
-          source deploy-environment.sh
+      # - name: Deploy to Sandbox
+      #   if: github.ref == 'refs/heads/master'
+      #   run: |
+      #     export ENVIRONMENT="sandbox"
+      #     source deploy-environment.sh
 
-      # TO DO - Run Sandbox smoke tests. Cannot use test-utils 2.0 currently
+      # # TO DO - Run Sandbox smoke tests. Cannot use test-utils 2.0 currently
