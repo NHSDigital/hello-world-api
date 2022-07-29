@@ -73,10 +73,9 @@ class TestAPI:
         resp = requests.get(
             nhsd_apim_proxy_url + "/_status", headers=status_endpoint_auth_headers
         )
-        # status_json = resp.json()
+        status_json = resp.json()
         assert resp.status_code == 200
-        # TO DO - Test response once status properly configured
-        # assert status_json["status"] == "pass"
+        assert status_json["status"] == "pass"
 
     # Test Open-access
     @pytest.mark.parametrize(
