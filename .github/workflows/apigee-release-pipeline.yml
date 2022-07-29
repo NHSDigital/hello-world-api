@@ -12,7 +12,6 @@ jobs:
     env:
       proxygen_private_key: ${{ secrets.ENCODED_HELLO_WORLD_PROXYGEN_PRIVATE_KEY }}
       proxygen_client_id: ${{ secrets.HELLO_WORLD_PROXYGEN_CLIENT_ID }}
-      PAAS_API_NAME: hello-world
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -88,15 +87,12 @@ jobs:
 
           # Build and push image to registry #
           docker_registry="958002497996.dkr.ecr.eu-west-2.amazonaws.com"
-          echo "DOCKER_REGISTRY=$docker_registry" >> $GITHUB_ENV
-          # Remove prefix #
           docker_tag="${build_number}-$(uuidgen)"
-          echo "DOCKER_TAG=$docker_tag" >> $GITHUB_ENV
           docker_image="hello-world"
 
           docker build -t $docker_image:$docker_tag hello-world-sandbox
           docker tag $docker_image:$docker_tag $docker_registry/hello-world_hello-world:$docker_tag
-          docker push $docker_registry/hello-world_hello-world:$docker_tag 
+          docker push $docker_registry/hello-world_hello-world:$docker_tag
 
       - name: Deploy to Internal Dev Sandbox
         run: |
