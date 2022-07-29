@@ -13,9 +13,6 @@ echo $instance
 export INSTANCE=$instance
 export BASE_PATH=$base_path
 
-instance_payload=$( envsubst < deployment.json )
+envsubst < deployment.json > instance.json
 
-curl -X POST https://proxygen.ptl.api.platform.nhs.uk/apis/$api_name/instances?apply=true \
--H "Authorization: Bearer ${PROXYGEN_TOKEN}" \
--H "Content-Type: application/json" \
--d "$instance_payload"
+proxygen apply --api-name=$api_name

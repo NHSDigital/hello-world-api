@@ -53,10 +53,6 @@ jobs:
       - name: Install python depenancies 
         run: poetry install
 
-      # - name: Install python depenancies 
-      #   run: |
-      #     cd paas_client
-      #     poetry install 
       - name: Install Proxygen client
         run: curl -o- https://raw.githubusercontent.com/NHSDigital/proxygen-cli/main/install.sh | bash
       
@@ -78,13 +74,6 @@ jobs:
           token="${token%\"}"
           token="${token#\"}"
           echo "APIGEE_ACCESS_TOKEN=$token" >> $GITHUB_ENV
-
-      # - name: Authenticate with Proxygen
-      #   run: |
-      #     cd paas_client
-      #     echo -n $proxygen_private_key | base64 --decode > proxygen_private_key.key
-      #     PROXYGEN_TOKEN=$(poetry run python authenticate.py "proxygen_private_key.key" "$proxygen_client_id")
-      #     echo "PROXYGEN_TOKEN=$PROXYGEN_TOKEN" >> $GITHUB_ENV
 
       - name: Build and push Docker image
         working-directory: ./docker
@@ -109,48 +98,48 @@ jobs:
           docker tag $docker_image:$docker_tag $docker_registry/hello-world_hello-world:$docker_tag
           docker push $docker_registry/hello-world_hello-world:$docker_tag 
 
-      # - name: Deploy to Internal Dev Sandbox
-      #   run: |
-      #     export ENVIRONMENT="internal-dev-sandbox"
-      #     source deploy-environment.sh
+      - name: Deploy to Internal Dev Sandbox
+        run: |
+          export ENVIRONMENT="internal-dev-sandbox"
+          source deploy-environment.sh
       
-      # - name: Run Internal Dev Sandbox tests
-      #   run: |
-      #     if [ -z "$PR_NUMBER" ]
-      #     then
-      #         instance="internal-dev-sandbox"
-      #     else
-      #         instance=internal-dev-sandbox-pr-$PR_NUMBER
-      #     fi
+      - name: Run Internal Dev Sandbox tests
+        run: |
+          if [ -z "$PR_NUMBER" ]
+          then
+              instance="internal-dev-sandbox"
+          else
+              instance=internal-dev-sandbox-pr-$PR_NUMBER
+          fi
 
-      #     export INSTANCE=$instance
-      #     export API_NAME="hello-world"
+          export INSTANCE=$instance
+          export API_NAME="hello-world"
 
-      #     poetry run pytest tests/api_tests.py
+          poetry run pytest tests/api_tests.py
       
-      # - name: Deploy to Internal QA Sandbox
-      #   run: |
-      #     export ENVIRONMENT="internal-qa-sandbox"
-      #     source deploy-environment.sh
+      - name: Deploy to Internal QA Sandbox
+        run: |
+          export ENVIRONMENT="internal-qa-sandbox"
+          source deploy-environment.sh
       
-      # - name: Run Internal QA Sandbox tests
-      #   run: |
-      #     if [ -z "$PR_NUMBER" ]
-      #     then
-      #         instance="internal-qa-sandbox"
-      #     else
-      #         instance=internal-qa-sandbox-pr-$PR_NUMBER
-      #     fi
+      - name: Run Internal QA Sandbox tests
+        run: |
+          if [ -z "$PR_NUMBER" ]
+          then
+              instance="internal-qa-sandbox"
+          else
+              instance=internal-qa-sandbox-pr-$PR_NUMBER
+          fi
 
-      #     export INSTANCE=$instance
-      #     export API_NAME="hello-world"
+          export INSTANCE=$instance
+          export API_NAME="hello-world"
 
-      #     poetry run pytest tests/api_tests.py
+          poetry run pytest tests/api_tests.py
       
-      # - name: Deploy to Sandbox
-      #   if: github.ref == 'refs/heads/master'
-      #   run: |
-      #     export ENVIRONMENT="sandbox"
-      #     source deploy-environment.sh
+      - name: Deploy to Sandbox
+        if: github.ref == 'refs/heads/master'
+        run: |
+          export ENVIRONMENT="sandbox"
+          source deploy-environment.sh
 
-      # # TO DO - Run Sandbox smoke tests. Cannot use test-utils 2.0 currently
+      # TO DO - Run Sandbox smoke tests. Cannot use test-utils 2.0 currently
