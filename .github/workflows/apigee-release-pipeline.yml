@@ -12,6 +12,7 @@ jobs:
     env:
       proxygen_private_key: ${{ secrets.ENCODED_HELLO_WORLD_PROXYGEN_PRIVATE_KEY }}
       proxygen_client_id: ${{ secrets.HELLO_WORLD_PROXYGEN_CLIENT_ID }}
+      PAAS_API_NAME: hello-world
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -59,7 +60,7 @@ jobs:
       - name: Install Proxygen client
         run: curl -o- https://raw.githubusercontent.com/NHSDigital/proxygen-cli/main/install.sh | bash
       
-      - name: Get Apigee docker_token
+      - name: Get Apigee token
         env:
           APIGEE_USERNAME: ${{ secrets.APIGEE_USERNAME_NONPROD }}
           APIGEE_PASSWORD: ${{ secrets.APIGEE_PASSWORD_NONPROD }}
@@ -78,12 +79,12 @@ jobs:
           token="${token#\"}"
           echo "APIGEE_ACCESS_TOKEN=$token" >> $GITHUB_ENV
 
-      - name: Authenticate with Proxygen
-        run: |
-          cd paas_client
-          echo -n $proxygen_private_key | base64 --decode > proxygen_private_key.key
-          PROXYGEN_TOKEN=$(poetry run python authenticate.py "proxygen_private_key.key" "$proxygen_client_id")
-          echo "PROXYGEN_TOKEN=$PROXYGEN_TOKEN" >> $GITHUB_ENV
+      # - name: Authenticate with Proxygen
+      #   run: |
+      #     cd paas_client
+      #     echo -n $proxygen_private_key | base64 --decode > proxygen_private_key.key
+      #     PROXYGEN_TOKEN=$(poetry run python authenticate.py "proxygen_private_key.key" "$proxygen_client_id")
+      #     echo "PROXYGEN_TOKEN=$PROXYGEN_TOKEN" >> $GITHUB_ENV
 
       - name: Build and push Docker image
         working-directory: ./docker
@@ -94,7 +95,7 @@ jobs:
           echo -n $proxygen_private_key | base64 --decode > proxygen_private_key.key
           proxygen setup-machine-user --client-id=$proxygen_client_id --private-key=proxygen_private_key.key
 
-          proxygen docker-login | bash
+          proxygen docker-login --api-name=hello-world | bash
 
       #     # Login in to Hello World registry #
       #     docker_token=$(curl -H "Authorization: Bearer ${PROXYGEN_TOKEN}" https://proxygen.ptl.api.platform.nhs.uk/apis/hello-world/docker-token)
