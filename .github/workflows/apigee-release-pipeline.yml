@@ -31,7 +31,7 @@ jobs:
       - name: Update apt repositories
         run: sudo apt update
       
-      - name: Install Java and Node
+      - name: Install oathtool
         run: sudo apt-get install --yes oathtool
 
       - name: Upgrade python packaging tools
@@ -130,8 +130,24 @@ jobs:
           export ENVIRONMENT="internal-qa-sandbox"
           source deploy-environment.sh
       
+      - name: Run Internal QA Sandbox tests
+        run: |
+          if [ -z "$PR_NUMBER" ]
+          then
+              instance="internal-qa-sandbox"
+          else
+              instance=internal-qa-sandbox-pr-$PR_NUMBER
+          fi
+
+          export INSTANCE=$instance
+          export API_NAME="hello-world"
+
+          poetry run pytest tests/api_tests.py
+      
       - name: Deploy to Sandbox
         if: github.ref == 'refs/heads/master'
         run: |
           export ENVIRONMENT="sandbox"
           source deploy-environment.sh
+
+      # TO DO - Run Sandbox smoke tests. Cannot use test-utils 2.0 currently
