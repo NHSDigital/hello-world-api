@@ -5,7 +5,6 @@ import requests
 
 SESSION = requests.session()
 
-APIGEE_ACCESS_TOKEN = os.environ["APIGEE_ACCESS_TOKEN"]
 API_NAME = os.environ["API_NAME"]
 INSTANCE = os.environ["INSTANCE"]
 NAMESPACED_API_NAME = f"{API_NAME}--{INSTANCE}"
