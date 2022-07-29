@@ -7,7 +7,7 @@ on:
 permissions: read-all
 
 jobs:
-  deploy-hello-world:
+  deploy-hello-world-spec:
     runs-on: ubuntu-latest
     env:
       proxygen_private_key: ${{ secrets.ENCODED_HELLO_WORLD_PROXYGEN_PRIVATE_KEY }}
@@ -40,9 +40,14 @@ jobs:
 
       - name: Install python dependencies 
         run: poetry install
-      
+
       - name: Install Node dependencies
         run: npm install --legacy-peer-deps
-      
+
       - name: Lint spec
         run: npm run lint
+
+      - name: Compile spec
+        run: |
+          npm run publish
+          cat build/hello-world.json
