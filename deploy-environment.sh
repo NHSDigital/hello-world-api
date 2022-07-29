@@ -15,4 +15,4 @@ export BASE_PATH=$base_path
 
 envsubst < deployment.json > instance.json
 
-proxygen apply --api-name=$api_name
+proxygen apply

@@ -61,6 +61,7 @@ jobs:
           echo -n $proxygen_private_key | base64 --decode > proxygen_private_key.key
           proxygen setup-machine-user --client-id=$proxygen_client_id --private-key=proxygen_private_key.key
 
-          curl https://proxygen.ptl.api.platform.nhs.uk/apis/hello-world/spec \
+          curl -X POST https://proxygen.ptl.api.platform.nhs.uk/apis/hello-world/spec \
           -H "Authorization: $(proxygen get-token)" \
+          -H 'Content-Type: application/json' \
           -d @build/hello-world.json
