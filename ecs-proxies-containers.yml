@@ -1,5 +1,0 @@
-docker_containers:
-
-    - name: hello-world
-      dockerfile: "docker/hello-world-sandbox/Dockerfile"
-      path: "docker/hello-world-sandbox"
