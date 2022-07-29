@@ -97,25 +97,17 @@ jobs:
 
           proxygen docker-login --api-name=hello-world | bash
 
-      #     # Login in to Hello World registry #
-      #     docker_token=$(curl -H "Authorization: Bearer ${PROXYGEN_TOKEN}" https://proxygen.ptl.api.platform.nhs.uk/apis/hello-world/docker-token)
-      #     docker_user=$(echo $docker_token | jq -r '.user')
-      #     docker_password=$(echo $docker_token | jq -r '.password')
-      #     docker_registry_url=$(echo $docker_token | jq -r '.registry')
+          # Build and push image to registry #
+          docker_registry="958002497996.dkr.ecr.eu-west-2.amazonaws.com"
+          echo "DOCKER_REGISTRY=$docker_registry" >> $GITHUB_ENV
+          # Remove prefix #
+          docker_tag="${build_number}-$(uuidgen)"
+          echo "DOCKER_TAG=$docker_tag" >> $GITHUB_ENV
+          docker_image="hello-world"
 
-      #     echo $docker_password | docker login -u ${docker_user} --password-stdin ${docker_registry_url}
-
-      #     # Build and push image to registry #
-      #     docker_registry=${docker_registry_url#"https://"} 
-      #     echo "DOCKER_REGISTRY=$docker_registry" >> $GITHUB_ENV
-      #     # Remove prefix #
-      #     docker_tag="${build_number}-$(uuidgen)"
-      #     echo "DOCKER_TAG=$docker_tag" >> $GITHUB_ENV
-      #     docker_image="hello-world"
-
-      #     docker build -t $docker_image:$docker_tag hello-world-sandbox
-      #     docker tag $docker_image:$docker_tag $docker_registry/hello-world_hello-world:$docker_tag
-      #     docker push $docker_registry/hello-world_hello-world:$docker_tag 
+          docker build -t $docker_image:$docker_tag hello-world-sandbox
+          docker tag $docker_image:$docker_tag $docker_registry/hello-world_hello-world:$docker_tag
+          docker push $docker_registry/hello-world_hello-world:$docker_tag 
 
       # - name: Deploy to Internal Dev Sandbox
       #   run: |
