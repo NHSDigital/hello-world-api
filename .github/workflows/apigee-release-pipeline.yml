@@ -1,4 +1,7 @@
 name: apigee-release-pipeline
+defaults:
+  run:
+    shell: bash -ieo pipefail {0}
 on:
   push
 permissions: read-all
