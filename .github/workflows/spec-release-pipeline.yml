@@ -43,6 +43,9 @@ jobs:
 
       - name: Install Node dependencies
         run: npm install --legacy-peer-deps
+      
+      - name: Install Proxygen client
+        run: curl -o- https://raw.githubusercontent.com/NHSDigital/proxygen-cli/main/install.sh | bash
 
       - name: Lint spec
         run: npm run lint
