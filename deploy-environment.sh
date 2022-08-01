@@ -6,8 +6,8 @@ then
     instance=$ENVIRONMENT
     base_path=$api_name
 else
-    instance=$ENVIRONMENT-pr-$PR_NUMBER
-    base_path=$api_name-pr-$PR_NUMBER
+    instance=$ENVIRONMENT-$PR_NUMBER
+    base_path=$api_name-$PR_NUMBER
 fi
 echo $instance
 export INSTANCE=$instance
