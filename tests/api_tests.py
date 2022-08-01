@@ -75,7 +75,7 @@ class TestAPI:
         )
         status_json = resp.json()
         assert resp.status_code == 200
-        assert status_json["status"] == "pass"
+        assert status_json["status"] == "good"
 
     # Test Open-access
     @pytest.mark.parametrize(
