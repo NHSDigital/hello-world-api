@@ -88,7 +88,9 @@ jobs:
 
           # Build and push image to registry #
           docker_registry="958002497996.dkr.ecr.eu-west-2.amazonaws.com"
+          echo "DOCKER_REGISTRY=$docker_registry" >> $GITHUB_ENV
           docker_tag="${build_number}-$(uuidgen)"
+          echo "DOCKER_TAG=$docker_tag" >> $GITHUB_ENV
           docker_image="hello-world"
 
           docker build -t $docker_image:$docker_tag hello-world-sandbox
