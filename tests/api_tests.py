@@ -65,6 +65,14 @@ class TestAPI:
         # ping_data = json.loads(resp.text)
         # assert "version" in ping_data
 
+    def test_status_is_secured(self, nhsd_apim_proxy_url):
+        """
+        Send an unauthenticated request to status to check secured
+        """
+
+        resp = SESSION.get(nhsd_apim_proxy_url + "/_status")
+        assert resp.status_code == 401
+
     def test_status_endpoint(self, nhsd_apim_proxy_url, status_endpoint_auth_headers):
         """
         Send a request to the _status endpoint, protected by a platform-wide apikey.
@@ -75,7 +83,9 @@ class TestAPI:
         )
         status_json = resp.json()
         assert resp.status_code == 200
-        assert status_json["status"] == "good"
+        assert status_json["status"] == "pass"
+
+        # TO DO - Implement versioning on paas status endpoint so we can 'wait for status'
 
     # Test Open-access
     @pytest.mark.parametrize(
