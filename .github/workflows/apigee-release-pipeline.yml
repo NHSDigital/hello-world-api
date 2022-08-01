@@ -108,7 +108,7 @@ jobs:
           then
               instance="internal-dev-sandbox"
           else
-              instance=internal-dev-sandbox-pr-$PR_NUMBER
+              instance=internal-dev-sandbox-$PR_NUMBER
           fi
 
           export INSTANCE=$instance
@@ -127,7 +127,7 @@ jobs:
           then
               instance="internal-qa-sandbox"
           else
-              instance=internal-qa-sandbox-pr-$PR_NUMBER
+              instance=internal-qa-sandbox-$PR_NUMBER
           fi
 
           export INSTANCE=$instance
