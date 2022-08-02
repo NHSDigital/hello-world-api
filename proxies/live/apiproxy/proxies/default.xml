@@ -35,11 +35,10 @@
     </Flow>
     <Flow name="Flow.HeaderCheck">
       <Request>
-       <Step>
-          <Name>AssignMessage.SetStatusResponse</Name>
+         <Step>
+          <Name>RaiseFault.401Unauthorized</Name>
         </Step>
       </Request>
-      <Response/>
       <Condition>(proxy.pathsuffix MatchesPath "/hello/application") and (request.verb = "GET") and (request.header.apikey is null) and (request.header.Authorization is null)</Condition>
     </Flow>
     <Flow name="Flow.AuthApiKey">
