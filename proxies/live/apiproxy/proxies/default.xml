@@ -33,7 +33,7 @@
       </Response>
       <Condition>(proxy.pathsuffix MatchesPath "/_status") and ((request.verb = "GET") or (request.verb = "HEAD"))</Condition>
     </Flow>
-    <Flow name="Flow.HeaderCheck">
+    <Flow name="Flow.ApplicationMissingAuth">
       <Request>
          <Step>
           <Name>RaiseFault.401Unauthorized</Name>
