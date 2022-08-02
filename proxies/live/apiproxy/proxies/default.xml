@@ -33,6 +33,15 @@
       </Response>
       <Condition>(proxy.pathsuffix MatchesPath "/_status") and ((request.verb = "GET") or (request.verb = "HEAD"))</Condition>
     </Flow>
+    <Flow name="Flow.HeaderCheck">
+      <Request>
+       <Step>
+          <Name>AssignMessage.SetStatusResponse</Name>
+        </Step>
+      </Request>
+      <Response/>
+      <Condition>(proxy.pathsuffix MatchesPath "/hello/application") and (request.verb = "GET") and (request.header.apikey is null) and (request.header.Authorization is null)</Condition>
+    </Flow>
     <Flow name="Flow.AuthApiKey">
       <Request>
         <Step>
