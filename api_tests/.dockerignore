@@ -1,9 +1,0 @@
-.idea
-venv
-.venv
-.pytest_cache
-**/__pycache__/
-.env
-*.key
-test-report.xml
-reports

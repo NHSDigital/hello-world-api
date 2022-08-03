@@ -1,7 +1,0 @@
-.idea
-venv
-*.env
-.env
-**/__pycache__/
-test-report.xml
-reports
