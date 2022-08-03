@@ -35,10 +35,10 @@ jobs:
           fi
           echo "PR_NUMBER=$pr_number" >> $GITHUB_ENV
 
-      # - name: Install Python 3.8
-      #   uses: actions/setup-python@v1
-      #   with:
-      #     python-version: 3.8
+      - name: Install Python 3.8
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.8
       
       # - name: Update apt repositories
       #   run: sudo apt update
