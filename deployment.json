@@ -21,8 +21,8 @@
   ],
   "access_modes": [
     {
-      "title": "Hello World (PAAS)",
-      "grants_access": {"nhs_login": "P5", "nhs_cis2": "aal3", "app": "level0"}    
+      "title": "Hello World",
+      "grants_access": {"nhs_login": "P5", "nhs_cis2": "aal3", "app": "level0"}
     }
   ],
   "targets": [
