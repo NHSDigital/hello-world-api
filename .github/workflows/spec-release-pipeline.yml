@@ -57,13 +57,13 @@ jobs:
         run: npm run lint
 
       - name: Compile spec
-        if: github.ref != 'refs/heads/master'
+        if: github.ref == 'refs/heads/master'
         run: |
           npm run publish
           cat build/hello-world.json
         
       - name: Deploy spec
-        if: github.ref != 'refs/heads/master'
+        if: github.ref == 'refs/heads/master'
         run: |
           # Authenticate with Proxygen #
           echo -n $proxygen_private_key | base64 --decode > proxygen_private_key.key
