@@ -123,6 +123,7 @@ paths:
           name: apikey
           description: |
             Required only for API key authentication. An [Apigee Api key](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation#application-restricted-apis).
+            This must be a real API key subscribed to Hello World Sandbox
           required: false
           schema:
             type: string
@@ -131,6 +132,7 @@ paths:
           name: Authorization
           description: |
             Required only for signed JWT authentication. An [OAuth 2.0 bearer token](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation#application-restricted-apis).
+            This must be a real Bearer token authenticated with an app subscribed to Hello World Sandbox
           required: false
           schema:
             type: string
@@ -167,6 +169,7 @@ paths:
           name: Authorization
           description: |
             An [OAuth 2.0 bearer token](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation#user-restricted-apis).
+            This must be a real Bearer token authenticated with an app subscribed to Hello World Sandbox
           required: true
           schema:
             type: string
