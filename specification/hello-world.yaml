@@ -118,7 +118,24 @@ paths:
         - [Application-restricted RESTful APIs - API key authentication](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation/application-restricted-restful-apis-api-key-authentication)
         - [Application-restricted RESTful APIs - signed JWT authentication](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation/application-restricted-restful-apis-signed-jwt-authentication)
 
-      parameters: []
+      parameters:
+        - in: header
+          name: apikey
+          description: |
+            Required only for API key authentication. An [Apigee Api key](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation#application-restricted-apis).
+          required: false
+          schema:
+            type: string
+            example: 'IEYRtW2cb7A5Gs54A1wKElECBL65GVls'
+        - in: header
+          name: Authorization
+          description: |
+            Required only for signed JWT authentication. An [OAuth 2.0 bearer token](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation#application-restricted-apis).
+          required: false
+          schema:
+            type: string
+            format: '^Bearer\ [[:ascii:]]+$'
+            example: 'Bearer g1112R_ccQ1Ebbb4gtHBP1aaaNM'
       responses:
         '200':
           description: Successful response
@@ -137,6 +154,7 @@ paths:
       security:
         - api_key: []
         - oAuth2ClientCredentials: []
+    
   /hello/user:
     get:
       summary: Get a "Hello user!" response from a user-restricted endpoint
