@@ -3,24 +3,23 @@
   "version": "0.0.1",
   "description": "OAS (Swagger v3) API Definition for Hello World API",
   "scripts": {
-    "lint": "node_modules/.bin/speccy lint specification/hello-world.yaml --skip default-and-example-are-redundant --skip openapi-tags --skip operation-tags",
+    "lint": "node_modules/.bin/openapi-generator-cli validate -i specification/hello-world.yaml",
     "test": "npm run --prefix tests test:sandbox",
-    "publish": "mkdir -p build && node_modules/.bin/speccy resolve specification/hello-world.yaml -i | poetry run python scripts/yaml2json.py | poetry run python scripts/set_version.py > build/hello-world.json",
-    "serve": "node_modules/.bin/speccy serve build/hello-world.json",
+    "publish": "./node_modules/.bin/openapi-generator-cli generate -i specification/hello-world.yaml --generator-key v3.0 -g openapi -o build && rm openapitools.json && mv build/openapi.json build/hello-world.json",
     "check-licenses": "node_modules/.bin/license-checker --failOn GPL --failOn AGPL"
   },
   "author": "NHS Digital",
   "license": "(MIT OR OGL)",
   "homepage": "https://github.com/NHSDigital/hello-world-api",
-  "dependencies": {
-    "speccy": "^0.11.0"
-  },
   "devDependencies": {
-    "node": "^13.12.0",
+    "apigeetool": "^0.14.2",
+    "license-checker": "^25.0.1",
     "newman": "^4.6.0",
     "newman-reporter-html": "^1.0.5",
     "newman-reporter-htmlextra": "^1.12.1",
-    "apigeetool": "^0.14.2",
-    "license-checker": "^25.0.1"
+    "node": "^13.12.0"
+  },
+  "dependencies": {
+    "@openapitools/openapi-generator-cli": "^2.5.1"
   }
 }
