@@ -1,0 +1,102 @@
+openapi: 3.0.3
+info:
+  version: 1.0.0
+  title: $INSTANCE
+  description: |
+    Integration tests for the proxygen service
+  contact:
+    name: API Management Support
+    email: api.management@nhs.net
+servers:
+  - url: 'https://$ENVIRONMENT.api.service.nhs.uk/$BASE_PATH'
+components:
+  securitySchemes:
+    nhs-login-p0:
+      $ref: https://proxygen.ptl.api.platform.nhs.uk/components/securitySchemes/nhs-login-p0
+    nhs-login-p5:
+      $ref: https://proxygen.ptl.api.platform.nhs.uk/components/securitySchemes/nhs-login-p5
+    nhs-login-p9:
+      $ref: https://proxygen.ptl.api.platform.nhs.uk/components/securitySchemes/nhs-login-p9
+    nhs-cis2-aal1:
+      $ref: https://proxygen.ptl.api.platform.nhs.uk/components/securitySchemes/nhs-cis2-aal1
+    nhs-cis2-aal3:
+      $ref: https://proxygen.ptl.api.platform.nhs.uk/components/securitySchemes/nhs-cis2-aal3
+    app-level0:
+      $ref: https://proxygen.ptl.api.platform.nhs.uk/components/securitySchemes/app-level0
+    app-level3:
+      $ref: https://proxygen.ptl.api.platform.nhs.uk/components/securitySchemes/app-level3
+paths:
+  /open:
+    get:
+      security: []
+      responses:
+        200:
+          description: Success
+  /app-level0:
+    get:
+      security:
+        - app-level0: []
+      responses:
+        200:
+          description: Success
+  /app-level3:
+    get:
+      security:
+        - app-level3: []
+      responses:
+        200:
+          description: Success
+  /nhs-login-p0:
+    get:
+      security:
+        - nhs-login-p0: []
+      responses:
+        200:
+          description: Success
+  /nhs-login-p5:
+    get:
+      security:
+        - nhs-login-p5: []
+      responses:
+        200:
+          description: Success
+  /nhs-login-p9:
+    get:
+      security:
+        - nhs-login-p9: []
+      responses:
+        200:
+          description: Success
+  /nhs-cis2-aal1:
+    get:
+      security:
+        - nhs-cis2-aal1: []
+      responses:
+        200:
+          description: Success
+  /nhs-cis2-aal3:
+    get:
+      security:
+        - nhs-cis2-aal3: []
+      responses:
+        200:
+          description: Success
+x-nhsd-apim:
+  monitoring: false
+  access:
+  - title: Testing product
+    grants:
+      nhs-login-p0: []
+      nhs-login-p5: []
+      nhs-login-p9: []
+      nhs-cis2-aal1: []
+      nhs-cis2-aal3: []
+      app-level0: []
+      app-level3: []
+  ratelimiting:
+    proxy:
+      limit: 5
+      timeunit: minute
+    app:
+      limit: 10
+      timeunit: minute
