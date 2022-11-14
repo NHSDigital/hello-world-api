@@ -199,23 +199,32 @@ paths:
         - oAuth2AuthCode: []
 components:
   securitySchemes:
-    api_key:
-      type: apiKey
-      name: apikey
-      in: header
-    oAuth2AuthCode:
-      type: oauth2
-      flows:
-        authorizationCode:
-          authorizationUrl: 'https://sandbox.api.service.nhs.uk/oauth2/authorize'
-          tokenUrl: 'https://sandbox.api.service.nhs.uk/oauth2/token'
-          scopes: {}
-    oAuth2ClientCredentials:
-      type: oauth2
-      flows:
-        clientCredentials:
-          tokenUrl: 'https://sandbox.api.service.nhs.uk/oauth2/token'
-          scopes: {}
+    nhs-login-p0:
+      $ref: https://proxygen.ptl.api.platform.nhs.uk/components/securitySchemes/nhs-login-p0
+    nhs-login-p5:
+      $ref: https://proxygen.ptl.api.platform.nhs.uk/components/securitySchemes/nhs-login-p5
+    nhs-login-p9:
+      $ref: https://proxygen.ptl.api.platform.nhs.uk/components/securitySchemes/nhs-login-p9
+    nhs-cis2-aal1:
+      $ref: https://proxygen.ptl.api.platform.nhs.uk/components/securitySchemes/nhs-cis2-aal1
+    nhs-cis2-aal3:
+      $ref: https://proxygen.ptl.api.platform.nhs.uk/components/securitySchemes/nhs-cis2-aal3
+    app-level0:
+      $ref: https://proxygen.ptl.api.platform.nhs.uk/components/securitySchemes/app-level0
+    app-level3:
+      $ref: https://proxygen.ptl.api.platform.nhs.uk/components/securitySchemes/app-level3
   schemas:
     Greeting:
       $ref: components/schemas/Greeting.yaml
+
+x-nhsd-apim:
+  access:
+  - title: Testing product
+    grants:
+      nhs-login-p0: []
+      nhs-login-p5: []
+      nhs-login-p9: []
+      nhs-cis2-aal1: []
+      nhs-cis2-aal3: []
+      app-level0: []
+      app-level3: []
