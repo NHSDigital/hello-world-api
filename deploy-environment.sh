@@ -24,10 +24,10 @@ export BASE_PATH=$base_path
 export SANDBOX_DOMAIN=$ENVIRONMENT
 
 npm run publish
-envsubst < build/hello-world.json > build/hello-world.json.tmp
+envsubst build/hello-world.json
 
 curl -X PUT "https://proxygen.ptl.api.platform.nhs.uk/apis/$api_name/environments/$ENVIRONMENT/instances/$INSTANCE" \
     -H "Authorization: $(proxygen get-token)" \
     -H 'Content-Type: application/json' \
-    -d @build/hello-world.json.tmp \
+    -d @build/hello-world.json \
     --fail
