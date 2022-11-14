@@ -26,7 +26,7 @@ export SERVER_DOMAIN=$ENVIRONMENT
 npm run publish
 envsubst build/hello-world.json
 
-curl -X POST "https://proxygen.ptl.api.platform.nhs.uk/${{ api_name }}/environments/${{ ENVIRONMENT }}/instances/${{ INSTANCE }}" \
+curl -X POST "https://proxygen.ptl.api.platform.nhs.uk/$api_name/environments/$ENVIRONMENT/instances/$INSTANCE" \
     -H "Authorization: $(proxygen get-token)" \
     -H 'Content-Type: application/json' \
     -d @build/hello-world.json
