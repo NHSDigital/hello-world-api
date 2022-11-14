@@ -13,6 +13,9 @@ echo $instance
 export INSTANCE=$instance
 export BASE_PATH=$base_path
 
-envsubst < deployment.json > instance.json
+mkdir build -p && node_modules/.bin/speccy resolve sandbox-spec.yaml -i | poetry run python scripts/yaml2json.py | envsubst > build/hello-world.json
 
-proxygen apply
+curl -X POST "https://proxygen.ptl.api.platform.nhs.uk/${{ api_name }}/environments/${{ ENVIRONMENT }}/instances/${{ INSTANCE }}" \
+    -H "Authorization: $(proxygen get-token)" \
+    -H 'Content-Type: application/json' \
+    -d @build/hello-world.json
