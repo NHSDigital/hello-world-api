@@ -4,10 +4,10 @@ api_name="hello-world"
 if [ -z "$PR_NUMBER" ]
 then
     instance=$ENVIRONMENT
-    base_path=$api_name
+    export base_path=$api_name
 else
     instance=$ENVIRONMENT-$PR_NUMBER
-    base_path=$api_name-$PR_NUMBER
+    export base_path=$api_name-$PR_NUMBER
 fi
 
 if [ -z "$ENVIRONMENT" ]
@@ -21,7 +21,7 @@ fi
 echo $instance
 export INSTANCE=$instance
 export BASE_PATH=$base_path
-export SERVER_DOMAIN=$ENVIRONMENT
+export SANDBOX_DOMAIN=$ENVIRONMENT
 
 npm run publish
 envsubst < build/hello-world.json > build/hello-world.json.tmp
