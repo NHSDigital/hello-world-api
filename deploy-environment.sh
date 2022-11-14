@@ -9,11 +9,22 @@ else
     instance=$ENVIRONMENT-$PR_NUMBER
     base_path=$api_name-$PR_NUMBER
 fi
+
+if [ -z "$ENVIRONMENT" ]
+then
+    export TITLE="Hello World API"
+    ENVIRONMENT="sandbox"
+else
+    export TITLE="Hello World API - $instance"
+fi
+
 echo $instance
 export INSTANCE=$instance
 export BASE_PATH=$base_path
+export SERVER_DOMAIN=$ENVIRONMENT
 
-mkdir build -p && node_modules/.bin/speccy resolve sandbox-spec.yaml -i | poetry run python scripts/yaml2json.py | envsubst > build/hello-world.json
+npm run publish
+envsubst build/hello-world.json
 
 curl -X POST "https://proxygen.ptl.api.platform.nhs.uk/${{ api_name }}/environments/${{ ENVIRONMENT }}/instances/${{ INSTANCE }}" \
     -H "Authorization: $(proxygen get-token)" \

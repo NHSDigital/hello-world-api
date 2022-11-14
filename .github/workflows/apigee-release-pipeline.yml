@@ -18,7 +18,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      
+
       - name: Get Pull Request Number
         id: pr
         if: github.ref != 'refs/heads/master'
@@ -39,10 +39,10 @@ jobs:
         uses: actions/setup-python@v1
         with:
           python-version: 3.8
-      
+
       - name: Update apt repositories
         run: sudo apt update
-      
+
       - name: Install oathtool
         run: sudo apt-get install --yes oathtool
 
@@ -51,7 +51,7 @@ jobs:
 
       - name: Install poetry
         run: pip install poetry
-      
+
       - name: Cache poetry packages
         uses: actions/cache@v1
         with:
@@ -63,7 +63,10 @@ jobs:
 
       - name: Install Proxygen client
         run: curl -o- https://raw.githubusercontent.com/NHSDigital/proxygen-cli/main/install.sh | bash
-      
+
+      - name: Install NPM packages
+        run: npm install
+
       - name: Get Apigee token
         env:
           APIGEE_USERNAME: ${{ secrets.APIGEE_USERNAME_NONPROD }}
@@ -109,7 +112,7 @@ jobs:
         run: |
           export ENVIRONMENT="internal-dev-sandbox"
           source deploy-environment.sh
-      
+
       - name: Run Internal Dev Sandbox tests
         run: |
           if [ -z "$PR_NUMBER" ]
@@ -123,12 +126,12 @@ jobs:
           export API_NAME="hello-world"
 
           poetry run pytest tests/api_tests.py
-      
+
       - name: Deploy to Internal QA Sandbox
         run: |
           export ENVIRONMENT="internal-qa-sandbox"
           source deploy-environment.sh
-      
+
       - name: Run Internal QA Sandbox tests
         run: |
           if [ -z "$PR_NUMBER" ]
@@ -142,7 +145,7 @@ jobs:
           export API_NAME="hello-world"
 
           poetry run pytest tests/api_tests.py
-      
+
       - name: Deploy to Sandbox
         if: github.ref == 'refs/heads/master'
         run: |
