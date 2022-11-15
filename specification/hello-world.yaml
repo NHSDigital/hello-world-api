@@ -153,7 +153,10 @@ paths:
                 message: Hello application!
         '401':
           description: API Key or access token is missing or invalid.
-    
+      security:
+        - api_key: []
+        - oAuth2ClientCredentials: []
+
   /hello/user:
     get:
       summary: Get a "Hello user!" response from a user-restricted endpoint
@@ -192,6 +195,8 @@ paths:
             application/json:
               example:
                 message: Invalid access token
+      security:
+        - oAuth2AuthCode: []
 components:
   securitySchemes:
     nhs-login-p0:
