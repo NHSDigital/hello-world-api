@@ -68,7 +68,7 @@ info:
 
     | Environment                                    | Base URL                                                     |
     | -----------------------------------------------|--------------------------------------------------------------|
-    | Sandbox                                        | `https://$SANDBOX_DOMAIN.api.service.nhs.uk/$BASE_PATH`                  |
+    | Sandbox                                        | `https://$SANDBOX_DOMAIN.api.service.nhs.uk/$BASE_PATH`      |
     ### Sandbox testing
     This API is for learning purposes and is only available in our sandbox environment. Our [sandbox environment](https://digital.nhs.uk/developer/guides-and-documentation/testing#sandbox-testing):
       - is for early developer testing
@@ -193,7 +193,21 @@ paths:
               example:
                 message: Invalid access token
 components:
-  securitySchemes: {}
+  securitySchemes:
+    nhs-login-p0:
+      $ref: https://proxygen.ptl.api.platform.nhs.uk/components/securitySchemes/nhs-login-p0
+    nhs-login-p5:
+      $ref: https://proxygen.ptl.api.platform.nhs.uk/components/securitySchemes/nhs-login-p5
+    nhs-login-p9:
+      $ref: https://proxygen.ptl.api.platform.nhs.uk/components/securitySchemes/nhs-login-p9
+    nhs-cis2-aal1:
+      $ref: https://proxygen.ptl.api.platform.nhs.uk/components/securitySchemes/nhs-cis2-aal1
+    nhs-cis2-aal3:
+      $ref: https://proxygen.ptl.api.platform.nhs.uk/components/securitySchemes/nhs-cis2-aal3
+    app-level0:
+      $ref: https://proxygen.ptl.api.platform.nhs.uk/components/securitySchemes/app-level0
+    app-level3:
+      $ref: https://proxygen.ptl.api.platform.nhs.uk/components/securitySchemes/app-level3
   schemas:
     Greeting:
       $ref: components/schemas/Greeting.yaml
