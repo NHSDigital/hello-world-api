@@ -154,8 +154,7 @@ paths:
         '401':
           description: API Key or access token is missing or invalid.
       security:
-        - api_key: []
-        - oAuth2ClientCredentials: []
+        - app-level0: []
 
   /hello/user:
     get:
@@ -195,8 +194,9 @@ paths:
             application/json:
               example:
                 message: Invalid access token
-      security:
-        - oAuth2AuthCode: []
+      security: # Note this is a MINIMUM security level.
+        - nhs-login-p0: []
+        - nhs-cis2-aal1: []
 components:
   securitySchemes:
     nhs-login-p0:
