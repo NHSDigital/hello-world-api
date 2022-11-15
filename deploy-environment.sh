@@ -13,23 +13,17 @@ fi
 if [ -z "$ENVIRONMENT" ]
 then
     export TITLE="Hello World API"
-    ENVIRONMENT="sandbox"
+    export ENVIRONMENT="sandbox"
 else
     export TITLE="Hello World API - $instance"
 fi
 
 export INSTANCE=$instance
-export BASE_PATH=$base_path
+export BASE_PATH=$base_path-$INSTANCE
 export SANDBOX_DOMAIN=$ENVIRONMENT
 
-npm run publish
+mkdir -p build && poetry run python scripts/yaml2json.py < specification/hello-world.yaml > build/hello-world.json
 envsubst < build/hello-world.json > build/hello-world-tmp.json
-
-echo "Using BASE_PATH $BASE_PATH"
-echo "Using INSTANCE $INSTANCE"
-echo "Using TITLE $TITLE"
-echo "Using ENVIRONMENT $ENVIRONMENT"
-echo "Using SANDBOX_DOMAIN $SANDBOX_DOMAIN"
 
 curl -X PUT "https://proxygen.ptl.api.platform.nhs.uk/apis/$api_name/environments/$ENVIRONMENT/instances/$BASE_PATH" \
     -H "Authorization: $(proxygen get-token)" \

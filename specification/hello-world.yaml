@@ -211,7 +211,6 @@ components:
   schemas:
     Greeting:
       $ref: components/schemas/Greeting.yaml
-
 x-nhsd-apim:
   access:
   - title: Testing product
