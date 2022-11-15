@@ -23,6 +23,7 @@ export BASE_PATH=$base_path-$INSTANCE
 export SANDBOX_DOMAIN=$ENVIRONMENT
 
 mkdir -p build && poetry run python scripts/yaml2json.py < specification/hello-world.yaml > build/hello-world.json
+export $ref="\$ref"
 envsubst < build/hello-world.json > build/hello-world-tmp.json
 
 curl -X PUT "https://proxygen.ptl.api.platform.nhs.uk/apis/$api_name/environments/$ENVIRONMENT/instances/$BASE_PATH" \
