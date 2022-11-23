@@ -213,9 +213,6 @@ components:
       $ref: https://proxygen.ptl.api.platform.nhs.uk/components/securitySchemes/app-level0
     app-level3:
       $ref: https://proxygen.ptl.api.platform.nhs.uk/components/securitySchemes/app-level3
-  schemas:
-    Greeting:
-      $ref: components/schemas/Greeting.yaml
 x-nhsd-apim:
   access:
   - title: Testing product
