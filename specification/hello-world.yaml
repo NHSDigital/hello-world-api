@@ -155,7 +155,6 @@ paths:
           description: API Key or access token is missing or invalid.
       security:
         - app-level0: []
-
   /hello/user:
     get:
       summary: Get a "Hello user!" response from a user-restricted endpoint
@@ -214,13 +213,23 @@ components:
     app-level3:
       $ref: https://proxygen.ptl.api.platform.nhs.uk/components/securitySchemes/app-level3
 x-nhsd-apim:
+  monitoring: false
   access:
-  - title: Testing product
+  - title: User Restricted
     grants:
-      nhs-login-p0: []
       nhs-login-p5: []
-      nhs-login-p9: []
-      nhs-cis2-aal1: []
-      nhs-cis2-aal3: []
+  - title: Application Restricted
+    grants:
       app-level0: []
-      app-level3: []
+  target:
+    type: hosted
+    healthcheck: /_status
+    containers:
+    - name: hello-world
+      image:
+        name: hello-world_hello-world
+        tag: $DOCKER_TAG
+      environment: 
+        LOG_LEVEL: info
+        UPSTREAM: https://$SANDBOX_ENVIRONMENT.api.service.nhs.uk
+        NODE_ENV: production
