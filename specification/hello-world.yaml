@@ -194,24 +194,13 @@ paths:
               example:
                 message: Invalid access token
       security: # Note this is a MINIMUM security level.
-        - nhs-login-p0: []
-        - nhs-cis2-aal1: []
+        - nhs-login-p5: []
 components:
   securitySchemes:
-    nhs-login-p0:
-      $ref: https://proxygen.ptl.api.platform.nhs.uk/components/securitySchemes/nhs-login-p0
     nhs-login-p5:
       $ref: https://proxygen.ptl.api.platform.nhs.uk/components/securitySchemes/nhs-login-p5
-    nhs-login-p9:
-      $ref: https://proxygen.ptl.api.platform.nhs.uk/components/securitySchemes/nhs-login-p9
-    nhs-cis2-aal1:
-      $ref: https://proxygen.ptl.api.platform.nhs.uk/components/securitySchemes/nhs-cis2-aal1
-    nhs-cis2-aal3:
-      $ref: https://proxygen.ptl.api.platform.nhs.uk/components/securitySchemes/nhs-cis2-aal3
     app-level0:
       $ref: https://proxygen.ptl.api.platform.nhs.uk/components/securitySchemes/app-level0
-    app-level3:
-      $ref: https://proxygen.ptl.api.platform.nhs.uk/components/securitySchemes/app-level3
 x-nhsd-apim:
   monitoring: false
   access:
