@@ -219,6 +219,7 @@ x-nhsd-apim:
   - title: User Restricted
     grants:
       nhs-login-p5: []
+      app-level3: []
   - title: Application Restricted
     grants:
       app-level0: []
