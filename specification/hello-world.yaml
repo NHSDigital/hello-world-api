@@ -156,7 +156,6 @@ paths:
       security:
         - app-level0: []
         - app-level3: []
-        - nhs-cis2-aal3: []
   /hello/user:
     get:
       summary: Get a "Hello user!" response from a user-restricted endpoint
