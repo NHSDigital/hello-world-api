@@ -3,10 +3,8 @@ api_name="hello-world"
 
 if [ -z "$PR_NUMBER" ]
 then
-    instance=$ENVIRONMENT
     export base_path=$api_name
 else
-    instance=$ENVIRONMENT-$PR_NUMBER
     export base_path=$api_name-$PR_NUMBER
 fi
 
@@ -18,7 +16,6 @@ else
     export TITLE="Hello World API - $instance"
 fi
 
-export INSTANCE=$instance
 export BASE_PATH=$base_path
 export SANDBOX_DOMAIN=$ENVIRONMENT
 

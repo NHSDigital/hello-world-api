@@ -117,13 +117,14 @@ jobs:
         run: |
           if [ -z "$PR_NUMBER" ]
           then
-              instance="internal-dev-sandbox"
+              instance=$API_NAME
           else
-              instance=internal-dev-sandbox-$PR_NUMBER
+              instance=$API_NAME-$PR_NUMBER
           fi
 
-          export INSTANCE=$instance
           export API_NAME="hello-world"
+          export ENVIRONMENT="internal-dev-sandbox"
+          export INSTANCE=$instance
 
           poetry run pytest tests/api_tests.py
 
@@ -136,13 +137,14 @@ jobs:
         run: |
           if [ -z "$PR_NUMBER" ]
           then
-              instance="internal-qa-sandbox"
+              instance=$API_NAME
           else
-              instance=internal-qa-sandbox-$PR_NUMBER
+              instance=$API_NAME-$PR_NUMBER
           fi
 
-          export INSTANCE=$instance
           export API_NAME="hello-world"
+          export ENVIRONMENT="internal-qa-sandbox"
+          export INSTANCE=$instance
 
           poetry run pytest tests/api_tests.py
 
