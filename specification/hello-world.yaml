@@ -155,6 +155,7 @@ paths:
           description: API Key or access token is missing or invalid.
       security:
         - app-level0: []
+        - app-level3: []
         - nhs-cis2-aal3: []
   /hello/user:
     get:
@@ -223,6 +224,7 @@ x-nhsd-apim:
   - title: Application Restricted
     grants:
       app-level0: []
+      app-level3: []
   target:
     type: hosted
     healthcheck: /_status
