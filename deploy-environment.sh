@@ -19,7 +19,7 @@ else
 fi
 
 export INSTANCE=$instance
-export BASE_PATH=$base_path-$INSTANCE
+export BASE_PATH=$base_path
 export SANDBOX_DOMAIN=$ENVIRONMENT
 
 mkdir -p build && poetry run python scripts/yaml2json.py < specification/hello-world.yaml > build/hello-world.json
