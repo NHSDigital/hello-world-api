@@ -115,15 +115,15 @@ jobs:
 
       - name: Run Internal Dev Sandbox tests
         run: |
+          export API_NAME="hello-world"
+          export ENVIRONMENT="internal-dev-sandbox"
+
           if [ -z "$PR_NUMBER" ]
           then
               instance=$API_NAME
           else
               instance=$API_NAME-$PR_NUMBER
           fi
-
-          export API_NAME="hello-world"
-          export ENVIRONMENT="internal-dev-sandbox"
           export INSTANCE=$instance
 
           poetry run pytest tests/api_tests.py
@@ -135,6 +135,9 @@ jobs:
 
       - name: Run Internal QA Sandbox tests
         run: |
+          export API_NAME="hello-world"
+          export ENVIRONMENT="internal-qa-sandbox"
+
           if [ -z "$PR_NUMBER" ]
           then
               instance=$API_NAME
@@ -142,8 +145,6 @@ jobs:
               instance=$API_NAME-$PR_NUMBER
           fi
 
-          export API_NAME="hello-world"
-          export ENVIRONMENT="internal-qa-sandbox"
           export INSTANCE=$instance
 
           poetry run pytest tests/api_tests.py
