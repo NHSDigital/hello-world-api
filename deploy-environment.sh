@@ -1,18 +1,17 @@
 #!/bin/bash
-api_name="hello-world"
 
-if [ -z "$PR_NUMBER" ]
+if [ -z "$ENVIRONMENT" ]
 then
-    instance=$ENVIRONMENT
-    base_path=$api_name
+    export TITLE="Hello World API"
+    export ENVIRONMENT="sandbox"
 else
-    instance=$ENVIRONMENT-$PR_NUMBER
-    base_path=$api_name-$PR_NUMBER
+    export TITLE="Hello World API - $ENVIRONMENT"
 fi
-echo $instance
-export INSTANCE=$instance
-export BASE_PATH=$base_path
 
-envsubst < deployment.json > instance.json
+source scripts/compile-spec.sh
 
-proxygen apply
+curl -X PUT "https://proxygen.ptl.api.platform.nhs.uk/apis/$PROXYGEN_API_NAME/environments/$ENVIRONMENT/instances/$INSTANCE" \
+    -H "Authorization: $(proxygen get-token)" \
+    -H 'Content-Type: application/json' \
+    -d @build/hello-world-rendered.json \
+    --fail
