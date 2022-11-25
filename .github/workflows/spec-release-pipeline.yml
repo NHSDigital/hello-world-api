@@ -17,7 +17,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      
+
       - name: Get Pull Request Number
         id: pr
         if: github.ref != 'refs/heads/master'
@@ -37,46 +37,48 @@ jobs:
         uses: actions/setup-python@v1
         with:
           python-version: 3.8
-      
+
       - name: Update apt repositories
         run: sudo apt update
-      
+
       - name: Install Node
         run: sudo apt-get install --yes nodejs
-      
+
       - name: Install poetry
         run: pip install poetry
-      
+
       - name: Cache poetry packages
         uses: actions/cache@v1
         with:
           path: ~/.cache/pypoetry
           key: ${{ runner.os }}-build-cache-poetry-packages-${{ hashFiles('**/poetry.lock') }}
-      
+
       - name: Cache node modules
         uses: actions/cache@v1
         with:
           path: ~/.npm
           key: ${{ runner.os }}-build-cache-npm-packages-${{ hashFiles('**/package-lock.json') }}
 
-      - name: Install python dependencies 
+      - name: Install python dependencies
         run: poetry install
 
       - name: Install Node dependencies
         run: npm install --legacy-peer-deps
-      
+
       - name: Install Proxygen client
         run: curl -o- https://raw.githubusercontent.com/NHSDigital/proxygen-cli/main/install.sh | bash
 
       - name: Lint spec
-        run: npm run lint
+        run: make lint-spec
 
       - name: Compile spec
         if: github.ref == 'refs/heads/master'
         run: |
-          npm run publish
-          cat build/hello-world.json
-        
+            export TITLE="Hello World API"
+            export ENVIRONMENT="sandbox"
+            export INSTANCE="hello-world"
+            source scripts/compile-spec.sh
+
       - name: Deploy spec
         if: github.ref == 'refs/heads/master'
         run: |
@@ -87,4 +89,4 @@ jobs:
           curl -X POST https://proxygen.ptl.api.platform.nhs.uk/apis/hello-world/spec \
           -H "Authorization: $(proxygen get-token)" \
           -H 'Content-Type: application/json' \
-          -d @build/hello-world.json
+          -d @build/hello-world-rendered.json
