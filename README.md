@@ -10,10 +10,9 @@ This is a RESTful HL7® FHIR® API specification for the *Hello World API*.
 
 The *Hello World API* is the first API to use API Management's Proxygen service to deploy using API calls. For more see [Deployment](#Deployment).
 
-* `specification/` This [Open API Specification](https://swagger.io/docs/specification/about/) describes the endpoints, methods and messages exchanged by the API. Use it to generate interactive documentation; the contract between the API and its consumers.
+* `specification/` This [Open API Specification](https://swagger.io/docs/specification/about/) describes the endpoints, methods and messages exchanged by the API. Use it to generate interactive documentation; the contract between the API and its consumers. The specification also includes a `x-nhsd-apim` metadata item that describes servers the API rests on.
 * `sandbox/` This NodeJS application implements a mock implementation of the service. Use it as a back-end service to the interactive documentation to illustrate interactions and concepts. It is not intended to provide an exhaustive/faithful environment suitable for full development and testing.
 * `scripts/` Utilities helpful to developers of this specification.
-* `deployment.json` The deployment config for the API, which uses the API Management Platform's 'Proxygen' service.
 
 Consumers of the API will find developer documentation on the [NHS Digital Developer Hub](https://digital.nhs.uk/developer/api-catalogue/hello-world).
 
@@ -36,16 +35,18 @@ The contents of this repository are protected by Crown Copyright (C).
 
 Hello World is the first API to use API Management's Proxygen to deploy the proxy, products, sandbox and spec through API calls.
 
+Proxygen uses the OAS specification in `specification/hello-world.yaml` to inform the exact details on resource names and behaviours.
+
 The deployments use Github actions to deploy the API. These pipelines are found in the `.github/workflows` directory and can be monitored under the ['Actions'](https://github.com/NHSDigital/hello-world-api/actions) tab in the GitHub repo.
 
 ### Apigee release pipeline
-The `apigee-release-pipeline.yml` builds and pushes the docker image of the sandbox to ECS using Proxygen's docker authentication, then makes API calls to Proxygen for each environment using the `depoyment.json` config and the `deploy-environment.sh` script. After that it is configured to run end-to-end tests for any internal environments deployed. As Hello World is not a real API, it only deploys to sandbox environments.
+The `apigee-release-pipeline.yml` builds and pushes the docker image of the sandbox to ECS using Proxygen's docker authentication, then makes API calls to Proxygen for each environment using data provided in the specification and the `deploy-environment.sh` script. After that it is configured to run end-to-end tests for any internal environments deployed. As Hello World is not a real API, it only deploys to sandbox environments.
 
 #### Pull requests
 On pushes to branches with a pull request the pipeline is configured to append the pr number to the instances deployed and only deploy to internal environments. This means it's possible to develop code against pr versions of the API.
 
 ### Spec release pipeline
-The `spec-release-pipeline.yml` will first lint the spec and then deploy the spec using Proxygen. When Proxygen deploys a spec it bypassed Apigee and is held in an S3 bucket which Bloomreach is configured to pull from and then update the [NHS Digital Developer Hub](https://digital.nhs.uk/developer/api-catalogue/hello-world).
+The `spec-release-pipeline.yml` will first lint the spec, then compile and deploy the spec using Proxygen. When Proxygen deploys a spec it bypasses Apigee and is held in an S3 bucket which Bloomreach is configured to pull from and then update the [NHS Digital Developer Hub](https://digital.nhs.uk/developer/api-catalogue/hello-world).
 
 #### Pull requests
 On pushes to branches with a pull request the pipeline is configured to only lint the spec.
