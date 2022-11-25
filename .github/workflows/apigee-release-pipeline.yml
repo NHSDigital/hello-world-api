@@ -64,9 +64,6 @@ jobs:
       - name: Install Proxygen client
         run: curl -o- https://raw.githubusercontent.com/NHSDigital/proxygen-cli/main/install.sh | bash
 
-      - name: Install Speccy
-        run: npm install speccy
-
       - name: Get Apigee token
         env:
           APIGEE_USERNAME: ${{ secrets.APIGEE_USERNAME_NONPROD }}
