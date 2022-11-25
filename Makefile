@@ -25,7 +25,7 @@ lint-spec:
 
 publish:
 	mkdir -p build && poetry run python scripts/yaml2json.py < specification/hello-world.yaml > build/hello-world.json
-	export ref="\$ref"
+	export ref="\$$ref"
 	envsubst < build/hello-world.json > build/hello-world-rendered.json
 	# similarly to above, npm-wrapped speccy commands seem to hang
 	# npm run publish 2> /dev/null
