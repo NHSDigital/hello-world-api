@@ -27,8 +27,9 @@ lint-spec:
 # npm run publish 2> /dev/null
 publish:
 	export ref='\$$ref'
+	mkdir -p build
 	envsubst < specification/hello-world.yaml > build/hello-world-populated.yaml
-	mkdir -p build && node_modules/.bin/speccy resolve build/hello-world-populated.yaml -i | poetry run python scripts/yaml2json.py > build/hello-world-rendered.json
+	node_modules/.bin/speccy resolve build/hello-world-populated.yaml -i | poetry run python scripts/yaml2json.py > build/hello-world-rendered.json
 
 serve: update-examples
 	npm run serve
