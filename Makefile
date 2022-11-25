@@ -13,9 +13,15 @@ install-hooks:
 	cp scripts/pre-commit .git/hooks/pre-commit
 
 lint:
-	npm run lint
+	make lint-spec
 	cd docker/hello-world-sandbox && npm run lint && cd ..
 	find . -name '*.py' -not -path '**/venv/*' | xargs poetry run flake8
+
+lint-spec:
+	# "npm run lint" hangs on first GET request speccy makes for remote refs
+	# calling speccy directly works fine
+	# npm run lint
+	node_modules/.bin/speccy lint specification/hello-world.yaml -v --skip default-and-example-are-redundant --skip openapi-tags --skip operation-tags
 
 publish:
 	npm run publish 2> /dev/null

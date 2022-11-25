@@ -5,7 +5,7 @@ import requests
 
 SESSION = requests.session()
 
-API_NAME = os.environ["API_NAME"]
+API_NAME = os.environ["PROXYGEN_API_NAME"]
 INSTANCE = os.environ["INSTANCE"]
 ENVIRONMENT = os.environ["ENVIRONMENT"]
 NAMESPACED_API_NAME = f"{API_NAME}--{ENVIRONMENT}--{INSTANCE}"

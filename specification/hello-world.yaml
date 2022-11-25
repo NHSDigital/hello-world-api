@@ -68,7 +68,7 @@ info:
 
     | Environment                                    | Base URL                                                     |
     | -----------------------------------------------|--------------------------------------------------------------|
-    | Sandbox                                        | `https://$SANDBOX_DOMAIN.api.service.nhs.uk/$BASE_PATH`      |
+    | Sandbox                                        | `https://$ENVIRONMENT.api.service.nhs.uk/$INSTANCE`      |
     ### Sandbox testing
     This API is for learning purposes and is only available in our sandbox environment. Our [sandbox environment](https://digital.nhs.uk/developer/guides-and-documentation/testing#sandbox-testing):
       - is for early developer testing
@@ -85,7 +85,7 @@ info:
     name: API Management Support
     email: api.management@nhs.net
 servers:
-  - url: 'https://$SANDBOX_DOMAIN.api.service.nhs.uk/$BASE_PATH'
+  - url: 'https://$ENVIRONMENT.api.service.nhs.uk/$INSTANCE'
     description: Sandbox environment.
 paths:
   /hello/world:

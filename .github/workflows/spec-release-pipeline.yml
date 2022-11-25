@@ -69,13 +69,7 @@ jobs:
         run: curl -o- https://raw.githubusercontent.com/NHSDigital/proxygen-cli/main/install.sh | bash
 
       - name: Lint spec
-        run: |
-          # This should just run npm lint, but this is causing the runner
-          # to hang on the first GET request made by speccy lint. Need
-          # to fix.
-          # npm lint
-          node_modules/.bin/speccy lint specification/hello-world.yaml -v --skip default-and-example-are-redundant --skip openapi-tags --skip operation-tags
-
+        run: make lint-spec
 
       - name: Compile spec
         if: github.ref == 'refs/heads/master'

@@ -64,9 +64,6 @@ jobs:
       - name: Install Proxygen client
         run: curl -o- https://raw.githubusercontent.com/NHSDigital/proxygen-cli/main/install.sh | bash
 
-      - name: Install NPM packages
-        run: npm install
-
       - name: Get Apigee token
         env:
           APIGEE_USERNAME: ${{ secrets.APIGEE_USERNAME_NONPROD }}
@@ -108,54 +105,39 @@ jobs:
           docker tag $docker_image:$docker_tag $docker_registry/hello-world_hello-world:$docker_tag
           docker push $docker_registry/hello-world_hello-world:$docker_tag
 
+      - name: Export instance name
+        run: |
+          if [ -z "$PR_NUMBER" ]
+          then
+              echo "INSTANCE=$PROXYGEN_API_NAME" >> $GITHUB_ENV
+          else
+              echo "INSTANCE=$PROXYGEN_API_NAME-$PR_NUMBER" >> $GITHUB_ENV
+          fi
+
       - name: Deploy to Internal Dev Sandbox
         run: |
           export ENVIRONMENT="internal-dev-sandbox"
-          export DOCKER_TAG=${{ env.DOCKER_TAG }}
           source deploy-environment.sh
 
       - name: Run Internal Dev Sandbox tests
         run: |
-          export API_NAME="hello-world"
           export ENVIRONMENT="internal-dev-sandbox"
-
-          if [ -z "$PR_NUMBER" ]
-          then
-              instance=$API_NAME
-          else
-              instance=$API_NAME-$PR_NUMBER
-          fi
-          export INSTANCE=$instance
-
           poetry run pytest tests/api_tests.py
 
       - name: Deploy to Internal QA Sandbox
         run: |
           export ENVIRONMENT="internal-qa-sandbox"
-          export DOCKER_TAG=${{ env.DOCKER_TAG }}
           source deploy-environment.sh
 
       - name: Run Internal QA Sandbox tests
         run: |
-          export API_NAME="hello-world"
           export ENVIRONMENT="internal-qa-sandbox"
-
-          if [ -z "$PR_NUMBER" ]
-          then
-              instance=$API_NAME
-          else
-              instance=$API_NAME-$PR_NUMBER
-          fi
-
-          export INSTANCE=$instance
-
           poetry run pytest tests/api_tests.py
 
       - name: Deploy to Sandbox
         if: github.ref == 'refs/heads/master'
         run: |
           export ENVIRONMENT="sandbox"
-          export DOCKER_TAG=${{ env.DOCKER_TAG }}
           source deploy-environment.sh
 
       # TO DO - Run Sandbox smoke tests. Cannot use test-utils 2.0 currently
