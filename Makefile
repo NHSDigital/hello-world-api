@@ -17,18 +17,17 @@ lint:
 	cd docker/hello-world-sandbox && npm run lint && cd ..
 	find . -name '*.py' -not -path '**/venv/*' | xargs poetry run flake8
 
+# "npm run lint" hangs on first GET request speccy makes for remote refs
+# calling speccy directly works fine
+# npm run lint
 lint-spec:
-	# "npm run lint" hangs on first GET request speccy makes for remote refs
-	# calling speccy directly works fine
-	# npm run lint
 	node_modules/.bin/speccy lint specification/hello-world.yaml -v --skip default-and-example-are-redundant --skip openapi-tags --skip operation-tags
 
+# similarly to above, npm-wrapped speccy commands seem to hang
+# npm run publish 2> /dev/null
 publish:
-	mkdir -p build && poetry run python scripts/yaml2json.py < specification/hello-world.yaml > build/hello-world.json
-	export ref="\$$ref"
+	mkdir -p build && node_modules/.bin/speccy resolve specification/hello-world.yaml -i | poetry run python scripts/yaml2json.py < specification/hello-world.yaml > build/hello-world.json
 	envsubst < build/hello-world.json > build/hello-world-rendered.json
-	# similarly to above, npm-wrapped speccy commands seem to hang
-	# npm run publish 2> /dev/null
 
 serve: update-examples
 	npm run serve
