@@ -73,7 +73,11 @@ jobs:
 
       - name: Compile spec
         if: github.ref == 'refs/heads/master'
-        run: source deploy-environment.sh
+        run: |
+            export TITLE="Hello World API"
+            export ENVIRONMENT="sandbox"
+            export INSTANCE="hello-world"
+            make publish
 
       - name: Deploy spec
         if: github.ref == 'refs/heads/master'
@@ -85,4 +89,4 @@ jobs:
           curl -X POST https://proxygen.ptl.api.platform.nhs.uk/apis/hello-world/spec \
           -H "Authorization: $(proxygen get-token)" \
           -H 'Content-Type: application/json' \
-          -d @build/hello-world.json
+          -d @build/hello-world-rendered.json

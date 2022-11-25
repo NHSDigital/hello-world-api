@@ -24,7 +24,11 @@ lint-spec:
 	node_modules/.bin/speccy lint specification/hello-world.yaml -v --skip default-and-example-are-redundant --skip openapi-tags --skip operation-tags
 
 publish:
-	npm run publish 2> /dev/null
+	mkdir -p build && poetry run python scripts/yaml2json.py < specification/hello-world.yaml > build/hello-world.json
+	export ref="\$ref"
+	envsubst < build/hello-world.json > build/hello-world-rendered.json
+	# similarly to above, npm-wrapped speccy commands seem to hang
+	# npm run publish 2> /dev/null
 
 serve: update-examples
 	npm run serve
@@ -67,5 +71,4 @@ release: clean publish build-proxy
 
 sandbox: update-examples
 	cd docker/hello-world-sandbox && npm run start
-
 
