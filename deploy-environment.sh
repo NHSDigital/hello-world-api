@@ -22,5 +22,5 @@ envsubst < build/hello-world.json > build/hello-world-rendered.json
 curl -X PUT "https://proxygen.ptl.api.platform.nhs.uk/apis/$PROXYGEN_API_NAME/environments/$ENVIRONMENT/instances/$INSTANCE" \
     -H "Authorization: $(proxygen get-token)" \
     -H 'Content-Type: application/json' \
-    -d @build/hello-world-tmp.json \
+    -d @build/hello-world-rendered.json \
     --fail
