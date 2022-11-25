@@ -8,7 +8,7 @@ else
     export TITLE="Hello World API - $ENVIRONMENT"
 fi
 
-make publish
+source scripts/compile-spec.sh
 
 curl -X PUT "https://proxygen.ptl.api.platform.nhs.uk/apis/$PROXYGEN_API_NAME/environments/$ENVIRONMENT/instances/$INSTANCE" \
     -H "Authorization: $(proxygen get-token)" \

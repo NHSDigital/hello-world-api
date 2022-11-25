@@ -26,10 +26,7 @@ lint-spec:
 # similarly to above, npm-wrapped speccy commands seem to hang
 # npm run publish 2> /dev/null
 publish:
-	export ref='\$$ref'
-	mkdir -p build
-	envsubst < specification/hello-world.yaml > build/hello-world-populated.yaml
-	node_modules/.bin/speccy resolve build/hello-world-populated.yaml -i | poetry run python scripts/yaml2json.py > build/hello-world-rendered.json
+	source scripts/compile-spec.sh
 
 serve: update-examples
 	npm run serve
