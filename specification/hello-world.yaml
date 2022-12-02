@@ -32,10 +32,9 @@ info:
     This API is [RESTful](https://digital.nhs.uk/developer/guides-and-documentation/api-technologies-at-nhs-digital#basic-rest-apis).
 
     ## Network access
-    This API is available on the internet and, indirectly, on the [Health and Social Care Network (HSCN)](https://digital.nhs.uk/services/health-and-social-care-network).
-    To use this API with NHS [smartcards](https://digital.nhs.uk/services/registration-authorities-and-smartcards) (see below) you do need an HSCN connection, although internet-facing alternatives are available.
+    This API is available on the internet and, indirectly, on the [Health and Social Care Network (HSCN)](https://digital.nhs.uk/services/health-and-social-care-network). To use this API with [NHS smartcards](https://digital.nhs.uk/services/registration-authorities-and-smartcards), the end user needs an HSCN connection, although internet-facing alternatives are available.
     For more details see [Network access for APIs](https://digital.nhs.uk/developer/guides-and-documentation/network-access-for-apis).
-
+    
     ## Security and authorisation
     This API demonstrates the different authentication methods used in our APIs.
 
