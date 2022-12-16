@@ -74,7 +74,7 @@ jobs:
             export TITLE="Hello World API"
             export ENVIRONMENT="sandbox"
             export INSTANCE="hello-world"
-            source scripts/compile-spec.sh
+            ./scripts/compile-spec.sh
 
       - name: Deploy spec
         if: github.ref == 'refs/heads/master'
