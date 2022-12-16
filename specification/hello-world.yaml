@@ -243,5 +243,5 @@ x-nhsd-apim:
         tag: $DOCKER_TAG
       environment: 
         LOG_LEVEL: info
-        UPSTREAM: https://$SANDBOX_ENVIRONMENT.api.service.nhs.uk
+        UPSTREAM: https://$ENVIRONMENT.api.service.nhs.uk
         NODE_ENV: production
