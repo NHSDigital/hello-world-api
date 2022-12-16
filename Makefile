@@ -1,5 +1,9 @@
 SHELL=/bin/bash -euo pipefail
 
+
+SOURCE_COMMIT_ID ?= $(shell git rev-parse HEAD)
+export SOURCE_COMMIT_ID
+
 install: install-node install-python install-hooks
 
 install-python:
@@ -70,3 +74,6 @@ release: clean publish build-proxy
 sandbox: update-examples
 	cd docker/hello-world-sandbox && npm run start
 
+
+test:
+	poetry run pytest tests

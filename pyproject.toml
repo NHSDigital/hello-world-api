@@ -29,6 +29,7 @@ jsonpath-rw = "^1.4.0"
 semver = "^2.9.0"
 gitpython = "^3.0.5"
 pytest-nhsd-apim = "^2.0.1"
+pytest-ordering = "^0.6"
 
 
 [tool.poetry.dev-dependencies]
