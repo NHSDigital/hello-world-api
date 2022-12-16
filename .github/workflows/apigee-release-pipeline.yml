@@ -119,20 +119,10 @@ jobs:
           export ENVIRONMENT="internal-dev-sandbox"
           source deploy-environment.sh
 
-      - name: Run Internal Dev Sandbox tests
-        run: |
-          export ENVIRONMENT="internal-dev-sandbox"
-          poetry run pytest tests/api_tests.py
-
       - name: Deploy to Internal QA Sandbox
         run: |
           export ENVIRONMENT="internal-qa-sandbox"
           source deploy-environment.sh
-
-      - name: Run Internal QA Sandbox tests
-        run: |
-          export ENVIRONMENT="internal-qa-sandbox"
-          poetry run pytest tests/api_tests.py
 
       - name: Deploy to Sandbox
         if: github.ref == 'refs/heads/master'
@@ -140,4 +130,14 @@ jobs:
           export ENVIRONMENT="sandbox"
           source deploy-environment.sh
 
+      - name: Run Internal Dev Sandbox tests
+        run: |
+          export ENVIRONMENT="internal-dev-sandbox"
+          poetry run pytest tests/api_tests.py
+
+      - name: Run Internal QA Sandbox tests
+        run: |
+          export ENVIRONMENT="internal-qa-sandbox"
+          poetry run pytest tests/api_tests.py
+          
       # TO DO - Run Sandbox smoke tests. Cannot use test-utils 2.0 currently
