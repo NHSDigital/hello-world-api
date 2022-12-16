@@ -1,7 +1,4 @@
 name: apigee-release-pipeline
-defaults:
-  run:
-    shell: bash -ieo pipefail {0}
 on:
   push
 permissions: read-all
@@ -117,7 +114,7 @@ jobs:
       - name: Deploy to Internal Dev Sandbox
         run: |
           export ENVIRONMENT="internal-dev-sandbox"
-          source deploy-environment.sh
+          ./deploy-environment.sh
 
       - name: Run Internal Dev Sandbox tests
         run: |
@@ -127,7 +124,7 @@ jobs:
       - name: Deploy to Internal QA Sandbox
         run: |
           export ENVIRONMENT="internal-qa-sandbox"
-          source deploy-environment.sh
+          ./deploy-environment.sh
 
       - name: Run Internal QA Sandbox tests
         run: |
@@ -138,6 +135,6 @@ jobs:
         if: github.ref == 'refs/heads/master'
         run: |
           export ENVIRONMENT="sandbox"
-          source deploy-environment.sh
+          ./deploy-environment.sh
 
       # TO DO - Run Sandbox smoke tests. Cannot use test-utils 2.0 currently
