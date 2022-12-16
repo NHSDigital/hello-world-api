@@ -59,7 +59,9 @@ jobs:
         run: poetry install
 
       - name: Install Proxygen client
-        run: curl -o- https://raw.githubusercontent.com/NHSDigital/proxygen-cli/main/install.sh | bash
+        run: |
+          curl -o- https://raw.githubusercontent.com/NHSDigital/proxygen-cli/main/install.sh | bash
+          source ~/.bashrc
 
       - name: Get Apigee token
         env:
