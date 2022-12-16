@@ -61,7 +61,7 @@ jobs:
       - name: Install Proxygen client
         run: |
           curl -o- https://raw.githubusercontent.com/NHSDigital/proxygen-cli/main/install.sh | bash
-          source ~/.bashrc
+          echo "${HOME}/.paas/bin" >> $GITHUB_PATH
 
       - name: Get Apigee token
         env:
