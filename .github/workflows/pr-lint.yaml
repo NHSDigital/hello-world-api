@@ -1,4 +1,7 @@
 name: PR Quality Check
+defaults:
+  run:
+    shell: bash # Explicitly sets pipeline to fail if any subprocess fails
 on: pull_request
 jobs:
   link-ticket:
