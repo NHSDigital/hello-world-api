@@ -95,14 +95,16 @@ jobs:
       - name: Install python dependencies
         run: poetry install
 
-      - name: Install and Setup Proxygen client
+      - name: Install Proxygen client
         run: |
           curl -o- https://raw.githubusercontent.com/NHSDigital/proxygen-cli/main/install.sh | bash
 
-          # Need to manually add proxygen to the GITHUB path
+          # Need to manually add proxygen to the GITHUB path, then proxygen will be available in the next steps
           echo "${HOME}/.paas/bin" >> $GITHUB_PATH
 
-          # Authenticate with proxygen with machine user
+      - name: Setup Proxygen auth
+        run: |
+          # Setup authentication with machine user for pipelines
           proxygen setup-machine-user --client-id=$PROXYGEN_CLIENT_ID --private-key=PROXYGEN_PRIVATE_KEY.key
 
       - name: Build and push Docker image
