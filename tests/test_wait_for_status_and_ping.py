@@ -15,9 +15,11 @@ def test_wait_for_ping(nhsd_apim_proxy_url):
     resp = requests.get(f"{nhsd_apim_proxy_url}/_ping")
     deployed_commitId = resp.json().get("commitId")
 
-    while (deployed_commitId != getenv('SOURCE_COMMIT_ID')
-            and retries <= 30
-            and resp.status_code == 200):
+    while (
+        deployed_commitId != getenv("SOURCE_COMMIT_ID")
+        and retries <= 30
+        and resp.status_code == 200
+    ):
         resp = requests.get(f"{nhsd_apim_proxy_url}/_ping")
         deployed_commitId = resp.json().get("commitId")
         retries += 1
@@ -27,7 +29,7 @@ def test_wait_for_ping(nhsd_apim_proxy_url):
     elif retries >= 30:
         pytest.fail("Timeout Error - max retries")
 
-    assert deployed_commitId == getenv('SOURCE_COMMIT_ID')
+    assert deployed_commitId == getenv("SOURCE_COMMIT_ID")
 
 
 @pytest.mark.run(order=3)
@@ -42,14 +44,20 @@ def test_status(nhsd_apim_proxy_url, status_endpoint_auth_headers):
 @pytest.mark.run(order=4)
 def test_wait_for_status(nhsd_apim_proxy_url, status_endpoint_auth_headers):
     retries = 0
-    resp = requests.get(f"{nhsd_apim_proxy_url}/_status", headers=status_endpoint_auth_headers)
+    resp = requests.get(
+        f"{nhsd_apim_proxy_url}/_status", headers=status_endpoint_auth_headers
+    )
     deployed_commitId = resp.json().get("commitId")
 
-    while (deployed_commitId != getenv('SOURCE_COMMIT_ID')
-            and retries <= 30
-            and resp.status_code == 200
-            and resp.json().get("version")):
-        resp = requests.get(f"{nhsd_apim_proxy_url}/_status", headers=status_endpoint_auth_headers)
+    while (
+        deployed_commitId != getenv("SOURCE_COMMIT_ID")
+        and retries <= 30
+        and resp.status_code == 200
+        and resp.json().get("version")
+    ):
+        resp = requests.get(
+            f"{nhsd_apim_proxy_url}/_status", headers=status_endpoint_auth_headers
+        )
         deployed_commitId = resp.json().get("commitId")
         retries += 1
 
@@ -60,4 +68,4 @@ def test_wait_for_status(nhsd_apim_proxy_url, status_endpoint_auth_headers):
     elif not resp.json().get("version"):
         pytest.fail("version not found")
 
-    assert deployed_commitId == getenv('SOURCE_COMMIT_ID')
+    assert deployed_commitId == getenv("SOURCE_COMMIT_ID")

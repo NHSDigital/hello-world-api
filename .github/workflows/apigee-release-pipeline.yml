@@ -7,8 +7,8 @@ jobs:
   deploy-hello-world:
     runs-on: ubuntu-latest
     env:
-      proxygen_private_key: ${{ secrets.ENCODED_HELLO_WORLD_PROXYGEN_PRIVATE_KEY }}
-      proxygen_client_id: ${{ secrets.HELLO_WORLD_PROXYGEN_CLIENT_ID }}
+      PROXYGEN_PRIVATE_KEY: ${{ secrets.ENCODED_HELLO_WORLD_PROXYGEN_PRIVATE_KEY }}
+      PROXYGEN_CLIENT_ID: ${{ secrets.HELLO_WORLD_PROXYGEN_CLIENT_ID }}
       PROXYGEN_API_NAME: hello-world
     steps:
       - name: Checkout
@@ -31,6 +31,43 @@ jobs:
                 echo PR number - $pr_number
                 echo "PR_NUMBER=$pr_number" >> $GITHUB_ENV
           fi
+
+      - name: Setup environment
+        env:
+          BUILD_NUMBER: ${{github.run_number}}
+        run: |
+          echo "DOCKER_REGISTRY=958002497996.dkr.ecr.eu-west-2.amazonaws.com" >> $GITHUB_ENV
+          echo "DOCKER_TAG=${BUILD_NUMBER}-$(uuidgen)" >> $GITHUB_ENV
+          echo "DOCKER_IMAGE=${PROXYGEN_API_NAME}" >> $GITHUB_ENV
+
+          # Set INSTANCE name
+          if [ -z "$PR_NUMBER" ]
+          then
+              echo "INSTANCE=$PROXYGEN_API_NAME" >> $GITHUB_ENV
+          else
+              echo "INSTANCE=$PROXYGEN_API_NAME-$PR_NUMBER" >> $GITHUB_ENV
+          fi
+
+          echo -n $PROXYGEN_PRIVATE_KEY | base64 --decode > PROXYGEN_PRIVATE_KEY.key
+
+      - name: Get Apigee token
+        env:
+          APIGEE_USERNAME: ${{ secrets.APIGEE_USERNAME_NONPROD }}
+          APIGEE_PASSWORD: ${{ secrets.APIGEE_PASSWORD_NONPROD }}
+          APIGEE_OTP_KEY: ${{ secrets.APIGEE_OTP_KEY_NONPROD }}
+        run: |
+          export MFA_CODE=`oathtool --totp -b "$APIGEE_OTP_KEY"`
+          # basic auth value here is an apigee public value .. https://docs.apigee.com/api-platform/system-administration/management-api-tokens  (not secret) #
+          curl -X POST https://login.apigee.com/oauth/token \
+            -H "Content-Type: application/x-www-form-urlencoded" \
+            -H "Accept: application/json;charset=utf-8" \
+            -H "Authorization: Basic ZWRnZWNsaTplZGdlY2xpc2VjcmV0" \
+            -d "username=${APIGEE_USERNAME}&password=${APIGEE_PASSWORD}&mfa_token=${MFA_CODE}&grant_type=password" | jq .access_token > .token
+          # Remove quotes and set token into variable #
+          token=$(cat .token)
+          token="${token%\"}"
+          token="${token#\"}"
+          echo "APIGEE_ACCESS_TOKEN=$token" >> $GITHUB_ENV
 
       - name: Install Python 3.8
         uses: actions/setup-python@v1
@@ -58,60 +95,27 @@ jobs:
       - name: Install python dependencies
         run: poetry install
 
-      - name: Install Proxygen client
+      - name: Install and Setup Proxygen client
         run: |
           curl -o- https://raw.githubusercontent.com/NHSDigital/proxygen-cli/main/install.sh | bash
+
+          # Need to manually add proxygen to the GITHUB path
           echo "${HOME}/.paas/bin" >> $GITHUB_PATH
 
-      - name: Get Apigee token
-        env:
-          APIGEE_USERNAME: ${{ secrets.APIGEE_USERNAME_NONPROD }}
-          APIGEE_PASSWORD: ${{ secrets.APIGEE_PASSWORD_NONPROD }}
-          APIGEE_OTP_KEY: ${{ secrets.APIGEE_OTP_KEY_NONPROD }}
-        run: |
-          export MFA_CODE=`oathtool --totp -b "$APIGEE_OTP_KEY"`
-          # basic auth value here is an apigee public value .. https://docs.apigee.com/api-platform/system-administration/management-api-tokens  (not secret) #
-          curl -X POST https://login.apigee.com/oauth/token \
-            -H "Content-Type: application/x-www-form-urlencoded" \
-            -H "Accept: application/json;charset=utf-8" \
-            -H "Authorization: Basic ZWRnZWNsaTplZGdlY2xpc2VjcmV0" \
-            -d "username=${APIGEE_USERNAME}&password=${APIGEE_PASSWORD}&mfa_token=${MFA_CODE}&grant_type=password" | jq .access_token > .token
-          # Remove quotes and set token into variable #
-          token=$(cat .token)
-          token="${token%\"}"
-          token="${token#\"}"
-          echo "APIGEE_ACCESS_TOKEN=$token" >> $GITHUB_ENV
+          # Authenticate with proxygen with machine user
+          proxygen setup-machine-user --client-id=$PROXYGEN_CLIENT_ID --private-key=PROXYGEN_PRIVATE_KEY.key
 
       - name: Build and push Docker image
         working-directory: ./docker
         env:
           build_number: ${{github.run_number}}
         run: |
-          # Authenticate with Proxygen #
-          echo -n $proxygen_private_key | base64 --decode > proxygen_private_key.key
-          proxygen setup-machine-user --client-id=$proxygen_client_id --private-key=proxygen_private_key.key
-
+          # Login with Docker
           proxygen docker-login | bash
 
           # Build and push image to registry #
-          docker_registry="958002497996.dkr.ecr.eu-west-2.amazonaws.com"
-          echo "DOCKER_REGISTRY=$docker_registry" >> $GITHUB_ENV
-          docker_tag="${build_number}-$(uuidgen)"
-          echo "DOCKER_TAG=$docker_tag" >> $GITHUB_ENV
-          docker_image="hello-world"
-
-          docker build -t $docker_image:$docker_tag hello-world-sandbox
-          docker tag $docker_image:$docker_tag $docker_registry/hello-world_hello-world:$docker_tag
-          docker push $docker_registry/hello-world_hello-world:$docker_tag
-
-      - name: Export instance name
-        run: |
-          if [ -z "$PR_NUMBER" ]
-          then
-              echo "INSTANCE=$PROXYGEN_API_NAME" >> $GITHUB_ENV
-          else
-              echo "INSTANCE=$PROXYGEN_API_NAME-$PR_NUMBER" >> $GITHUB_ENV
-          fi
+          docker build -t $DOCKER_IMAGE:$DOCKER_TAG hello-world-sandbox
+          docker push $DOCKER_REGISTRY/hello-world_hello-world:$DOCKER_TAG
 
       - name: Deploy to Internal Dev Sandbox
         run: |

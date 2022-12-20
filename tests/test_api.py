@@ -9,10 +9,7 @@ SESSION = requests.session()
 
 # Helper functions
 def _test_endpoint(
-    nhsd_apim_proxy_url,
-    nhsd_apim_auth_headers,
-    path,
-    expected_status_code,
+    nhsd_apim_proxy_url, nhsd_apim_auth_headers, path, expected_status_code,
 ):
     # When a request is sent to the proxy at a given path
     resp = SESSION.get(nhsd_apim_proxy_url + f"{path}", headers=nhsd_apim_auth_headers,)
@@ -260,4 +257,3 @@ class TestAPI:
         _test_endpoint(
             nhsd_apim_proxy_url, nhsd_apim_auth_headers, path, expected_status_code
         )
-

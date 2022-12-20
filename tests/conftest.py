@@ -13,6 +13,7 @@ NAMESPACED_API_NAME = f"{API_NAME}--{ENVIRONMENT}--{INSTANCE}"
 # Must have the proxy setup
 os.environ["PROXY_NAME"] = NAMESPACED_API_NAME
 
+
 @pytest.fixture(scope="session")
 def nhsd_apim_api_name():
     return API_NAME

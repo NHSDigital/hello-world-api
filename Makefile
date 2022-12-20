@@ -60,7 +60,6 @@ deploy-spec: update-examples
 format:
 	poetry run black **/*.py
 
-
 build-proxy:
 	scripts/build_proxy.sh
 
@@ -73,7 +72,6 @@ release: clean publish build-proxy
 
 sandbox: update-examples
 	cd docker/hello-world-sandbox && npm run start
-
 
 test:
 	poetry run pytest tests
