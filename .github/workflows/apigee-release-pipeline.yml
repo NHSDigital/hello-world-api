@@ -101,10 +101,8 @@ jobs:
 
       - name: Install Proxygen client
         run: |
-          curl -o- https://raw.githubusercontent.com/NHSDigital/proxygen-cli/main/install.sh | bash
-
-          # Need to manually add proxygen to the GITHUB path, then proxygen will be available in the next steps
-          echo "${HOME}/.paas/bin" >> $GITHUB_PATH
+          pip install pipx
+          pipx install proxygen-cli
 
       - name: Setup Proxygen auth
         run: |
