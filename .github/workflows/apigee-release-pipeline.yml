@@ -125,7 +125,7 @@ jobs:
 
       - name: Deploy to Internal Dev Sandbox
         run: |
-          proxygen instance deploy internal-dev-sandbox $INSTANCE specification/hello-world.yaml
+          proxygen instance deploy internal-dev-sandbox $INSTANCE specification/hello-world.yaml --no-confirm
 
       - name: Run Internal Dev Sandbox tests
         run: |
@@ -135,7 +135,7 @@ jobs:
 
       - name: Deploy to Internal QA Sandbox
         run: |
-          proxygen instance deploy internal-qa-sandbox $INSTANCE specification/hello-world.yaml
+          proxygen instance deploy internal-qa-sandbox $INSTANCE specification/hello-world.yaml --no-confirm
 
       - name: Run Internal QA Sandbox tests
         run: |
@@ -146,6 +146,6 @@ jobs:
       - name: Deploy to Sandbox
         if: github.ref == 'refs/heads/master'
         run: |
-          proxygen instance deploy sandbox $INSTANCE specification/hello-world.yaml
+          proxygen instance deploy sandbox $INSTANCE specification/hello-world.yaml --no-confirm
 
       # TO DO - Run Sandbox smoke tests. Cannot use test-utils 2.0 currently

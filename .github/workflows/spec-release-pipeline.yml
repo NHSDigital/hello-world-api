@@ -18,6 +18,9 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Update apt repositories
+        run: sudo apt update
+
       - name: Get Pull Request Number
         id: pr
         if: github.ref != 'refs/heads/master'
@@ -55,33 +58,6 @@ jobs:
         with:
           python-version: 3.8
 
-      - name: Update apt repositories
-        run: sudo apt update
-
-      - name: Install Node
-        run: sudo apt-get install --yes nodejs
-
-      - name: Install poetry
-        run: pip install poetry
-
-      - name: Cache poetry packages
-        uses: actions/cache@v3
-        with:
-          path: ~/.cache/pypoetry
-          key: ${{ runner.os }}-build-cache-poetry-packages-${{ hashFiles('**/poetry.lock') }}
-
-      - name: Cache node modules
-        uses: actions/cache@v3
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-build-cache-npm-packages-${{ hashFiles('**/package-lock.json') }}
-
-      - name: Install python dependencies
-        run: poetry install
-
-      - name: Install Node dependencies
-        run: npm install --legacy-peer-deps
-
       - name: Install Proxygen client
         run: |
           # Install proxygen cli in isolated environment with pipx
@@ -98,4 +74,4 @@ jobs:
       - name: Deploy spec
         if: github.ref == 'refs/heads/master'
         run: |
-          proxygen spec release sandbox $INSTANCE specification/hello-world.yaml
+          proxygen spec release sandbox $INSTANCE specification/hello-world.yaml --no-confirm
