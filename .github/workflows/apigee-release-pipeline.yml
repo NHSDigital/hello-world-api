@@ -51,8 +51,6 @@ jobs:
               echo "INSTANCE=$PROXYGEN_API_NAME-$PR_NUMBER" >> $GITHUB_ENV
           fi
 
-          echo -n $PROXYGEN_PRIVATE_KEY | base64 --decode > PROXYGEN_PRIVATE_KEY.key
-
       - name: Update apt repositories
         run: sudo apt update
 
@@ -101,19 +99,22 @@ jobs:
 
       - name: Install Proxygen client
         run: |
+          # Install proxygen cli in isolated environment with pipx
           pip install pipx
-          pipx install proxygen-cli
+          # pipx install proxygen-cli
+          pipx install git+ssh://git@github.com/NHSDigital/proxygen-cli.git@dp-update
 
-      - name: Setup Proxygen auth
-        run: |
-          # Setup authentication with machine user for pipelines
-          proxygen setup-machine-user --client-id=$PROXYGEN_CLIENT_ID --private-key=PROXYGEN_PRIVATE_KEY.key
+          # Setup proxygen auth and settings
+          mkdir -p ${HOME}/.proxygen
+          echo -n $PROXYGEN_PRIVATE_KEY | base64 --decode > ${HOME}/.proxygen/key
+          envsubst < ./.github/proxygen-credentials-template.yaml > ${HOME}/.proxygen/credentials.yaml
+          envsubst < ./.github/proxygen-settings.yaml > ${HOME}/.proxygen/settings.yaml
 
       - name: Build and push Docker image
         working-directory: ./docker
         run: |
           # Login with Docker
-          proxygen docker-login | bash
+          proxygen docker-get-login | bash
 
           # Build and push image to registry #
           docker build -t $DOCKER_IMAGE:$DOCKER_TAG hello-world-sandbox
@@ -122,28 +123,27 @@ jobs:
 
       - name: Deploy to Internal Dev Sandbox
         run: |
-          export ENVIRONMENT="internal-dev-sandbox"
-          ./deploy-environment.sh
+          proxygen instance deploy internal-dev-sandbox $INSTANCE
 
       - name: Run Internal Dev Sandbox tests
         run: |
           export ENVIRONMENT="internal-dev-sandbox"
+          export SPEC_HASH=$(proxygen instance list | grep $INSTANCE | grep $ENVIRONMENT | | tr -s ' ' | cut -d ' ' -f4)
           make test
 
       - name: Deploy to Internal QA Sandbox
         run: |
-          export ENVIRONMENT="internal-qa-sandbox"
-          ./deploy-environment.sh
+          proxygen instance deploy internal-qa-sandbox $INSTANCE
 
       - name: Run Internal QA Sandbox tests
         run: |
           export ENVIRONMENT="internal-qa-sandbox"
+          export SPEC_HASH=$(proxygen instance list | grep $INSTANCE | grep $ENVIRONMENT | | tr -s ' ' | cut -d ' ' -f4)
           make test
 
       - name: Deploy to Sandbox
         if: github.ref == 'refs/heads/master'
         run: |
-          export ENVIRONMENT="sandbox"
-          ./deploy-environment.sh
+          proxygen instance deploy sandbox $INSTANCE
 
       # TO DO - Run Sandbox smoke tests. Cannot use test-utils 2.0 currently
