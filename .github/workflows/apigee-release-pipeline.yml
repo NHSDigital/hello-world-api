@@ -61,7 +61,7 @@ jobs:
 
       - name: Get Apigee token
         env:
-          
+          APIGEE_USERNAME: ${{ secrets.APIGEE_USERNAME_NONPROD }}
           APIGEE_PASSWORD: ${{ secrets.APIGEE_PASSWORD_NONPROD }}
           APIGEE_OTP_KEY: ${{ secrets.APIGEE_OTP_KEY_NONPROD }}
         run: |
