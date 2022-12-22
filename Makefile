@@ -4,7 +4,7 @@ SHELL=/bin/bash -euo pipefail
 SOURCE_COMMIT_ID ?= $(shell git rev-parse HEAD)
 export SOURCE_COMMIT_ID
 
-install: install-node install-python install-hooks
+install: install-node install-python
 
 install-python:
 	poetry install

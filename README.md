@@ -63,14 +63,6 @@ On pushes to branches with a pull request the pipeline is configured to only lin
 $ make install
 ```
 
-#### Updating hooks
-Some pre-commit hooks are installed as part of the install command above to ensure you can't commit invalid spec changes by accident. These are also run
-in CI.
-
-```
-$ make install-hooks
-```
-
 ### Environment Variables
 Various scripts and commands rely on environment variables being set. These are documented with the commands.
 
