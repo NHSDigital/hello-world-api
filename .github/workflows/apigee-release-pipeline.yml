@@ -102,7 +102,7 @@ jobs:
           # Install proxygen cli in isolated environment with pipx
           pip install pipx
           # pipx install proxygen-cli
-          pipx install git+ssh://git@github.com/NHSDigital/proxygen-cli.git@dp-update
+          pipx install git+https://github.com/NHSDigital/proxygen-cli.git@dp-update
 
           # Setup proxygen auth and settings
           mkdir -p ${HOME}/.proxygen
