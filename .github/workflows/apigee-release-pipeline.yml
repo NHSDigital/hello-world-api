@@ -50,6 +50,8 @@ jobs:
           else
               echo "INSTANCE=$PROXYGEN_API_NAME-$PR_NUMBER" >> $GITHUB_ENV
           fi
+          echo "TITLE=Hello World API" >> $GITHUB_ENV
+
 
       - name: Update apt repositories
         run: sudo apt update
@@ -59,7 +61,7 @@ jobs:
 
       - name: Get Apigee token
         env:
-          APIGEE_USERNAME: ${{ secrets.APIGEE_USERNAME_NONPROD }}
+          
           APIGEE_PASSWORD: ${{ secrets.APIGEE_PASSWORD_NONPROD }}
           APIGEE_OTP_KEY: ${{ secrets.APIGEE_OTP_KEY_NONPROD }}
         run: |
