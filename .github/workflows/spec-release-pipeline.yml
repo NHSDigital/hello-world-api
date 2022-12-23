@@ -70,6 +70,7 @@ jobs:
           echo -n $PROXYGEN_PRIVATE_KEY | base64 --decode > ${HOME}/.proxygen/key
           envsubst < ./.github/proxygen-credentials-template.yaml > ${HOME}/.proxygen/credentials.yaml
           envsubst < ./.github/proxygen-settings.yaml > ${HOME}/.proxygen/settings.yaml
+          proxygen status
 
       - name: Deploy spec
         if: github.ref == 'refs/heads/master'
