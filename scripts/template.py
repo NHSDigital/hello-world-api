@@ -28,16 +28,16 @@ def replace(template, replacements):
 
 def main(args):
     template = ""
-    if args['--file']:
-        with open(args['--file'], 'r') as template_file:
+    if args["--file"]:
+        with open(args["--file"], "r") as template_file:
             template = template_file.read()
     else:
         template = sys.stdin.read()
 
     replacements = {}
-    if args['<replacements>']:
-        replacements = json.loads(args['<replacements>'])
-    elif args['--env']:
+    if args["<replacements>"]:
+        replacements = json.loads(args["<replacements>"])
+    elif args["--env"]:
         replacements = os.environ
 
     sys.stdout.write(replace(template, replacements))
@@ -45,4 +45,4 @@ def main(args):
 
 
 if __name__ == "__main__":
-    main(docopt(__doc__, version='1'))
+    main(docopt(__doc__, version="1"))

@@ -1,7 +1,7 @@
 name: spec-release-pipeline
 defaults:
   run:
-    shell: bash -ieo pipefail {0}
+    shell: bash # Explicitly sets pipeline to fail if any subprocess fails
 on:
   push
 permissions: read-all
@@ -18,6 +18,9 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Update apt repositories
+        run: sudo apt update
+
       - name: Get Pull Request Number
         id: pr
         if: github.ref != 'refs/heads/master'
@@ -33,60 +36,41 @@ jobs:
                 echo PR number - $pr_number
           fi
 
+      - name: Setup environment
+        env:
+          BUILD_NUMBER: ${{github.run_number}}
+        run: |
+          echo "DOCKER_REGISTRY=958002497996.dkr.ecr.eu-west-2.amazonaws.com" >> $GITHUB_ENV
+          echo "DOCKER_TAG=${BUILD_NUMBER}-$(uuidgen)" >> $GITHUB_ENV
+          echo "DOCKER_IMAGE=${PROXYGEN_API_NAME}" >> $GITHUB_ENV
+
+          # Set INSTANCE name
+          if [ -z "$PR_NUMBER" ]
+          then
+              echo "INSTANCE=$PROXYGEN_API_NAME" >> $GITHUB_ENV
+          else
+              echo "INSTANCE=$PROXYGEN_API_NAME-$PR_NUMBER" >> $GITHUB_ENV
+          fi
+          echo "TITLE=Hello World API" >> $GITHUB_ENV
+
       - name: Install Python 3.8
         uses: actions/setup-python@v1
         with:
           python-version: 3.8
 
-      - name: Update apt repositories
-        run: sudo apt update
-
-      - name: Install Node
-        run: sudo apt-get install --yes nodejs
-
-      - name: Install poetry
-        run: pip install poetry
-
-      - name: Cache poetry packages
-        uses: actions/cache@v1
-        with:
-          path: ~/.cache/pypoetry
-          key: ${{ runner.os }}-build-cache-poetry-packages-${{ hashFiles('**/poetry.lock') }}
-
-      - name: Cache node modules
-        uses: actions/cache@v1
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-build-cache-npm-packages-${{ hashFiles('**/package-lock.json') }}
-
-      - name: Install python dependencies
-        run: poetry install
-
-      - name: Install Node dependencies
-        run: npm install --legacy-peer-deps
-
       - name: Install Proxygen client
-        run: curl -o- https://raw.githubusercontent.com/NHSDigital/proxygen-cli/main/install.sh | bash
-
-      - name: Lint spec
-        run: make lint-spec
-
-      - name: Compile spec
-        if: github.ref == 'refs/heads/master'
         run: |
-            export TITLE="Hello World API"
-            export ENVIRONMENT="sandbox"
-            export INSTANCE="hello-world"
-            source scripts/compile-spec.sh
+          # Install proxygen cli in isolated environment with pipx
+          pip install pipx
+          pipx install proxygen-cli
+
+          # Setup proxygen auth and settings
+          mkdir -p ${HOME}/.proxygen
+          echo -n $PROXYGEN_PRIVATE_KEY | base64 --decode > ${HOME}/.proxygen/key
+          envsubst < ./.github/proxygen-credentials-template.yaml > ${HOME}/.proxygen/credentials.yaml
+          envsubst < ./.github/proxygen-settings.yaml > ${HOME}/.proxygen/settings.yaml
 
       - name: Deploy spec
         if: github.ref == 'refs/heads/master'
         run: |
-          # Authenticate with Proxygen #
-          echo -n $proxygen_private_key | base64 --decode > proxygen_private_key.key
-          proxygen setup-machine-user --client-id=$proxygen_client_id --private-key=proxygen_private_key.key
-
-          curl -X POST https://proxygen.ptl.api.platform.nhs.uk/apis/hello-world/spec \
-          -H "Authorization: $(proxygen get-token)" \
-          -H 'Content-Type: application/json' \
-          -d @build/hello-world-rendered.json
+          proxygen spec publish sandbox $INSTANCE specification/hello-world.yaml --no-confirm

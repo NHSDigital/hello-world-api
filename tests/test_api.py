@@ -1,36 +1,18 @@
-import os
 import pytest
 import requests
+
+from conftest import API_NAME
 
 
 SESSION = requests.session()
 
-API_NAME = os.environ["PROXYGEN_API_NAME"]
-INSTANCE = os.environ["INSTANCE"]
-ENVIRONMENT = os.environ["ENVIRONMENT"]
-NAMESPACED_API_NAME = f"{API_NAME}--{ENVIRONMENT}--{INSTANCE}"
-
-# Must have the proxy setup
-os.environ["PROXY_NAME"] = NAMESPACED_API_NAME
-
-
-@pytest.fixture(scope="session")
-def nhsd_apim_api_name():
-    return API_NAME
-
-
-@pytest.fixture(scope="session")
-def nhsd_apim_proxy_name():
-    return NAMESPACED_API_NAME
-
 
 # Helper functions
-def _test_endpoint(nhsd_apim_proxy_url, nhsd_apim_auth_headers, path, expected_status_code):
+def _test_endpoint(
+    nhsd_apim_proxy_url, nhsd_apim_auth_headers, path, expected_status_code,
+):
     # When a request is sent to the proxy at a given path
-    resp = SESSION.get(
-        nhsd_apim_proxy_url + f"{path}",
-        headers=nhsd_apim_auth_headers,
-    )
+    resp = SESSION.get(nhsd_apim_proxy_url + f"{path}", headers=nhsd_apim_auth_headers,)
     assert resp.status_code == expected_status_code
     if resp.status_code == 200:
         *_, data = path.split("/")
@@ -40,11 +22,7 @@ def _test_endpoint(nhsd_apim_proxy_url, nhsd_apim_auth_headers, path, expected_s
 def _test_input(path, expected_status_code, **kwargs):
     kwargs["api_name"] = API_NAME
     return pytest.param(
-        path,
-        expected_status_code,
-        marks=pytest.mark.nhsd_apim_authorization(
-            kwargs
-        ),
+        path, expected_status_code, marks=pytest.mark.nhsd_apim_authorization(kwargs),
     )
 
 
@@ -91,21 +69,7 @@ class TestAPI:
     # Test Open-access
     @pytest.mark.parametrize(
         "path,expected_status_code",
-        [
-            (
-                "/hello/user",
-                401,
-            ),
-            (
-                "/hello/application",
-                401,
-            ),
-            (
-                "/hello/world",
-                200,
-
-            )
-        ],
+        [("/hello/user", 401,), ("/hello/application", 401,), ("/hello/world", 200,)],
     )
     def test_open_access(self, nhsd_apim_proxy_url, path, expected_status_code):
         _test_endpoint(nhsd_apim_proxy_url, {}, path, expected_status_code)
@@ -120,7 +84,7 @@ class TestAPI:
                 200,
                 access="patient",
                 level="P9",
-                login_form={"auth_method": "P9"}
+                login_form={"auth_method": "P9"},
             ),
             # hello/user P5
             _test_input(
@@ -128,7 +92,7 @@ class TestAPI:
                 200,
                 access="patient",
                 level="P9",
-                login_form={"auth_method": "P5"}
+                login_form={"auth_method": "P5"},
             ),
             # hello/application P9
             _test_input(
@@ -136,7 +100,7 @@ class TestAPI:
                 expected_status_code=401,
                 access="patient",
                 level="P9",
-                login_form={"auth_method": "P9"}
+                login_form={"auth_method": "P9"},
             ),
             # hello/application P5
             _test_input(
@@ -144,7 +108,7 @@ class TestAPI:
                 401,
                 access="patient",
                 level="P9",
-                login_form={"auth_method": "P5"}
+                login_form={"auth_method": "P5"},
             ),
             # hello/world P9
             _test_input(
@@ -153,7 +117,7 @@ class TestAPI:
                 api_name=API_NAME,
                 access="patient",
                 level="P9",
-                login_form={"auth_method": "P9"}
+                login_form={"auth_method": "P9"},
             ),
             # hello/world P5
             _test_input(
@@ -162,18 +126,16 @@ class TestAPI:
                 api_name=API_NAME,
                 access="patient",
                 level="P9",
-                login_form={"auth_method": "P5"}
+                login_form={"auth_method": "P5"},
             ),
         ],
     )
     def test_user_restricted_nhs_login(
-        self,
-        nhsd_apim_proxy_url,
-        nhsd_apim_auth_headers,
-        path,
-        expected_status_code,
+        self, nhsd_apim_proxy_url, nhsd_apim_auth_headers, path, expected_status_code,
     ):
-        _test_endpoint(nhsd_apim_proxy_url, nhsd_apim_auth_headers, path, expected_status_code)
+        _test_endpoint(
+            nhsd_apim_proxy_url, nhsd_apim_auth_headers, path, expected_status_code
+        )
 
     @pytest.mark.parametrize(
         "path,expected_status_code",
@@ -185,7 +147,7 @@ class TestAPI:
                 api_name=API_NAME,
                 access="healthcare_worker",
                 level="aal3",
-                login_form={"username": "656005750104"}
+                login_form={"username": "656005750104"},
             ),
             # hello/user CIS2 with user 656005750104
             _test_input(
@@ -194,7 +156,7 @@ class TestAPI:
                 api_name=API_NAME,
                 access="healthcare_worker",
                 level="aal3",
-                login_form={"username": "656005750104"}
+                login_form={"username": "656005750104"},
             ),
             # hello/application CIS2 with user 656005750104
             _test_input(
@@ -203,7 +165,7 @@ class TestAPI:
                 api_name=API_NAME,
                 access="healthcare_worker",
                 level="aal3",
-                login_form={"username": "656005750104"}
+                login_form={"username": "656005750104"},
             ),
             # hello/application CIS2 with user 656005750104
             _test_input(
@@ -212,7 +174,7 @@ class TestAPI:
                 api_name=API_NAME,
                 access="healthcare_worker",
                 level="aal3",
-                login_form={"username": "656005750104"}
+                login_form={"username": "656005750104"},
             ),
             # hello/world CIS2 with user 656005750104
             _test_input(
@@ -221,7 +183,7 @@ class TestAPI:
                 api_name=API_NAME,
                 access="healthcare_worker",
                 level="aal3",
-                login_form={"username": "656005750104"}
+                login_form={"username": "656005750104"},
             ),
             # hello/world CIS2 with user 656005750104
             _test_input(
@@ -230,18 +192,16 @@ class TestAPI:
                 api_name=API_NAME,
                 access="healthcare_worker",
                 level="aal3",
-                login_form={"username": "656005750104"}
+                login_form={"username": "656005750104"},
             ),
         ],
     )
     def test_user_restricted_cis2(
-        self,
-        nhsd_apim_proxy_url,
-        nhsd_apim_auth_headers,
-        path,
-        expected_status_code,
+        self, nhsd_apim_proxy_url, nhsd_apim_auth_headers, path, expected_status_code,
     ):
-        _test_endpoint(nhsd_apim_proxy_url, nhsd_apim_auth_headers, path, expected_status_code)
+        _test_endpoint(
+            nhsd_apim_proxy_url, nhsd_apim_auth_headers, path, expected_status_code
+        )
 
     # Test Application-restricted access
     @pytest.mark.parametrize(
@@ -252,44 +212,48 @@ class TestAPI:
                 401,
                 api_name=API_NAME,
                 access="application",
-                level="level3"
+                level="level3",
             ),
             _test_input(
                 "/hello/application",
                 200,
                 api_name=API_NAME,
                 access="application",
-                level="level3"
+                level="level3",
             ),
             _test_input(
                 "/hello/world",
                 200,
                 api_name=API_NAME,
                 access="application",
-                level="level3"
+                level="level3",
             ),
             _test_input(
                 "/hello/user",
                 401,
                 api_name=API_NAME,
                 access="application",
-                level="level3"
+                level="level3",
             ),
             _test_input(
                 "/hello/application",
                 200,
                 api_name=API_NAME,
                 access="application",
-                level="level3"
+                level="level3",
             ),
             _test_input(
                 "/hello/world",
                 200,
                 api_name=API_NAME,
                 access="application",
-                level="level3"
-            )
+                level="level3",
+            ),
         ],
     )
-    def test_app_restricted(self, nhsd_apim_proxy_url, nhsd_apim_auth_headers, path, expected_status_code):
-        _test_endpoint(nhsd_apim_proxy_url, nhsd_apim_auth_headers, path, expected_status_code)
+    def test_app_restricted(
+        self, nhsd_apim_proxy_url, nhsd_apim_auth_headers, path, expected_status_code
+    ):
+        _test_endpoint(
+            nhsd_apim_proxy_url, nhsd_apim_auth_headers, path, expected_status_code
+        )
