@@ -102,6 +102,7 @@ Run the tests from the root of the repo using the following command:
 ```
 poetry run pytest tests/api_tests.py
 ```
+
 ### VS Code Plugins
 
  * [openapi-lint](https://marketplace.visualstudio.com/items?itemName=mermade.openapi-lint) resolves links and validates entire spec with the 'OpenAPI Resolve and Validate' command

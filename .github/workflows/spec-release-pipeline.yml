@@ -10,8 +10,9 @@ jobs:
   deploy-hello-world-spec:
     runs-on: ubuntu-latest
     env:
-      proxygen_private_key: ${{ secrets.ENCODED_HELLO_WORLD_PROXYGEN_PRIVATE_KEY }}
-      proxygen_client_id: ${{ secrets.HELLO_WORLD_PROXYGEN_CLIENT_ID }}
+      PROXYGEN_PRIVATE_KEY: ${{ secrets.ENCODED_HELLO_WORLD_PROXYGEN_PRIVATE_KEY }}
+      PROXYGEN_CLIENT_ID: ${{ secrets.HELLO_WORLD_PROXYGEN_CLIENT_ID }}
+      PROXYGEN_API_NAME: hello-world
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -69,6 +70,7 @@ jobs:
           echo -n $PROXYGEN_PRIVATE_KEY | base64 --decode > ${HOME}/.proxygen/key
           envsubst < ./.github/proxygen-credentials-template.yaml > ${HOME}/.proxygen/credentials.yaml
           envsubst < ./.github/proxygen-settings.yaml > ${HOME}/.proxygen/settings.yaml
+          proxygen status
 
       - name: Deploy spec
         if: github.ref == 'refs/heads/master'
