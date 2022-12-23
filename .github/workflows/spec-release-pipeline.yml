@@ -62,8 +62,7 @@ jobs:
         run: |
           # Install proxygen cli in isolated environment with pipx
           pip install pipx
-          # pipx install proxygen-cli
-          pipx install git+https://github.com/NHSDigital/proxygen-cli.git@dp-update
+          pipx install proxygen-cli
 
           # Setup proxygen auth and settings
           mkdir -p ${HOME}/.proxygen
@@ -74,4 +73,4 @@ jobs:
       - name: Deploy spec
         if: github.ref == 'refs/heads/master'
         run: |
-          proxygen spec release sandbox $INSTANCE specification/hello-world.yaml --no-confirm
+          proxygen spec publish sandbox $INSTANCE specification/hello-world.yaml --no-confirm

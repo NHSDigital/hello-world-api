@@ -1,9 +1,6 @@
 SHELL=/bin/bash -euo pipefail
 
 
-SOURCE_COMMIT_ID ?= $(shell git rev-parse HEAD)
-export SOURCE_COMMIT_ID
-
 install: install-node install-python
 
 install-python:
@@ -12,11 +9,6 @@ install-python:
 install-node:
 	npm install --legacy-peer-deps
 	cd docker/hello-world-sandbox && npm install --legacy-peer-deps && cd ../../tests && npm install --legacy-peer-deps
-
-# similarly to above, npm-wrapped speccy commands seem to hang
-# npm run publish 2> /dev/null
-publish:
-	source scripts/compile-spec.sh
 
 serve: update-examples
 	npm run serve

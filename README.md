@@ -35,18 +35,21 @@ The contents of this repository are protected by Crown Copyright (C).
 
 Hello World is the first API to use API Management's Proxygen to deploy the proxy, products, sandbox and spec through API calls.
 
+The Proxygen API calls are handled by the Proxygen CLI 
+
 Proxygen uses the OAS specification in `specification/hello-world.yaml` to inform the exact details on resource names and behaviours.
 
 The deployments use Github actions to deploy the API. These pipelines are found in the `.github/workflows` directory and can be monitored under the ['Actions'](https://github.com/NHSDigital/hello-world-api/actions) tab in the GitHub repo.
 
 ### Apigee release pipeline
-The `apigee-release-pipeline.yml` builds and pushes the docker image of the sandbox to ECS using Proxygen's docker authentication, then makes API calls to Proxygen for each environment using data provided in the specification and the `deploy-environment.sh` script. After that it is configured to run end-to-end tests for any internal environments deployed. As Hello World is not a real API, it only deploys to sandbox environments.
+The `apigee-release-pipeline.yml` builds and pushes the docker image of the sandbox to ECS using Proxygen's docker authentication, then makes API calls to Proxygen using the Proxygen CLI for each environment using data provided in the specification. After that it is configured to run end-to-end tests for any internal environments deployed. As Hello World is not a real API, it only deploys to sandbox environments.
 
 #### Pull requests
 On pushes to branches with a pull request the pipeline is configured to append the pr number to the instances deployed and only deploy to internal environments. This means it's possible to develop code against pr versions of the API.
 
 ### Spec release pipeline
-The `spec-release-pipeline.yml` will first lint the spec, then compile and deploy the spec using Proxygen. When Proxygen deploys a spec it bypasses Apigee and is held in an S3 bucket which Bloomreach is configured to pull from and then update the [NHS Digital Developer Hub](https://digital.nhs.uk/developer/api-catalogue/hello-world).
+
+The `spec-release-pipeline.yml` will publish the spec using the Proxygen CLI. The CLI will do variable substitution and build up the spec file. The proxygen server will ensure the spec file is valid before publishing it. When Proxygen deploys a spec it bypasses Apigee and is held in an S3 bucket which Bloomreach is configured to pull from and then update the [NHS Digital Developer Hub](https://digital.nhs.uk/developer/api-catalogue/hello-world).
 
 #### Pull requests
 On pushes to branches with a pull request the pipeline is configured to only lint the spec.
