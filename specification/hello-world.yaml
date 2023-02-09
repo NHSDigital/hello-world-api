@@ -240,7 +240,6 @@ x-nhsd-apim:
     - name: hello-world
       image:
         $ref: 'components/docker_image.yaml'
-          
       environment: 
         LOG_LEVEL: info
         NODE_ENV: production
