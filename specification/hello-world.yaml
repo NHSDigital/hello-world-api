@@ -239,7 +239,7 @@ x-nhsd-apim:
     containers:
     - name: hello-world
       image:
-        $ref: 'components/docker_tag.yaml'
+        $ref: 'components/docker_image.yaml'
           
       environment: 
         LOG_LEVEL: info

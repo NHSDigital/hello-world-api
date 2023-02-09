@@ -126,7 +126,7 @@ jobs:
           docker push $DOCKER_REGISTRY/hello-world:$DOCKER_TAG
 
           # Create the yaml ref file for the spec
-          echo -e tag: $DOCKER_TAG \\nname: hello-world >> ../specification/components/docker_tag.yaml
+          echo -e tag: $DOCKER_TAG \\nname: hello-world >> ../specification/components/docker_image.yaml
 
       - name: Deploy to Internal Dev Sandbox
         run: |
