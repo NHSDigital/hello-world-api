@@ -42,7 +42,7 @@ jobs:
         run: |
           echo "STATUS_ENDPOINT_API_KEY=$STATUS_ENDPOINT_API_KEY" >> $GITHUB_ENV
 
-          echo "DOCKER_REGISTRY=http://958002497996.dkr.ecr.eu-west-2.amazonaws.com/" >> $GITHUB_ENV
+          echo "DOCKER_REGISTRY=http://958002497996.dkr.ecr.eu-west-2.amazonaws.com" >> $GITHUB_ENV
           echo "DOCKER_TAG=${BUILD_NUMBER}-$(uuidgen)" >> $GITHUB_ENV
           echo "DOCKER_IMAGE=${PROXYGEN_API_NAME}" >> $GITHUB_ENV
 
