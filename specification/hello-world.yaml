@@ -240,7 +240,8 @@ x-nhsd-apim:
     - name: hello-world
       image:
         name: hello-world_hello-world
-        tag: ${DOCKER_TAG}
+        tag: 
+          $ref: '#/docker_tag/tag'
       environment: 
         LOG_LEVEL: info
         NODE_ENV: production
