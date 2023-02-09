@@ -37,23 +37,6 @@ jobs:
                 echo PR number - $pr_number
           fi
 
-      - name: Setup environment
-        env:
-          BUILD_NUMBER: ${{github.run_number}}
-        run: |
-          echo "DOCKER_REGISTRY=958002497996.dkr.ecr.eu-west-2.amazonaws.com" >> $GITHUB_ENV
-          echo "DOCKER_TAG=${BUILD_NUMBER}-$(uuidgen)" >> $GITHUB_ENV
-          echo "DOCKER_IMAGE=${PROXYGEN_API_NAME}" >> $GITHUB_ENV
-
-          # Set INSTANCE name
-          if [ -z "$PR_NUMBER" ]
-          then
-              echo "INSTANCE=$PROXYGEN_API_NAME" >> $GITHUB_ENV
-          else
-              echo "INSTANCE=$PROXYGEN_API_NAME-$PR_NUMBER" >> $GITHUB_ENV
-          fi
-          echo "TITLE=Hello World API" >> $GITHUB_ENV
-
       - name: Install Python 3.8
         uses: actions/setup-python@v1
         with:

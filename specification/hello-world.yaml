@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   version: 0.0.1
-  title: ${ TITLE }
+  title: Hello World API
   description: |
     ## Overview
     Use this API alongside our  [tutorials](https://digital.nhs.uk/developer/guides-and-documentation/tutorials) to teach yourself how to connect to our RESTful APIs.
@@ -67,7 +67,7 @@ info:
 
     | Environment                                    | Base URL                                                     |
     | -----------------------------------------------|--------------------------------------------------------------|
-    | Sandbox                                        | `${ BASE_URL }`      |
+    | Sandbox                                        | https://api.service.nhs.uk/specification/hello-world.yaml      |
     ### Sandbox testing
     This API is for learning purposes and is only available in our sandbox environment. Our [sandbox environment](https://digital.nhs.uk/developer/guides-and-documentation/testing#sandbox-testing):
       - is for early developer testing
@@ -94,7 +94,7 @@ info:
     name: API Management Support
     email: api.management@nhs.net
 servers:
-  - url: '${ BASE_URL }'
+  - url: https://api.service.nhs.uk/specification/hello-world.yaml
     description: Sandbox environment.
 paths:
   /hello/world:
@@ -240,8 +240,8 @@ x-nhsd-apim:
     - name: hello-world
       image:
         name: hello-world_hello-world
-        tag: ${ DOCKER_TAG }
+        tag: 
+          $ref: '#/docker_tag/tag'
       environment: 
         LOG_LEVEL: info
-        UPSTREAM: ${ HOST }
         NODE_ENV: production
