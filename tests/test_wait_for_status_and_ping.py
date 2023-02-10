@@ -46,7 +46,7 @@ def test_status_endpoint(nhsd_apim_proxy_url, status_endpoint_auth_headers):
         },
     }
     max_wait = timedelta(minutes=5)
-    status_passed = false
+    status_passed = False
     while (
         status_json["checks"]["healthcheck"]["responseCode"] == 503
         and datetime.now() - start < max_wait
