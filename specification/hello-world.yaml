@@ -94,7 +94,7 @@ info:
     name: API Management Support
     email: api.management@nhs.net
 servers:
-  - url: https://api.service.nhs.uk/specification/hello-world.yaml
+  - url: https://sandbox.api.service.nhs.uk/specification/hello-world
     description: Sandbox environment.
 paths:
   /hello/world:
