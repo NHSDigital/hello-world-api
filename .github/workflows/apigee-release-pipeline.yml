@@ -118,7 +118,7 @@ jobs:
         working-directory: ./docker
         run: |
           # Login with Docker
-          proxygen docker-get-login | bash
+          proxygen docker get-login | bash
 
           # Build and push image to registry #
           docker build -t $DOCKER_IMAGE:$DOCKER_TAG hello-world-sandbox
