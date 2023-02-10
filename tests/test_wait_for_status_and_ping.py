@@ -46,14 +46,17 @@ def test_status_endpoint(nhsd_apim_proxy_url, status_endpoint_auth_headers):
         },
     }
     max_wait = timedelta(minutes=5)
+    status_passed = false
     while (
         status_json["checks"]["healthcheck"]["responseCode"] == 503
         and datetime.now() - start < max_wait
+        and not status_passed
     ):
         resp = requests.get(
             nhsd_apim_proxy_url + "/_status", headers=status_endpoint_auth_headers
         )
         status_json = resp.json()
+        status_passed = status_json["status"] == "pass"
         sleep(10)
+    
     assert resp.status_code == 200
-    assert status_json["status"] == "pass"
