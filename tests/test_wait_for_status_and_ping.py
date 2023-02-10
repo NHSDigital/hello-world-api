@@ -1,73 +1,62 @@
-import requests
+"""
+Example tests that show all the features of pytest_nhsd_apim.
+"""
+import json
+from datetime import datetime, timedelta
+from time import sleep
+
 import pytest
-from os import environ
-
-# TODO consider moving this functionality into the proxygen cli
-
+import requests
 
 @pytest.mark.run(order=1)
-def test_ping(nhsd_apim_proxy_url):
-    resp = requests.get(f"{nhsd_apim_proxy_url}/_ping")
-    assert resp.status_code == 200
+def test_ping_endpoint(nhsd_apim_proxy_url):
+    """
+    Send a request to an open access endpoint.
+    """
 
+    # The nhsd_apim_proxy_url will return the URL of the proxy under test.
+    # The ping endpoint should have no authentication on it.
+
+    resp = requests.get(nhsd_apim_proxy_url + "/_ping")
+    assert resp.status_code == 200
+    ping_data = json.loads(resp.text)
+    assert "version" in ping_data
 
 @pytest.mark.run(order=2)
-def test_wait_for_ping(nhsd_apim_proxy_url):
-    retries = 0
-    resp = requests.get(f"{nhsd_apim_proxy_url}/_ping")
-    deployed_spec_hash = resp.json().get("spec_hash")
+def test_status_endpoint(nhsd_apim_proxy_url, status_endpoint_auth_headers):
+    """
+    Send a request to the _status endpoint, protected by a platform-wide.
+    """
+    # The status_endpoint_auth_headers fixture returns a dict like
+    # {"apikey": "thesecretvalue"} Use it to access your proxy's
+    # _status endpoint.
 
+    # Initial deployment to sandbox environments will return before
+    # the container is deployed.
+    start = datetime.now()
+
+    # AWS returns 503 when containers aren't ready.
+    status_json = {
+        "status": "fail",
+        "checks": {
+            "healthcheck": {
+                "status": "fail",
+                "responseCode": 503,
+            },
+        },
+    }
+    max_wait = timedelta(minutes=5)
+    status_passed = false
     while (
-        deployed_spec_hash != environ["SPEC_HASH"]
-        and retries <= 30
-        and resp.status_code == 200
-    ):
-        resp = requests.get(f"{nhsd_apim_proxy_url}/_ping")
-        deployed_spec_hash = resp.json().get("spec_hash")
-        retries += 1
-
-    if resp.status_code != 200:
-        pytest.fail(f"Status code {resp.status_code}, expecting 200")
-    elif retries >= 30:
-        pytest.fail("Timeout Error - max retries")
-
-    assert deployed_spec_hash == environ["SPEC_HASH"]
-
-
-@pytest.mark.run(order=3)
-def test_status(nhsd_apim_proxy_url):
-    resp = requests.get(
-        f"{nhsd_apim_proxy_url}/_status", headers={"apikey": environ["STATUS_ENDPOINT_API_KEY"]}
-    )
-    assert resp.status_code == 200
-    # Make some additional assertions about your status response here!
-
-
-@pytest.mark.run(order=4)
-def test_wait_for_status(nhsd_apim_proxy_url):
-    retries = 0
-    resp = requests.get(
-        f"{nhsd_apim_proxy_url}/_status", headers={"apikey": environ["STATUS_ENDPOINT_API_KEY"]}
-    )
-    deployed_spec_hash = resp.json().get("spec_hash")
-
-    while (
-        deployed_spec_hash != environ["SPEC_HASH"]
-        and retries <= 30
-        and resp.status_code == 200
-        and resp.json().get("version")
+        status_json["checks"]["healthcheck"]["responseCode"] == 503
+        and datetime.now() - start < max_wait
+        and not status_passed
     ):
         resp = requests.get(
-        f"{nhsd_apim_proxy_url}/_status", headers={"apikey": environ["STATUS_ENDPOINT_API_KEY"]}
+            nhsd_apim_proxy_url + "/_status", headers=status_endpoint_auth_headers
         )
-        deployed_spec_hash = resp.json().get("spec_hash")
-        retries += 1
-
-    if resp.status_code != 200:
-        pytest.fail(f"Status code {resp.status_code}, expecting 200")
-    elif retries >= 30:
-        pytest.fail("Timeout Error - max retries")
-    elif not resp.json().get("version"):
-        pytest.fail("version not found")
-
-    assert deployed_spec_hash == environ["SPEC_HASH"]
+        status_json = resp.json()
+        status_passed = status_json["status"] == "pass"
+        sleep(10)
+    
+    assert resp.status_code == 200
