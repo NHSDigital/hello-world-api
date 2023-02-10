@@ -58,4 +58,4 @@ jobs:
       - name: Deploy spec
         if: github.ref == 'refs/heads/master'
         run: |
-          proxygen spec publish sandbox $INSTANCE specification/hello-world.yaml --no-confirm
+          proxygen spec publish specification/hello-world.yaml --no-confirm
