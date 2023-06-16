@@ -11,6 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       PROXYGEN_PRIVATE_KEY: ${{ secrets.ENCODED_HELLO_WORLD_PROXYGEN_PRIVATE_KEY }}
+      PROXYGEN_KID: ${{ secrets.HELLO_WORLD_PROXYGEN_KID }}
       PROXYGEN_CLIENT_ID: ${{ secrets.HELLO_WORLD_PROXYGEN_CLIENT_ID }}
       PROXYGEN_API_NAME: hello-world
     steps:
