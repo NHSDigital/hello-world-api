@@ -84,15 +84,17 @@ class TestAPI:
                 200,
                 access="patient",
                 level="P9",
-                login_form={"auth_method": "P9"},
+                login_form={"username": "9912003071"},
+                authentication="separate"
             ),
             # hello/user P5
             _test_input(
                 "/hello/user",
                 200,
                 access="patient",
-                level="P9",
-                login_form={"auth_method": "P5"},
+                level="P5",
+                login_form={"username": "9912003072"},
+                authentication="separate"
             ),
             # hello/application P9
             _test_input(
@@ -100,15 +102,17 @@ class TestAPI:
                 expected_status_code=401,
                 access="patient",
                 level="P9",
-                login_form={"auth_method": "P9"},
+                login_form={"username": "9912003071"},
+                authentication="separate"
             ),
             # hello/application P5
             _test_input(
                 "/hello/application",
                 401,
                 access="patient",
-                level="P9",
-                login_form={"auth_method": "P5"},
+                level="P5",
+                login_form={"username": "9912003072"},
+                authentication="separate"
             ),
             # hello/world P9
             _test_input(
@@ -117,7 +121,8 @@ class TestAPI:
                 api_name=API_NAME,
                 access="patient",
                 level="P9",
-                login_form={"auth_method": "P9"},
+                login_form={"username": "9912003071"},
+                authentication="separate"
             ),
             # hello/world P5
             _test_input(
@@ -125,8 +130,9 @@ class TestAPI:
                 200,
                 api_name=API_NAME,
                 access="patient",
-                level="P9",
-                login_form={"auth_method": "P5"},
+                level="P5",
+                login_form={"username": "9912003072"},
+                authentication="separate"
             ),
         ],
     )
