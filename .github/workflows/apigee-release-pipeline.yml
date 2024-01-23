@@ -35,6 +35,11 @@ jobs:
                 echo PR number - $pr_number
                 echo "PR_NUMBER=$pr_number" >> $GITHUB_ENV
           fi
+      
+      - name: Set Instance as Temporary
+        if: github.ref != 'refs/heads/master'
+        run: |
+          python scripts/set_temporary_instance.py > specification/hello-world.yaml
 
       - name: Setup environment
         env:
