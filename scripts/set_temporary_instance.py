@@ -3,18 +3,18 @@
 set_temporary_instance.py
 
 
-Reads an openapi spec on stdin and adds the calculated version to it,
+Reads an openapi spec on stdin and changes temporary instance to true,
 then prints it on stdout.
 """
 import sys
-import json
+import yaml
 
 
 def main():
     """Main entrypoint"""
-    data = json.loads(sys.stdin.read())
-    data["x-nhsd-apim"]["temporary"] = "true"
-    sys.stdout.write(json.dumps(data, indent=2))
+    data = yaml.safe_load(sys.stdin.read())
+    data["x-nhsd-apim"]["temporary"] = True
+    sys.stdout.write(yaml.dump(data, indent=2))
     sys.stdout.close()
 
 
