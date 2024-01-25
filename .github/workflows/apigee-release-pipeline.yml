@@ -112,7 +112,7 @@ jobs:
         run: |
           # Install proxygen cli in isolated environment with pipx
           pip install pipx
-          pipx install proxygen-cli
+          pipx install proxygen-cli 2.1.1
 
           # Setup proxygen auth and settings
           mkdir -p ${HOME}/.proxygen
