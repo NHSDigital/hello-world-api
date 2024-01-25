@@ -124,6 +124,7 @@ jobs:
         working-directory: ./docker
         run: |
           # Login with Docker
+          proxygen docker get-login
           proxygen docker get-login | bash
 
           # Build and push image to registry #
