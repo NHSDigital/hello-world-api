@@ -117,8 +117,9 @@ jobs:
           # Setup proxygen auth and settings
           mkdir -p ${HOME}/.proxygen
           echo -n $PROXYGEN_PRIVATE_KEY | base64 --decode > ${HOME}/.proxygen/key
-          cat envsubst < ./.github/proxygen-credentials-template.yaml > ${HOME}/.proxygen/credentials.yaml
-          cat envsubst < ./.github/proxygen-settings.yaml > ${HOME}/.proxygen/settings.yaml
+          envsubst < ./.github/proxygen-credentials-template.yaml > ${HOME}/.proxygen/credentials.yaml
+          echo "$(<${HOME}/.proxygen/credentials.yaml)"
+          envsubst < ./.github/proxygen-settings.yaml > ${HOME}/.proxygen/settings.yaml
 
       - name: Build and push Docker image
         working-directory: ./docker
