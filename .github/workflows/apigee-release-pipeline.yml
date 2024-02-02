@@ -48,7 +48,7 @@ jobs:
         run: |
           echo "STATUS_ENDPOINT_API_KEY=$STATUS_ENDPOINT_API_KEY" >> $GITHUB_ENV
 
-          echo "DOCKER_REGISTRY=$(proxygen docker registry)/" >> $GITHUB_ENV
+          echo "DOCKER_REGISTRY=$(proxygen docker registry)" >> $GITHUB_ENV
           echo "DOCKER_TAG=${BUILD_NUMBER}-$(uuidgen)" >> $GITHUB_ENV
           echo "DOCKER_IMAGE=${PROXYGEN_API_NAME}" >> $GITHUB_ENV
 
