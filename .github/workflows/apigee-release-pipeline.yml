@@ -48,7 +48,7 @@ jobs:
         run: |
           echo "STATUS_ENDPOINT_API_KEY=$STATUS_ENDPOINT_API_KEY" >> $GITHUB_ENV
 
-          echo "DOCKER_REGISTRY=$(proxygen docker registry)" >> $GITHUB_ENV
+          echo "DOCKER_REGISTRY=484015324636.dkr.ecr.eu-west-2.amazonaws.com" >> $GITHUB_ENV
           echo "DOCKER_TAG=${BUILD_NUMBER}-$(uuidgen)" >> $GITHUB_ENV
           echo "DOCKER_IMAGE=${PROXYGEN_API_NAME}" >> $GITHUB_ENV
 
@@ -126,8 +126,6 @@ jobs:
         working-directory: ./docker
         run: |
           # Login with Docker
-          proxygen docker get-login
-          proxygen docker registry
           proxygen docker get-login | bash
 
           # Build and push image to registry #
