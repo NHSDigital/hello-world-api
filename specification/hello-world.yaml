@@ -237,12 +237,9 @@ x-nhsd-apim:
       app-level0: []
       app-level3: []
   target:
-    type: hosted
+    type: external
     healthcheck: /_status
-    containers:
-    - name: hello-world
-      image:
-        $ref: 'components/docker_image.yaml'
-      environment: 
-        LOG_LEVEL: info
-        NODE_ENV: production
+    url: https://mtls-testing-target.ptl.api.platform.nhs.uk
+    security:
+      type: mtls
+      secret: non-existent-secret
