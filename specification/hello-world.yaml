@@ -117,6 +117,8 @@ paths:
                     example: Hello world!
               example:
                 message: Hello world!
+      security:
+        - app-level0: []
   /hello/application:
     get:
       summary: Get a "Hello application!" response from an application-restricted endpoint
