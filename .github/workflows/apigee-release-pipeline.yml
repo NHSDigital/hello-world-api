@@ -131,6 +131,7 @@ jobs:
 
       - name: Deploy to Internal Dev Sandbox
         run: |
+          cat specification/hello-world.yaml
           proxygen instance deploy internal-dev-sandbox $INSTANCE specification/hello-world.yaml --no-confirm
 
       - name: Run Internal Dev Sandbox tests
