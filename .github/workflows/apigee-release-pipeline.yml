@@ -39,7 +39,7 @@ jobs:
       - name: Set Instance as Temporary
         if: github.ref != 'refs/heads/master'
         run: |
-          python scripts/set_temporary_instance.py < specification/hello-world.yaml > temp-spec.yaml
+          python scripts/set_temporary_instance.py < specification/hello-world.yaml > temporary-specification.yaml
           cat temporary-specification.yaml > specification/hello-world.yaml
 
       - name: Setup environment
