@@ -34,7 +34,7 @@ pytest-nhsd-apim = "^3.3.9"
 
 [tool.poetry.dev-dependencies]
 flake8 = "^3.7.9"
-black = "^19.10b0"
+black = "^24.3"
 pip-licenses = "^3.5.3"
 jinja2 = "^2.11.2"
 locust = "^1.4.1"
