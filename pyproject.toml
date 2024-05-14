@@ -16,7 +16,7 @@ authors = [
 readme = 'README.md'
 
 repository = "https://github.com/NHSDigital/hello-world-api"
-homepage = ""
+homepage = "https://digital.nhs.uk/developer/api-catalogue/hello-world"
 
 keywords = ["healthcare", "uk", "nhs"]
 
