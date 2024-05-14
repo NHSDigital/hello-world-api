@@ -13,7 +13,7 @@
   "license": "(MIT OR OGL)",
   "homepage": "https://github.com/NHSDigital/hello-world-api",
   "devDependencies": {
-    "@openapitools/openapi-generator-cli": "^2.5.1",
+    "@openapitools/openapi-generator-cli": "^2.13.4",
     "node": "^13.12.0",
     "apigeetool": "^0.14.2",
     "license-checker": "^25.0.1"
