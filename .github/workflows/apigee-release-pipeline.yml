@@ -16,7 +16,7 @@ jobs:
       PROXYGEN_API_NAME: hello-world
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
         with:
           fetch-depth: 0
 
@@ -90,7 +90,7 @@ jobs:
           echo "APIGEE_ACCESS_TOKEN=$token" >> $GITHUB_ENV
 
       - name: Install Python 3.9
-        uses: actions/setup-python@v3
+        uses: actions/setup-python@v5
         with:
           python-version: 3.9
 
