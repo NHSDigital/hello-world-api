@@ -90,7 +90,7 @@ jobs:
           echo "APIGEE_ACCESS_TOKEN=$token" >> $GITHUB_ENV
 
       - name: Install Python 3.9
-        uses: actions/setup-python@v1
+        uses: actions/setup-python@v3
         with:
           python-version: 3.9
 
