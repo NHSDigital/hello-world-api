@@ -15,7 +15,7 @@ repository = "https://github.com/NHSDigital/hello-world-api"
 homepage = "https://digital.nhs.uk/developer/api-catalogue/hello-world"
 
 keywords = ["healthcare", "uk", "nhs"]
-
+package-mode = false
 
 [tool.poetry.dependencies]
 python = "^3.8"
