@@ -32,7 +32,7 @@ pytest-ordering = "^0.6"
 pytest-nhsd-apim = "^3.3.9"
 
 
-[tool.poetry.dev-dependencies]
+[tool.poetry.group.dev.dependencies]
 flake8 = "^3.7.9"
 black = "^19.10b0"
 pip-licenses = "^3.5.3"
