@@ -1,3 +1,8 @@
+[project]
+python = "^3.8"
+name = "hello-world-api"
+
+
 [tool.poetry]
 name = "apim-definitions"
 version = "0.0.1-alpha"
@@ -15,7 +20,7 @@ repository = "https://github.com/NHSDigital/hello-world-api"
 homepage = "https://digital.nhs.uk/developer/api-catalogue/hello-world"
 
 keywords = ["healthcare", "uk", "nhs"]
-package-mode = false
+
 
 [tool.poetry.dependencies]
 python = "^3.8"
@@ -28,7 +33,7 @@ pytest-ordering = "^0.6"
 pytest-nhsd-apim = "^3.3.9"
 
 
-[tool.poetry.group.dev.dependencies]
+[tool.poetry.dev-dependencies]
 flake8 = "^3.7.9"
 black = "^19.10b0"
 pip-licenses = "^3.5.3"
