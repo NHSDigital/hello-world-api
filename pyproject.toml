@@ -1,5 +1,5 @@
 [project]
-python = "^3.8"
+python = "^3.9"
 name = "hello-world-api"
 
 
@@ -23,7 +23,7 @@ keywords = ["healthcare", "uk", "nhs"]
 package-mode = false
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = "^3.9"
 pyyaml = "^6.0"
 docopt = "^0.6.2"
 jsonpath-rw = "^1.4.0"
