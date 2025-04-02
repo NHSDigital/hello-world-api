@@ -1,5 +1,6 @@
 [project]
-python = "^3.8"
+python = "^3.9"
+name = "hello-world-api"
 
 
 [tool.poetry]
@@ -19,10 +20,10 @@ repository = "https://github.com/NHSDigital/hello-world-api"
 homepage = "https://digital.nhs.uk/developer/api-catalogue/hello-world"
 
 keywords = ["healthcare", "uk", "nhs"]
-
+package-mode = false
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = "^3.9"
 pyyaml = "^6.0"
 docopt = "^0.6.2"
 jsonpath-rw = "^1.4.0"
@@ -32,7 +33,7 @@ pytest-ordering = "^0.6"
 pytest-nhsd-apim = "^3.3.9"
 
 
-[tool.poetry.dev-dependencies]
+[tool.poetry.group.dev.dependencies]
 flake8 = "^3.7.9"
 black = "^19.10b0"
 pip-licenses = "^3.5.3"
