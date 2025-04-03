@@ -14,8 +14,13 @@
   "homepage": "https://github.com/NHSDigital/hello-world-api",
   "devDependencies": {
     "@openapitools/openapi-generator-cli": "^2.17.0",
-    "node": "^13.12.0",
     "apigeetool": "^0.16.4",
-    "license-checker": "^25.0.1"
+    "license-checker": "^25.0.1",
+    "node": "^13.12.0"
+  },
+  "dependencies": {
+    "body-parser": "^1.20.3",
+    "dicer": "^0.3.1",
+    "path-to-regexp": "^0.1.12"
   }
 }
