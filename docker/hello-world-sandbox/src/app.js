@@ -1,6 +1,6 @@
-var ApiMocker = require('apimocker');
+var Express = require('express');
 var options = {};
 
-ApiMocker.createServer(options)
+Express.createServer(options)
     .setConfigFile('src/config.json')
     .start();
