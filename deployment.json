@@ -22,7 +22,7 @@
   "access_modes": [
     {
       "title": "Hello World",
-      "grants_access": {"nhs_login": "P5", "nhs_cis2": "aal3", "app": "level0"}
+      "grants_access": {"nhs_login": "P0", "nhs_cis2": "aal3", "app": "level0"}
     }
   ],
   "targets": [
