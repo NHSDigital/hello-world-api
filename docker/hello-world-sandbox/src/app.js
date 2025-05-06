@@ -3,7 +3,23 @@ const cors = require('cors');
 
 const app = express();
 app.disable("x-powered-by");
-app.use(cors());
+
+const corsOptions = {
+    origin: 'https://digital.nhs.uk',
+    allowedHeaders: [
+      'origin',
+      'x-requested-with',
+      'accept',
+      'content-type',
+      'Authorization',
+      'apikey'
+    ],
+    maxAge: 3628800,
+    methods: ['GET', 'PUT', 'POST', 'DELETE']
+  };
+  
+
+app.use(cors(corsOptions));
 
 const PORT = process.env.PORT || 9000;
 
