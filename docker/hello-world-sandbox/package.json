@@ -4,7 +4,7 @@
   "description": "hello-world-api-sandbox",
   "scripts": {
     "lint": "find . -type f -name '*.js' ! -name '.eslintrc.js' | grep -v 'node_modules/' | xargs eslint",
-    "start": "node src/app.js --use_strict"
+    "start": "node src/index.js"
   },
   "author": "NHS Digital",
   "license": "(MIT OR OGL)",
@@ -12,7 +12,9 @@
   "main": "app.js",
   "dependencies": {
     "cors": "^2.8.5",
-    "express": "^5.1.0"
+    "express": "^5.1.0",
+    "loglevel": "^1.9.2",
+    "uuid": "^11.1.0"
   },
   "devDependencies": {
     "eslint": "^9.26.0"
