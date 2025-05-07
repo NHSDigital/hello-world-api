@@ -4,23 +4,15 @@
   "description": "OAS (Swagger v3) API Definition for Hello World API",
   "scripts": {
     "lint": "node_modules/.bin/openapi-generator-cli validate -i specification/hello-world.yaml",
-    "test": "npm run --prefix tests test:sandbox",
-    "publish": "mkdir -p build && node_modules/.bin/openapi-generator-cli generate -i specification/hello-world.yaml | poetry run python scripts/yaml2json.py | poetry run python scripts/set_version.py > build/hello-world.json",
-    "serve": "node_modules/.bin/openapi-generator-cli serve build/hello-world.json",
+    "publish": "./node_modules/.bin/openapi-generator-cli generate -i specification/hello-world.yaml --generator-key v3.0  -g openapi -o build && rm openapitools.json && mv build/openapi.json build/hello-world.json",
     "check-licenses": "node_modules/.bin/license-checker --failOn GPL --failOn AGPL"
   },
   "author": "NHS Digital",
   "license": "(MIT OR OGL)",
   "homepage": "https://github.com/NHSDigital/hello-world-api",
   "devDependencies": {
-    "@openapitools/openapi-generator-cli": "^2.17.0",
-    "apigeetool": "^0.16.4",
-    "license-checker": "^25.0.1",
-    "node": "^13.12.0"
-  },
-  "dependencies": {
-    "body-parser": "^1.20.3",
-    "dicer": "^0.3.1",
-    "path-to-regexp": "^0.1.12"
+    "@openapitools/openapi-generator-cli": "^2.20.0",
+    "apigeetool": "^0.16.5",
+    "license-checker": "^25.0.1"
   }
 }
