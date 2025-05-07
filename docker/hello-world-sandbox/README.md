@@ -1,6 +1,6 @@
 # Stub API Server
 
-Stub API Server built using [apimocker](https://github.com/gstroup/apimocker) deployable as a [Apigee Hosted Target](https://docs.apigee.com/api-platform/hosted-targets/hosted-targets-overview).
+Stub API Server built using [express](https://github.com/expressjs/express) deployable as a [Apigee Hosted Target](https://docs.apigee.com/api-platform/hosted-targets/hosted-targets-overview).
 
 Intended for "sandbox" functionality, and is the target endpoint for the hosted docs' *Try it now* functionality.
 
