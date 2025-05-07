@@ -1,5 +1,5 @@
 [project]
-python = "^3.10"
+python = "^3.9"
 name = "hello-world-api"
 
 
@@ -11,7 +11,7 @@ description = "Hello World API Definitions"
 license = "MIT"
 
 authors = [
-    "API management"
+    "Paul Walkington <paul.walkington1@nhs.net>"
 ]
 
 readme = 'README.md'
@@ -23,23 +23,22 @@ keywords = ["healthcare", "uk", "nhs"]
 package-mode = false
 
 [tool.poetry.dependencies]
-python = "^3.10"
-pyyaml = "^6.0.2"
+python = "^3.9"
+pyyaml = "^6.0"
 docopt = "^0.6.2"
 jsonpath-rw = "^1.4.0"
-semver = "^3.0.4"
-gitpython = "^3.1.44"
-requests = "^2.32.3"
+semver = "^2.9.0"
+gitpython = "^3.0.5"
+pytest-ordering = "^0.6"
+pytest-nhsd-apim = "^3.3.9"
 
 
 [tool.poetry.group.dev.dependencies]
-flake8 = "^7.2.0"
-black = "^25.1.0"
-pip-licenses = "^5.0.0"
+flake8 = "^3.7.9"
+black = "^24.3.0"
+pip-licenses = "^3.5.3"
 jinja2 = "^3.1.6"
-pytest = "^8.3.5"
-pytest-nhsd-apim = "^5.0.0"
-pytest-ordering = "^0.6"
+locust = "^1.4.1"
 
 
 [tool.poetry.scripts]
