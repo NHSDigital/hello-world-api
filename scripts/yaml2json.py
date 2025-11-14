@@ -21,7 +21,7 @@ def date_converter(obj):
 
 def main():
     """Main entrypoint"""
-    data = yaml.load(Loader=yaml.FullLoader, stream=sys.stdin.read())
+    data = yaml.safe_load(stream=sys.stdin.read())
     sys.stdout.write(json.dumps(data, default=date_converter, indent=2))
     sys.stdout.close()
 
