@@ -12,7 +12,7 @@
   "main": "app.js",
   "dependencies": {
     "cors": "^2.8.5",
-    "express": "^5.1.0",
+    "express": "^5.2.1",
     "loglevel": "^1.9.2",
     "uuid": "^11.1.0"
   },
