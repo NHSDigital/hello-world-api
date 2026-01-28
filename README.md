@@ -33,7 +33,7 @@ The contents of this repository are protected by Crown Copyright (C).
 
 ### Proxygen
 
-Hello World is the first API to use API Management's Proxygen to deploy the proxy, products, sandbox and spec through API calls.
+Hello World is the first API to use API Management's Proxygen to deploy the proxy, products, sandbox and spec through API calls. 
 
 The Proxygen API calls are handled by the Proxygen CLI 
 
