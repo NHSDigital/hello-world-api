@@ -1,11 +1,11 @@
 [project]
-python = "^3.13"
+python = "^3.9"
 name = "hello-world-api"
 
 
 [tool.poetry]
 name = "apim-definitions"
-version = "1.0.0-alpha"
+version = "0.0.1-alpha"
 description = "Hello World API Definitions"
 
 license = "MIT"
@@ -23,24 +23,22 @@ keywords = ["healthcare", "uk", "nhs"]
 package-mode = false
 
 [tool.poetry.dependencies]
-python = "^3.13"
-pyyaml = "^6.0.3"
+python = "^3.9"
+pyyaml = "^6.0"
 docopt = "^0.6.2"
 jsonpath-rw = "^1.4.0"
-semver = "^3.0.0"
+semver = "^2.9.0"
 gitpython = "^3.0.5"
 pytest-ordering = "^0.6"
-pytest-nhsd-apim = "^6.0.6"
-authlib = "^1.6.6"
-urllib3 = "^2.6.3"
+pytest-nhsd-apim = "^3.3.9"
 
 
 [tool.poetry.group.dev.dependencies]
-flake8 = "^7.3.0"
-black = "^24.10.0"
-pip-licenses = "^5.0.0"
+flake8 = "^3.7.9"
+black = "^24.3.0"
+pip-licenses = "^3.5.3"
 jinja2 = "^3.1.6"
-locust = "^2.40.0"
+locust = "^1.4.1"
 
 
 [tool.poetry.scripts]
