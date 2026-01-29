@@ -4,7 +4,8 @@ defaults:
     shell: bash # Explicitly sets pipeline to fail if any subprocess fails
 on:
   push
-permissions: read-all
+permissions: 
+  contents: read
 
 jobs:
   deploy-hello-world-spec:
