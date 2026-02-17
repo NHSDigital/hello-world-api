@@ -23,7 +23,7 @@ keywords = ["healthcare", "uk", "nhs"]
 package-mode = false
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "^3.9.2"
 pyyaml = "^6.0"
 docopt = "^0.6.2"
 jsonpath-rw = "^1.4.0"
@@ -34,6 +34,7 @@ pytest-nhsd-apim = "^3.3.9"
 authlib = "^1.6.6"
 urllib3 = "^2.6.3"
 setuptools = "^80.0.1"
+cryptography = "^46.0.5"
 
 [tool.poetry.group.dev.dependencies]
 flake8 = "^3.7.9"
