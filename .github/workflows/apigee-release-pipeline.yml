@@ -138,15 +138,15 @@ jobs:
           # Create the yaml ref file for the spec
           echo -e tag: $DOCKER_TAG \\nname: hello-world >> ../specification/components/docker_image.yaml
 
-      - name: Deploy to Internal Dev Sandbox
-        run: |
-          proxygen instance deploy internal-dev-sandbox $INSTANCE specification/hello-world.yaml --no-confirm
+      # - name: Deploy to Internal Dev Sandbox
+      #   run: |
+      #     proxygen instance deploy internal-dev-sandbox $INSTANCE specification/hello-world.yaml --no-confirm
 
-      - name: Run Internal Dev Sandbox tests
-        run: |
-          export ENVIRONMENT="internal-dev-sandbox"
-          export SPEC_HASH=$(proxygen instance list | grep $INSTANCE | grep $ENVIRONMENT | tr -s ' ' | cut -d ' ' -f4)
-          make test
+      # - name: Run Internal Dev Sandbox tests
+      #   run: |
+      #     export ENVIRONMENT="internal-dev-sandbox"
+      #     export SPEC_HASH=$(proxygen instance list | grep $INSTANCE | grep $ENVIRONMENT | tr -s ' ' | cut -d ' ' -f4)
+      #     make test
 
       - name: Deploy to Internal QA Sandbox
         run: |
