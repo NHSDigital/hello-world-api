@@ -65,7 +65,6 @@ On pushes to branches with a pull request the pipeline is configured to only lin
 ```
 $ make install
 ```
-
 ### Environment Variables
 Various scripts and commands rely on environment variables being set. These are documented with the commands.
 
