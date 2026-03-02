@@ -100,7 +100,7 @@ For information on using Apigee's `get_token` see [here](https://docs.apigee.com
 
 Run the tests from the root of the repo using the following command:
 ```
-poetry run pytest tests/api_tests.py
+poetry run pytest tests/api_tests.py 
 ```
 
 ### VS Code Plugins
