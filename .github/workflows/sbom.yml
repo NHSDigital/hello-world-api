@@ -34,7 +34,7 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@b9cd54a3c349d3f38e8881555d616ced269862dd
 
-      - uses: terraform-linters/setup-tflint@ae78205cfffec9e8d93fd2b3115c7e9d3166d4b6
+      - uses: terraform-linters/setup-tflint@4cb9feea73331a35b422df102992a03a44a3bb33
         name: Setup TFLint
 
       - name: Set architecture variable
@@ -69,7 +69,7 @@ jobs:
           python .github/scripts/sbom_json_to_csv.py sbom.json SBOM_${REPO_NAME}.csv
 
       - name: Upload SBOM CSV as artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: sbom-csv
           path: SBOM_${{ github.event.repository.name }}.csv
@@ -92,7 +92,7 @@ jobs:
 
 
       - name: Upload Vulnerability Report
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: grype-report
           path: grype-report-${{ github.event.repository.name }}.csv
@@ -104,7 +104,7 @@ jobs:
           python .github/scripts/sbom_packages_to_csv.py sbom.json $REPO_NAME
 
       - name: Upload Package Inventory CSV
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: sbom-packages
           path: sbom-packages-${{ github.event.repository.name }}.csv
