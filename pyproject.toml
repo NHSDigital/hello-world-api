@@ -34,7 +34,7 @@ pytest-nhsd-apim = "^3.3.9"
 authlib = "^1.6.7"
 urllib3 = "^2.6.3"
 setuptools = "^80.0.1"
-cryptography = "^46.0.5"
+cryptography = "^46.0.7"
 
 [tool.poetry.group.dev.dependencies]
 flake8 = "^3.7.9"
